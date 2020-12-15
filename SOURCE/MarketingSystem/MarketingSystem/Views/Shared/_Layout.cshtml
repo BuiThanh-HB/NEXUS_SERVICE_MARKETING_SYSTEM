@@ -1,0 +1,267 @@
+﻿@using Data.Model.APIWeb
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/Content/images/icon.jpg">
+    <title>Base ASP.NET</title>
+
+    @*@Styles.Render("~/layout/css")*@
+    @Styles.Render("~/main/css")
+    @Scripts.Render("~/layout/js")
+    @Scripts.Render("~/main/js")
+    @Scripts.Render("~/bundle/js")
+</head>
+<body class="theme-blue">
+    <div class="divLoading" style="display: none">
+        <div class="col-md-12 spinner">
+
+            @*<span class="text-white spinner" style="font-size: 20px; height: 200px; text-align: center; margin-top: 28%">Đang xử lý...</span>*@
+        </div>
+    </div>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+
+            <div class="container-fluid" style="height:97px;">
+
+                <button class="navbar-toggler btn-toggle-offcanvas" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-sm-3 col-3 mr-sm-5 mr-5"><a href="/Home/Index"><img src="~/Content/images/Team.png" class="img-responsive logolayoutold float-left logolayout "></a></div>
+                <div class="navbar-left pt-3 pr-2">
+                    <ul>
+                        <li class="nav-item dropdown " style="list-style-type:none">
+                            <a class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" style="color:black;font-size:15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @{
+
+                                    var ss = (LoginOutputModel)HttpContext.Current.Session["Login"];
+                                    if (ss == null)
+                                    {
+                                        Response.Redirect("/Home/Login");
+                                    }
+
+                                }
+                                @(ss.Name.Length > 10 ? ss.Name.Substring(0,10)+"...":ss.Name)
+
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdownMenuLink" style="background-color:black;color:white">
+                                <li class="mt-2" data-toggle="modal" data-target="#changePassword" style="padding-left:10px;cursor:pointer"> <a><i class="fa fa-user-o" style="padding-right:10px"></i>Đổi mật khẩu</a></li>
+
+                                <li class="mt-3 mb-2" style="padding-left:10px;cursor:pointer"><a onclick="logout();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a></li>
+                            </ul>
+
+                        </li>
+                    </ul>
+                </div>
+
+
+                @*<div class="navbar-right  " style="font-size:20px;margin-left:200px">
+                        <div class="user-account float-right">
+                            <div class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle " data-toggle="dropdown">
+                                    <strong class="text-danger" id="userNameLogin"></strong>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right account">
+                                    <li data-toggle="modal" data-target="#changePassword"><a href="#"><i class="fa fa-user-o"></i>Đổi mật khẩu</a></li>
+
+                                    <li><a onclick="logout();"><i class="fa fa-sign-out"></i>Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>*@
+
+            </div>
+
+        </nav>
+        <div id="left-sidebar" class="sidebar " style="margin-top: 100px;">
+            <div class="sidebar-scroll bg-white">
+                <div class="tab-content p-l-0 p-r-0 bg-white">
+                    <div class="tab-pane active">
+                        <nav class="sidebar-nav">
+                            <ul class="main-menu metismenu">
+                                <li id="tabHome">
+                                    <a href="/Home/Index"><i class="fa fa-tachometer ic-menu"></i>Tổng quan</a>
+                                </li>
+                                <li id="tabUsers">
+                                    <a href="/User/Index"><i class="fa fa-user-circle-o  ic-menu" aria-hidden="true"></i>Tài khoản</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="main-content">
+            <div class="container-fluid mt-5">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "2000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        //đổi mật khẩu - xác nhận mật khẩu đúng thì hiện icon check
+        $("#txtConfirmPassword").on("keyup", function () {
+            var password = $('#txtNewPassword').val();
+            var confirmPassword = $('#txtConfirmPassword').val();
+            if (password == confirmPassword) {
+                $('.iconChangePassword').show();
+            } else {
+                $('.iconChangePassword').hide();
+            }
+        });
+
+    })
+    function changePassword() {
+        var currentpass = $("#txtCurrentPassword").val();
+        var newpass = $("#txtNewPassword").val();
+        var confirmPassword = $('#txtConfirmPassword').val();
+        if (currentpass.length <= 0 || newpass.length <= 0 || confirmPassword.length <= 0) {
+            swal({
+                title: "Mời nhập đầy đủ thông tin!",
+                icon: "warning"
+            })
+        }
+        else {
+            $.ajax({
+                url: "/User/ChangePass",
+                type: "POST",
+                data: {
+                    OldPass: currentpass,
+                    NewPass: newpass
+                },
+                beforeSend: function () {
+                    $("#modalLoad").modal("show");
+                },
+                success: function (res) {
+                    $("#modalLoad").modal("hide");
+                    if (res.Status == 1) {
+
+                        swal({
+                            title: res.Message,
+                            icon: "success"
+                        }).then(check => {
+
+                            window.location.href = "/Home/Login";
+                        })
+                    }
+                    else {
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        })
+                    }
+                }
+            })
+        }
+
+    }
+
+    function logout() {
+        swal({
+            title: "Bạn có thực sự muốn đăng xuất?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+
+        }).then((check) => {
+            if (check) {
+                $.ajax({
+                    url: "/Home/Logout",
+                    type: "GET",
+                    success: function (res) {
+                        if (res == 1) {
+                            window.location.href = "/Home/Login";
+                        }
+                        else {
+                            swal({
+                                title: "Thất bại!",
+                                icon: "error"
+                            });
+                        }
+
+                    }
+
+                })
+            }
+        })
+    }
+</script>
+
+<div id="changePassword" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#1E8449;color:white ">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Mật khẩu hiện tại</label>
+                        <input class="form-control" type="password" id="txtCurrentPassword" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Mật khẩu mới</label>
+                        <input class="form-control" type="password" id="txtNewPassword" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Xác nhận mật khẩu mới</label>
+                        <input class="form-control" type="password" id="txtConfirmPassword" />
+                        <i class="iconChangePassword text-success fa fa-check"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*modal loading *@
+<div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content text-center py-3">
+            <div class="modal-body text-center">
+                <i class="fa fa-spinner text-success fa-spin" style="font-size: 40px;"></i>
+                <div class="col-md-12 text-center mt-2">
+                    <span>Đang xử lý</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

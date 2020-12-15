@@ -1,0 +1,72 @@
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@model  PagedList.IPagedList<UserDetailOutputModel>
+<table class="table table-light table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead class="text-center text-white bg-thead">
+        <tr>
+            <th width="10%">STT</th>
+
+            <th width="20%">Tên người dùng</th>
+            <th width="15%">Số điện thoại</th>
+            <th width="15%">Quyền</th>
+            <th width="25%">Ngày tạo</th>
+            <th width="15%"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+
+        @{
+            if (Model.Count() <= 0)
+            {
+                <tr>
+                    <td colspan="6" class="text-center">Không có dữ liệu.</td>
+                </tr>
+            }
+            else
+            {
+
+
+                int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                foreach (var data in Model)
+                {
+                    <tr class="user">
+                        <td> @stt </td>
+                        <td> @data.UserName </td>
+                        <td> @data.Phone </td>
+                        <td class="text-bold">Admin</td>
+                        <td> @data.CraeteDateStr </td>
+                        <td>
+                            <a data-id="@data.ID" data-name="@data.UserName" data-phone="@data.Phone" onclick="GetUserDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin tài khoản" class="cursor-pointer">
+                                <i class="btnEdit fa fa-fw fa-edit"></i>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa tài khoản." class="cursor-pointer" onclick="deleteUser(@data.ID)">
+                                <i class="btnDelete fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    stt++;
+
+                }
+            }
+        }
+
+    </tbody>
+</table>
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager(Model, Page => Url.Action("Search", new { Page, searchKey = ViewBag.searchKey, fromDate = ViewBag.fromDate, toDate = ViewBag.toDate }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "tableUser",
+        LoadingElementId = "modalLoad"
+     })
+     )
+    </div>
+</div>
