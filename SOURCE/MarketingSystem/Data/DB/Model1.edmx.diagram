@@ -4,8 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5a934732bd874966afd7f2c8971beb9d" Name="Diagram1">
-        <EntityTypeShape EntityType="ThisDataModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="23ef83756a2d4af3ab6a37f6c4d02e75" Name="Diagram1">
+        <EntityTypeShape EntityType="NEXUS_SystemModel.Customer" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.District" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.Province" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.Village" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_District" ManuallyRouted="false" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_Village" ManuallyRouted="false" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_District_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_Village_District" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

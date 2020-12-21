@@ -13,10 +13,10 @@ namespace Data.DB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ThisDataEntities : DbContext
+    public partial class NEXUS_SystemEntities : DbContext
     {
-        public ThisDataEntities()
-            : base("name=ThisDataEntities")
+        public NEXUS_SystemEntities()
+            : base("name=NEXUS_SystemEntities")
         {
         }
     
@@ -25,6 +25,10 @@ namespace Data.DB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Village> Villages { get; set; }
     }
 }

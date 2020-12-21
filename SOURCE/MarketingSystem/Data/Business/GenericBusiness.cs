@@ -9,13 +9,13 @@ namespace Data.Business
 {
     public class GenericBusiness
     {
-        public ThisDataEntities context;
-        public ThisDataEntities cnn;
-        public GenericBusiness(ThisDataEntities context = null)
+        public NEXUS_SystemEntities context;
+        public NEXUS_SystemEntities cnn;
+        public GenericBusiness(NEXUS_SystemEntities context = null)
         {
             if (context == null)
             {
-                this.context = new ThisDataEntities();
+                this.context = new NEXUS_SystemEntities();
             }
             cnn = this.context;
             //this.context.Configuration.AutoDetectChangesEnabled = false;

@@ -11,7 +11,7 @@ namespace APIProject.Controllers
 {
     public class BaseController : Controller
     {
-        protected ThisDataEntities Context;
+        protected NEXUS_SystemEntities Context;
         public LoginBusiness loginBusiness;
         public UserBusiness userBusiness;
 
@@ -23,11 +23,11 @@ namespace APIProject.Controllers
         /// <summary>
         /// Create new context if null
         /// </summary>
-        public ThisDataEntities GetContext()
+        public NEXUS_SystemEntities GetContext()
         {
             if (Context == null)
             {
-                Context = new ThisDataEntities();
+                Context = new NEXUS_SystemEntities();
             }
             return Context;
         }

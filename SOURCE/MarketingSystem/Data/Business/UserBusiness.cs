@@ -14,7 +14,7 @@ namespace Data.Business
     public class UserBusiness : GenericBusiness
     {
         ResponseBusiness rp = new ResponseBusiness();
-        public UserBusiness(ThisDataEntities context = null) : base()
+        public UserBusiness(NEXUS_SystemEntities context = null) : base()
         {
 
         }
