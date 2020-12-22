@@ -12,26 +12,32 @@ namespace Data.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class CustomerServicePlan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public CustomerServicePlan()
         {
-            this.Feedbacks = new HashSet<Feedback>();
             this.HistoryCustomerServicePlans = new HashSet<HistoryCustomerServicePlan>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
-        public string Phone { get; set; }
-        public string Password { get; set; }
-        public bool IsActive { get; set; }
+        public int CustomerID { get; set; }
+        public System.DateTime ActiveDate { get; set; }
+        public Nullable<System.DateTime> ExtendDate { get; set; }
+        public Nullable<System.DateTime> ExpiryDate { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public string Token { get; set; }
-        public int Role { get; set; }
+        public string code { get; set; }
+        public int ServicePlanID { get; set; }
+        public int ProvinceID { get; set; }
+        public int DistrictID { get; set; }
+        public int VillageID { get; set; }
+        public string Address { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual District District { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual ServicePlan ServicePlan { get; set; }
+        public virtual Village Village { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryCustomerServicePlan> HistoryCustomerServicePlans { get; set; }
     }

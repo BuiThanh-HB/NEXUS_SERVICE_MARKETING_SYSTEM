@@ -12,24 +12,19 @@ namespace Data.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Village
+    public partial class CategoryNew
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Village()
+        public CategoryNew()
         {
-            this.Customers = new HashSet<Customer>();
-            this.CustomerServicePlans = new HashSet<CustomerServicePlan>();
+            this.News = new HashSet<News>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Type { get; set; }
-        public int DistrictID { get; set; }
+        public bool IsActive { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
-        public virtual District District { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
+        public virtual ICollection<News> News { get; set; }
     }
 }

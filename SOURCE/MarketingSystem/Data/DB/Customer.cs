@@ -14,6 +14,14 @@ namespace Data.DB
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.CustomerServicePlans = new HashSet<CustomerServicePlan>();
+            this.Feedbacks = new HashSet<Feedback>();
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int ID { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
@@ -30,5 +38,11 @@ namespace Data.DB
         public virtual District District { get; set; }
         public virtual Province Province { get; set; }
         public virtual Village Village { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
