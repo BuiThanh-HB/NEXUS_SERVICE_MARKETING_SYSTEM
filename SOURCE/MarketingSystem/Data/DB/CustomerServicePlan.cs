@@ -27,17 +27,13 @@ namespace Data.DB
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string code { get; set; }
-        public int ServicePlanID { get; set; }
-        public int ProvinceID { get; set; }
-        public int DistrictID { get; set; }
-        public int VillageID { get; set; }
         public string Address { get; set; }
+        public int Status { get; set; }
+        public bool IsActive { get; set; }
+        public int OrderID { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual District District { get; set; }
-        public virtual Province Province { get; set; }
-        public virtual ServicePlan ServicePlan { get; set; }
-        public virtual Village Village { get; set; }
+        public virtual Order Order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryCustomerServicePlan> HistoryCustomerServicePlans { get; set; }
     }

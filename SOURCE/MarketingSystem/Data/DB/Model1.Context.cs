@@ -25,19 +25,19 @@ namespace Data.DB
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<District> Districts { get; set; }
-        public virtual DbSet<Province> Provinces { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Village> Villages { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryNew> CategoryNews { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerServicePlan> CustomerServicePlans { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<HistoryCustomerServicePlan> HistoryCustomerServicePlans { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<ServicePlan> ServicePlans { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Village> Villages { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Data.DB
         {
             this.Customers = new HashSet<Customer>();
             this.Districts = new HashSet<District>();
-            this.CustomerServicePlans = new HashSet<CustomerServicePlan>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int ID { get; set; }
@@ -31,6 +31,6 @@ namespace Data.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<District> Districts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
