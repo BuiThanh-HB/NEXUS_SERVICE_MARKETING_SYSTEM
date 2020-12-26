@@ -1,0 +1,54 @@
+﻿@using Data.Utils;
+@using Data.Model;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 mt-5">
+    <div class="breadcrumb-holder">
+        <div class="row pb-3 pt-3">
+            <div class="text-dark">
+                <h4><i class="fa fa-mobile-phone"></i> Quản lý gói cước</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-4 col-12 mt-1">
+        <input  id="txt-key-search" class="form-control" placeholder="Nhập tên gói cước"/>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <select class="form-control">
+            <option selected disabled hidden>--Trạng thái--</option>
+            <option value="-1">TTất cả</option>
+            <option value="@SystemParam.ACTIVE">Hoạt động</option>
+            <option value="@SystemParam.NO_ACTIVE">Ngừng hoạt động</option>
+        </select>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <select class="form-control">
+            <option selected disabled hidden>--Danh mục--</option>
+            @{ 
+                foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
+                {
+                    <option value="@dt.ID">@dt.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="col-md-4 col-12 mt-1 float-right">
+        <button class="btn btn-outline-success float-right m-2" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button>
+        <button class="btn btn-outline-primary float-right m-2" id="btn-add-cate" onclick=""><i class="fa fa-search"></i> Tìm kiếm</button>
+    </div>
+</div>
+

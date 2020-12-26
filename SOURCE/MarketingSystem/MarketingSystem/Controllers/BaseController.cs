@@ -15,12 +15,14 @@ namespace APIProject.Controllers
         public LoginBusiness loginBusiness;
         public UserBusiness userBusiness;
         public CategoryBusiness categoryBusiness;
+        public ServicePlanBusiness servicePlanBusiness;
 
         public BaseController() : base()
         {
             loginBusiness = new LoginBusiness(this.GetContext());
             userBusiness = new UserBusiness(this.GetContext());
             categoryBusiness = new CategoryBusiness(this.GetContext());
+            servicePlanBusiness = new ServicePlanBusiness(this.GetContext());
         }
         /// <summary>
         /// Create new context if null

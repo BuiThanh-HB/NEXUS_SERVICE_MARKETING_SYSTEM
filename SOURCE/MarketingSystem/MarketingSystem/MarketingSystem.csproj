@@ -287,6 +287,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ServicePlanController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1282,6 +1283,7 @@
     <Content Include="Views\User\_TableUser.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_TableCate.cshtml" />
+    <Content Include="Views\ServicePlan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

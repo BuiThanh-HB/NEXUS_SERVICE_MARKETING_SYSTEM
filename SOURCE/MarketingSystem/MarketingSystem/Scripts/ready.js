@@ -27,6 +27,9 @@ function FocusTabMenu() {
         case "/Category/Index":
             $('#tabCategory').addClass('active');
             break;
+        case "/ServicePlan/Index":
+            $('#tabServicePlan').addClass('active');
+            break;
         case "/User/Index":
             $('#tabUsers').addClass('active');
             break;
