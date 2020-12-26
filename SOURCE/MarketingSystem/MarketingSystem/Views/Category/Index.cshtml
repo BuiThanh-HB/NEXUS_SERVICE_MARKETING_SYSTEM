@@ -1,0 +1,105 @@
+﻿@using Data.Utils;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 mt-5">
+    <div class="breadcrumb-holder">
+        <div class="row pb-3 pt-3">
+            <div class="text-dark">
+                <h4><i class="fa fa-list"></i> Quản lý danh mục</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3 col-12 mt-1"><input class="form-control" type="text" id="txt-search-key" placeholder="Nhập tên danh mục" /></div>
+    <div class="col-md-3 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <select class="form-control" id="type-value">
+            <option selected disabled hidden>--Thuộc tính--</option>
+            <option value="@SystemParam.FOR_DIAL">Cho quay số</option>
+            <option value="@SystemParam.CONNECT_PHONE_ONLY">Chỉ kết nối điện thoại</option>
+            <option value="@SystemParam.BROADBAND">Băng thông rộng</option>
+        </select>
+    </div>
+
+    <div class="col-md-6 offset-md-6 offset-sm-10 mt-3 mb-3 col-sm-2 ">
+        <button class="btn btn-outline-success float-right m-2" data-toggle="modal" data-target="#add-category"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button>
+        <button class="btn btn-outline-primary float-right m-2" id="btn-add-cate" onclick="SearchCate()"><i class="fa fa-search"></i> Tìm kiếm</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12" id="tbl-cate">@{Html.RenderAction("Search", "Category", new { page = 1 });}</div>
+</div>
+
+
+<div class="modal fade" id="add-category" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color:#1E8449 ">
+                <h5 class="modal-title"> <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp Thêm danh mục</h5>
+                <button type="button" class="close " style="color:coral" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Tên danh mục</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" id="txt-name" placeholder="Nhập tên danh mục" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Thuộc tính</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <select class="form-control" id="type-value-add">
+                            <option value="@SystemParam.BROADBAND">Băng thông rộng</option>
+                            <option value="@SystemParam.FOR_DIAL">Cho quay số</option>
+                            <option value="@SystemParam.CONNECT_PHONE_ONLY">Chỉ kết nối điện thoại</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2 float-right">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-success" onclick="AddCategory()">Thêm mới</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#type-value').change(function () {
+            SearchCate();
+        })
+    })
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-add-cate").click();
+        }
+    });
+</script>

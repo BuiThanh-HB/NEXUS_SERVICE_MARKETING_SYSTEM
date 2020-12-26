@@ -9,11 +9,11 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoryNews">
           <Key>
@@ -176,6 +176,18 @@
           <Property Name="Type" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="DistrictID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__ServicePl__Categ__3A81B327">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="ServicePlan" Type="Self.ServicePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServicePlan">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Customer_District">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
@@ -368,18 +380,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ServicePlan_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="ServicePlan" Type="Self.ServicePlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ServicePlan">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Village_District">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="Village" Type="Self.Village" Multiplicity="*" />
@@ -407,6 +407,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Village" EntityType="Self.Village" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ServicePl__Categ__3A81B327" Association="Self.FK__ServicePl__Categ__3A81B327">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="ServicePlan" EntitySet="ServicePlan" />
+          </AssociationSet>
           <AssociationSet Name="FK_Customer_District" Association="Self.FK_Customer_District">
             <End Role="District" EntitySet="District" />
             <End Role="Customer" EntitySet="Customer" />
@@ -471,10 +475,6 @@
             <End Role="Village" EntitySet="Village" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_ServicePlan_Category" Association="Self.FK_ServicePlan_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="ServicePlan" EntitySet="ServicePlan" />
-          </AssociationSet>
           <AssociationSet Name="FK_Village_District" Association="Self.FK_Village_District">
             <End Role="District" EntitySet="District" />
             <End Role="Village" EntitySet="Village" />
@@ -489,12 +489,12 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Type" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ServicePlans" Relationship="Self.FK_ServicePlan_Category" FromRole="Category" ToRole="ServicePlan" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="ServicePlans" Relationship="Self.FK__ServicePl__Categ__3A81B327" FromRole="Category" ToRole="ServicePlan" />
         </EntityType>
         <EntityType Name="CategoryNew">
           <Key>
@@ -652,7 +652,7 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Value" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_ServicePlan_Category" FromRole="ServicePlan" ToRole="Category" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__ServicePl__Categ__3A81B327" FromRole="ServicePlan" ToRole="Category" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_ServicePlan" FromRole="ServicePlan" ToRole="Order" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -692,7 +692,7 @@
           <NavigationProperty Name="District" Relationship="Self.FK_Village_District" FromRole="Village" ToRole="District" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Village" FromRole="Village" ToRole="Order" />
         </EntityType>
-        <Association Name="FK_ServicePlan_Category">
+        <Association Name="FK__ServicePl__Categ__3A81B327">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="ServicePlan" Type="Self.ServicePlan" Multiplicity="*" />
           <ReferentialConstraint>
@@ -923,7 +923,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="Villages" EntityType="Self.Village" />
-          <AssociationSet Name="FK_ServicePlan_Category" Association="Self.FK_ServicePlan_Category">
+          <AssociationSet Name="FK__ServicePl__Categ__3A81B327" Association="Self.FK__ServicePl__Categ__3A81B327">
             <End Role="Category" EntitySet="Categories" />
             <End Role="ServicePlan" EntitySet="ServicePlans" />
           </AssociationSet>
@@ -1005,11 +1005,11 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="NEXUS_SystemModel.Category">
               <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

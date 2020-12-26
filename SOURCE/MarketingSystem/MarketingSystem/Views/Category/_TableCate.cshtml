@@ -1,0 +1,130 @@
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@model  PagedList.IPagedList<ListCategoryOutputModel>
+<table class="table table-light table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead class="text-center text-white bg-thead">
+        <tr>
+            <th width="10%">STT</th>
+            <th width="30%">Tên danh mục</th>
+            <th width="30%">Thuộc tính</th>
+            <th width="20%">Ngày tạo</th>
+            <th width="10%"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @{
+            if (Model.Count() <= 0)
+            {
+                <tr>
+                    <td colspan="5" class="text-center">Không có dữ liệu.</td>
+                </tr>
+            }
+            else
+            {
+
+
+                int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                foreach (var dt in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@dt.Name</td>
+                        @{
+                            if (dt.Type.Equals(SystemParam.FOR_DIAL))
+                            {
+                                <td>Cho quay số</td>
+                            }
+                            else if (dt.Type.Equals(SystemParam.CONNECT_PHONE_ONLY))
+                            {
+                                <td>Chỉ cho kết nối điện thoại</td>
+                            }
+                            else
+                            {
+                                <td>Cho băng thông rộng</td>
+                            }
+                        }
+                        <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
+                        <td>
+                            <a data-id="@dt.ID" data-name="@dt.Name" data-type="@dt.Type" onclick="GetCategoryDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin danh mục" class="cursor-pointer">
+                                <i class="btnEdit fa fa-fw fa-edit"></i>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa danh mục." class="cursor-pointer" onclick="DelCate(@dt.ID)">
+                                <i class="btnDelete fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            }
+        }
+    </tbody>
+</table>
+
+
+
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager(Model, Page => Url.Action("Search", new { Page, searchKey = ViewBag.searchKey, fromDate = ViewBag.fromDate, toDate = ViewBag.toDate, type = ViewBag.type }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "tbl-cate",
+        LoadingElementId = "modalLoad"
+     })
+     )
+    </div>
+</div>
+
+<div class="modal fade" id="detail-category" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color:#1E8449 ">
+                <h5 class="modal-title"> <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp Cập nhật danh mục</h5>
+                <button type="button" class="close " style="color:coral" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Tên danh mục</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" id="txt-name-edit" placeholder="Nhập tên danh mục" />
+                        <input type="hidden"id="id-value"/>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Thuộc tính</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <select class="form-control" id="type-value-edit">
+                            <option value="@SystemParam.BROADBAND">Băng thông rộng</option>
+                            <option value="@SystemParam.FOR_DIAL">Cho quay số</option>
+                            <option value="@SystemParam.CONNECT_PHONE_ONLY">Chỉ kết nối điện thoại</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row mt-2 float-right">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-success" onclick="UpdateCategory()">Lưu</button>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

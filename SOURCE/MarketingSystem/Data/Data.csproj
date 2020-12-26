@@ -134,6 +134,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\CategoryBusiness.cs" />
     <Compile Include="Business\GenericBusiness.cs" />
     <Compile Include="Business\LoginBusiness.cs" />
     <Compile Include="Business\ResponseBusiness.cs" />
@@ -196,6 +197,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\JsonResultModel.cs" />
+    <Compile Include="Model\ListCategoryOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\UserDetailOutputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

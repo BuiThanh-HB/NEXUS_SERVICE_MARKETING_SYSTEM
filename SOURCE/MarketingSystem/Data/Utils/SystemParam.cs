@@ -33,6 +33,7 @@ namespace Data.Utils
         public const string ERROR_MESSAGE = "Thất bại";
         public const string ERROR_MESSAGE_LOGIN_FAIL = "Tài khoản hoặc mật khẩu không đúng";
         public const string ERROR_MESSAGE_CHECK_PASS_FAIL = "Mật khẩu cũ không chính xác";
+        public const string ERROR_MESSAGE_CATE_EXISTING = "Tên danh mục đã tồn tại";
 
 
         public const int ERROR_PASSWORD = 2;
@@ -51,6 +52,7 @@ namespace Data.Utils
         //Code define
         public const int CODE_ERROR = 500;
         public const int SUCCESS_CODE = 200;
+        public const int CODE_EXISTING = 502;
 
         //Các type của gói cước
         public const string FOR_DIAL = "D";//Để quay số 

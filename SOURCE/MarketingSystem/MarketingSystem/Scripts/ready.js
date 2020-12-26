@@ -21,8 +21,14 @@ function FocusTabMenu() {
     var url = window.location.pathname;
 
     switch (url) {
+        case "/Home/Index":
+            $('#tabHome').addClass('active');
+            break;
+        case "/Category/Index":
+            $('#tabCategory').addClass('active');
+            break;
         case "/User/Index":
-            $('#tabUser').addClass('active');
+            $('#tabUsers').addClass('active');
             break;
         default:
             break;

@@ -262,3 +262,164 @@ function updateUserInfo() {
     })
 }
 
+
+//Tìm kiếm danh mục
+function SearchCate() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    var type = $('#type-value').val();
+
+    $.ajax({
+        url: "/Category/Search",
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, type: type },
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "GET",
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-cate').html(res);
+        }
+    })
+}
+
+//Thêm danh mục gói cước
+
+function AddCategory() {
+    var name = $.trim($('#txt-name').val());
+    var type = $("#type-value-add").val();
+    if (name.length == 0) {
+        swal({
+            title: "Tên danh mục không được bỏ trống !",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/Category/AddCategory",
+        data: { name: name, type: type },
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "POST",
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+
+            if (res.Status == SUCCESS) {
+                toastr.success("Thêm mới danh mục thành công !");
+                $('#add-category').modal('hide');
+                SearchCate();
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}
+
+//Show chi tiết danh mục
+function GetCategoryDetail(data) {
+    //Lấy các thông tin danh mục
+    var id = data.attr("data-id");
+    var name = data.attr("data-name");
+    var type = data.attr("data-type");
+
+    //Đưa các giá trị tương ứng vào modal detail
+    $('#txt-name-edit').val(name);
+    $('#type-value-edit').val(type);
+    $('#id-value').val(id);
+
+    //Show modal
+    $('#detail-category').modal('show');
+
+}
+
+//Cập nhật thông tin danh mục
+function UpdateCategory() {
+    var name = $.trim($('#txt-name-edit').val());
+    var id = $('#id-value').val();
+    var type = $('#type-value-edit').val();
+
+    if (name.length == 0) {
+        swal({
+            title: "Tên danh mục không được bỏ trống !",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/Category/UpdateCategory",
+        type: "POST",
+        data: {id:id, name: name, type: type },
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            if (res.Status == SUCCESS) {
+                toastr.success("Cập nhật danh mục thành công !");
+                $('#detail-category').modal('hide');
+                SearchCate();
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}
+
+function DelCate(id) {
+    if (!navigator.onLine) {
+        swal({
+            title: "Kiểm tra kết nối internet!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    swal({
+        title: "Bạn chắc chắn xóa chứ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: '/Category/DelCate',
+                data: { ID: id },
+                type: "POST",
+                beforeSend: function () {
+                    $('#modalLoad').modal('show');
+                },
+                success: function (response) {
+                    if (response.Status == SUCCESS) {
+                        $('#modalLoad').modal('hide');
+                        toastr.success("Xóa thành công !");
+                        SearchCate();
+
+                    } else {
+                        $('#modalLoad').modal('hide');
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (result) {
+                    console.log(result.responseText);
+                }
+            });
+        }
+    })
+}

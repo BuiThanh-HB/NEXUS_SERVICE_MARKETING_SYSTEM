@@ -14,11 +14,13 @@ namespace APIProject.Controllers
         protected NEXUS_SystemEntities Context;
         public LoginBusiness loginBusiness;
         public UserBusiness userBusiness;
+        public CategoryBusiness categoryBusiness;
 
         public BaseController() : base()
         {
             loginBusiness = new LoginBusiness(this.GetContext());
             userBusiness = new UserBusiness(this.GetContext());
+            categoryBusiness = new CategoryBusiness(this.GetContext());
         }
         /// <summary>
         /// Create new context if null
