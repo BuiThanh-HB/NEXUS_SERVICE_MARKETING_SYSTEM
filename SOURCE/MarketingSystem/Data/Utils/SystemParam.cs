@@ -51,5 +51,10 @@ namespace Data.Utils
         //Code define
         public const int CODE_ERROR = 500;
         public const int SUCCESS_CODE = 200;
+
+        //Các type của gói cước
+        public const string FOR_DIAL = "D";//Để quay số 
+        public const string CONNECT_PHONE_ONLY = "T";//Chỉ kết nối điện thoại
+        public const string BROADBAND = "B";//Cho băng thông rộng
     }
 }
