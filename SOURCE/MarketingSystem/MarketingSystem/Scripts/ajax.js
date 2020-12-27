@@ -356,7 +356,7 @@ function UpdateCategory() {
     $.ajax({
         url: "/Category/UpdateCategory",
         type: "POST",
-        data: {id:id, name: name, type: type },
+        data: { id: id, name: name, type: type },
         beforeSend: function () {
             $('#modalLoad').modal('show');
         },
@@ -420,6 +420,30 @@ function DelCate(id) {
                     console.log(result.responseText);
                 }
             });
+        }
+    })
+}
+
+function SearchServicePlan() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    var status = $('#status-value').val();
+    var cateID = $('#cateID-value').val();
+    var Status = status == 1 ? true : false;
+    if (status < 0)
+        Status = null;
+
+    $.ajax({
+        url: "/ServicePlan/Search",
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, status: Status, cateID: cateID },
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-service-plan').html(res);
         }
     })
 }

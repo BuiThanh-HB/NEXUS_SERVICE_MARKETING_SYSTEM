@@ -1,0 +1,89 @@
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@model  PagedList.IPagedList<ListServicePlanOutputModel>
+
+<table class="table table-light table-bordered table-hover table-responsive-sm table-responsive-md">
+    <thead class="text-center text-white bg-thead">
+        <tr>
+            <th width="5%">STT</th>
+            <th width="30%">Tên gói cước</th>
+            <th width="30%">Danh mục</th>
+            <th width="20%">Ảnh</th>
+            <th width="10%">Trạng thái</th>
+            <th width="10%">Giá cước</th>
+            <th width="5%">Thời hạn(Tháng)</th>
+            <th width="20%">Ngày tạo</th>
+            <th width="10%"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @{
+            if (Model.Count() <= 0)
+            {
+                <tr>
+                    <td colspan="9" class="text-center">Không có dữ liệu.</td>
+                </tr>
+            }
+            else
+            {
+
+
+                int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                foreach (var dt in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@dt.Name</td>
+                        <td>@dt.CateName</td>
+                        <td>
+                            <div style="width:100%; height:100%;">
+                                <img class="w-100 h-100" src="@dt.ImageUrl" />
+                            </div>
+                        </td>
+                        @{
+                            if (dt.Status.Equals(SystemParam.ACTIVE))
+                            {
+                                <td>Hoạt động</td>
+
+                            }
+                            else
+                            {
+                                <td>Ngừng hoạt động</td>
+                            }
+                        }
+                        <td>@String.Format("{0:n0}", dt.Price)</td>
+                        <td>@dt.Value</td>
+                        <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
+                        <td>
+                            <a data-id="@dt.ID" data-name="@dt.Name" data-type="@dt.Status" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin danh mục" class="cursor-pointer">
+                                <i class="btnEdit fa fa-fw fa-edit"></i>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="DelServicePlan(@dt.ID)">
+                                <i class="btnDelete fa fa-fw fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            }
+        }
+    </tbody>
+</table>
+
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager(Model, Page => Url.Action("Search", new { Page, searchKey = ViewBag.searchKey, fromDate = ViewBag.fromDate, toDate = ViewBag.toDate, status = ViewBag.status, cateID = ViewBag.cateID }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "tbl-service-plan",
+        LoadingElementId = "modalLoad"
+     })
+     )
+    </div>
+</div>

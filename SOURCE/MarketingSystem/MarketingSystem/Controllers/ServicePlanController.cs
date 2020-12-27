@@ -18,5 +18,17 @@ namespace MarketingSystem.Controllers
             ViewBag.listCate = servicePlanBusiness.GetListCategory();
             return View();
         }
+        //Tìm kiếm thông tin gói cước
+        [HttpGet]
+
+        public PartialViewResult Search(int page, string searchKey, Boolean? status, int? cateID, string fromDate, string toDate)
+        {
+            ViewBag.searchKey = searchKey;
+            ViewBag.status = status;
+            ViewBag.cateID = cateID;
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+            return PartialView("_TableServicePlan", servicePlanBusiness.Search(page, searchKey, status, cateID, fromDate, toDate));
+        }
     }
 }

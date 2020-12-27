@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="Model\JsonResultModel.cs" />
     <Compile Include="Model\ListCategoryOutputModel.cs" />
+    <Compile Include="Model\ListServicePlanOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\UserDetailOutputModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

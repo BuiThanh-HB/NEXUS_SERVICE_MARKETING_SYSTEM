@@ -17,7 +17,7 @@
 
 <div class="row mt-3">
     <div class="col-md-4 col-12 mt-1">
-        <input  id="txt-key-search" class="form-control" placeholder="Nhập tên gói cước"/>
+        <input id="txt-search-key" class="form-control" placeholder="Nhập tên gói cước" />
     </div>
     <div class="col-md-4 col-12 mt-1">
         <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
@@ -28,17 +28,18 @@
         <i class="fa fa-calendar absolute-icon-calendar"></i>
     </div>
     <div class="col-md-4 col-12 mt-1">
-        <select class="form-control">
+        <select class="form-control" id="status-value">
             <option selected disabled hidden>--Trạng thái--</option>
-            <option value="-1">TTất cả</option>
-            <option value="@SystemParam.ACTIVE">Hoạt động</option>
-            <option value="@SystemParam.NO_ACTIVE">Ngừng hoạt động</option>
+            <option value="-1">Tất cả</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Ngừng hoạt động</option>
         </select>
     </div>
     <div class="col-md-4 col-12 mt-1">
-        <select class="form-control">
+        <select class="form-control" id="cateID-value">
             <option selected disabled hidden>--Danh mục--</option>
-            @{ 
+            @{
+                <option>Tất cả</option>
                 foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
                 {
                     <option value="@dt.ID">@dt.Name</option>
@@ -48,7 +49,11 @@
     </div>
     <div class="col-md-4 col-12 mt-1 float-right">
         <button class="btn btn-outline-success float-right m-2" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button>
-        <button class="btn btn-outline-primary float-right m-2" id="btn-add-cate" onclick=""><i class="fa fa-search"></i> Tìm kiếm</button>
+        <button class="btn btn-outline-primary float-right m-2" id="btn-add-cate" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
     </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12" id="tbl-service-plan">@{Html.RenderAction("Search", "ServicePlan", new { page = 1 });}</div>
 </div>
 

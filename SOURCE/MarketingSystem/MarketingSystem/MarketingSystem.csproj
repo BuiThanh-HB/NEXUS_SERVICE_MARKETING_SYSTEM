@@ -1284,6 +1284,7 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\_TableCate.cshtml" />
     <Content Include="Views\ServicePlan\Index.cshtml" />
+    <Content Include="Views\ServicePlan\_TableServicePlan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
