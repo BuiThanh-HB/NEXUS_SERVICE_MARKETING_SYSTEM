@@ -1,6 +1,7 @@
 ﻿using APIProject.App_Start;
 using APIProject.Controllers;
 using System;
+using Data.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,6 +30,14 @@ namespace MarketingSystem.Controllers
             ViewBag.fromDate = fromDate;
             ViewBag.toDate = toDate;
             return PartialView("_TableServicePlan", servicePlanBusiness.Search(page, searchKey, status, cateID, fromDate, toDate));
+        }
+
+
+        //Thêm mới gói cước
+        [HttpPost]
+        public JsonResult AddServicePlan(ListServicePlanOutputModel input)
+        {
+            return Json(servicePlanBusiness.AddServicePlan(input), JsonRequestBehavior.AllowGet);
         }
     }
 }

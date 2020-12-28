@@ -459,3 +459,50 @@ function SearchServicePlan() {
         }
     })
 }
+
+function AddServicePlan() {
+    var name = $('#txt-name').val();
+    var price = parseInt($('#txt-price').val().replace(/,/g, ''));
+    var value = parseInt($('#value').val());
+    var status = $('#status-value-add').val();
+    var Status = status == 1 ? true : false;
+    var img = $('#img-add').attr('src');
+
+    if (name.length == 0 || typeof img === "undefined") {
+        swal({
+            title: "Vui lòng nhập đầy đủ thông tin!",
+            icon: "warning"
+        })
+        return;
+    }
+
+    if (price <= 0 || value <= 0) {
+        swal({
+            title: "Giá gói cước và giá trị tháng phải lớn hơn 0",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/ServicePlan/AddServicePlan",
+        data: $('#frm-add-service-plan').serialize() + "&Price=" + price + "&Status=" + Status + "&ImageUrl=" + img,
+        type: "POST",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            if (res.Status == SUCCESS) {
+                toastr.success("Cập nhật danh mục thành công !");
+                setTimeout(function () { location.reload(); }, 3000)
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}

@@ -34,6 +34,7 @@ namespace Data.Utils
         public const string ERROR_MESSAGE_LOGIN_FAIL = "Tài khoản hoặc mật khẩu không đúng";
         public const string ERROR_MESSAGE_CHECK_PASS_FAIL = "Mật khẩu cũ không chính xác";
         public const string ERROR_MESSAGE_CATE_EXISTING = "Tên danh mục đã tồn tại";
+        public const string ERROR_MESSAGE_SERVICE_PLAN_EXISTING = "Gói cước đã tồn tại trên hệ thống";
 
 
         public const int ERROR_PASSWORD = 2;

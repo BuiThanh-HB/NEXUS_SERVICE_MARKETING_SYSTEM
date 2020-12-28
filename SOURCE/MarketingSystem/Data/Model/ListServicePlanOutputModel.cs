@@ -16,5 +16,6 @@ namespace Data.Model
         public DateTime CreatedDate { get; set; }
         public bool Status { get; set; }
         public string Descreiption { get; set; }
+        public int CateID { get; set; }
     }
 }

@@ -68,102 +68,98 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Tên gói cước</strong>
+            <form id="frm-add-service-plan" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Tên gói cước</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="text" name="Name" class="form-control" id="txt-name" placeholder="Nhập tên gói cước..." />
+                        </div>
                     </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <input type="text" class="form-control" id="txt-name" placeholder="Nhập tên gói cước" />
-                    </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Giá gói cước</strong>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Giá gói cước</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="text" class="form-control number" id="txt-price" placeholder="Nhập giá gói cước..." />
+                        </div>
                     </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <input type="text" class="form-control number" id="txt-price" placeholder="Nhập giá gói cước" />
-                    </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Giá trị trong bao nhiêu tháng</strong>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Giá trị trong bao nhiêu tháng</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="number" name="Value" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 188 ? false : true" class="form-control number" id="value" placeholder="Nhập giá trị..." />
+                        </div>
                     </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <input type="number" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 188 ? false : true" class="form-control number" id="value" placeholder="Nhập giá trị" />
-                    </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Danh mục</strong>
-                    </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <select class="form-control" id="cateID-value-add">
-                            @{
-                                foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
-                                {
-                                    <option value="@dt.ID">@dt.Name</option>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Danh mục</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <select class="form-control" id="cateID-value-add" name="CateID">
+                                @{
+                                    foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
+                                    {
+                                        <option value="@dt.ID">@dt.Name</option>
+                                    }
                                 }
-                            }
-                        </select>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Trạng thái</strong>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Trạng thái</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <select class="form-control" id="status-value-add">
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Ngưng hoạt động</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <select class="form-control" id="status-value-add">
-                            <option value="1">Hoạt động</option>
-                            <option value="0">Ngưng hoạt động</option>
-                        </select>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Mô tả</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <textarea class="form-control" name="Descreiption" style="height:75px !important" id="txt-description" placeholder="Nhập nội dung mô tả..."></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Mô tả</strong>
-                    </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12">
-                        <textarea class="form-control" style="height:75px !important" id="txt-description" placeholder="Nhập nội dung mô tả..."></textarea>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-3 col-xs-12 col-sm-12">
-                        <strong>Ảnh đại diện</strong>
-                    </div>
-                    <div class="col-md-9 col-xs-12 col-sm-12 text-center">
-                        <a href="" class="text-bold mb-3" style="width:100%;height:100%; color: #5A5A5A;" id="add-img">
-                            <img id="tagImg" src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_photo-512.png" class="col-ml-2 col-md-2 px-0" alt="Chọn" />
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Ảnh đại diện</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12 text-center">
+                            <a href="" class="text-bold mb-3" style="width:100%;height:100%; color: #5A5A5A;" id="add-img">
+                                <img id="tagImg" src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_photo-512.png" class="col-3" alt="Chọn" />
 
-                        </a>
-                        <div class="col-md-4 offset-md-4">
-                            <div>
-                                <div class="article" id="div-add-img" style="position:relative">
+                            </a>
+                            <div class="col-8 offset-2">
+                                <div>
+                                    <div class="article" id="div-add-img" style="position:relative">
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success" onclick="AddServicePlan()">Thêm mới</button>
+
             </div>
-
-            <div class="row mt-2 float-right">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-success" onclick="">Thêm mới</button>
-
-                </div>
-            </div>
-
-
         </div>
 
     </div>
-</div>
 </div>
 
 <script>
@@ -186,7 +182,7 @@
         var fider = new CKFinder();
         fider.selectActionFunction = function (fileUrl) {
             $("#div-add-img").empty();
-            $("#div-add-img").append('<div id="img-add" style ="margin-top:10px;"><img class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + fileUrl + '" onclick="ChangeImg($(this));" /></div>');
+            $("#div-add-img").append('<div style ="margin-top:10px;"><img id="img-add" class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + fileUrl + '" onclick="ChangeImg($(this));" /></div>');
         }
         fider.popup();
     });

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using PagedList;
+using APIProject.Models;
 
 namespace Data.Business
 {
@@ -67,6 +68,37 @@ namespace Data.Business
             {
                 e.ToString();
                 return new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
+            }
+        }
+
+        //Thêm gói cước
+
+        public JsonResultModel AddServicePlan(ListServicePlanOutputModel dt)
+        {
+            try
+            {
+                ServicePlan check = cnn.ServicePlans.Where(sv => sv.IsActive.Equals(SystemParam.ACTIVE) && sv.Name.Equals(dt.Name) && sv.CategoryID.Equals(dt.CateID)).FirstOrDefault();
+
+                if (check != null)
+                    return rp.response(SystemParam.ERROR, SystemParam.CODE_EXISTING, SystemParam.ERROR_MESSAGE_SERVICE_PLAN_EXISTING, "");
+                ServicePlan s = new ServicePlan();
+                s.Name = dt.Name;
+                s.Status = dt.Status;
+                s.Price = dt.Price;
+                s.IsActive = SystemParam.ACTIVE;
+                s.CreatedDate = DateTime.Now;
+                s.Description = dt.Descreiption;
+                s.ImageUrl = dt.ImageUrl;
+                s.CategoryID = dt.CateID;
+                s.Value = dt.Value;
+                cnn.ServicePlans.Add(s);
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
+
+            }
+            catch
+            {
+                return rp.serverError();
             }
         }
     }
