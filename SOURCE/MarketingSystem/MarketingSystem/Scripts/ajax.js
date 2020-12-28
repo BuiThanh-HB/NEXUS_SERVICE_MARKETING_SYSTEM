@@ -48,6 +48,18 @@
     });
 }); //end document.ready
 
+function cms_decode_currency_format(obs) {
+    if (obs == '')
+        return '';
+    else
+        return parseInt(obs.replace(/,/g, ''));
+}
+function cms_encode_currency_format(num) {
+    if (!isNumeric(num)) {
+        return '';
+    }
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 
 const SUCCESS = 1;
 const ERROR = 0;

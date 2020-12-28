@@ -48,12 +48,162 @@
         </select>
     </div>
     <div class="col-md-4 col-12 mt-1 float-right">
-        <button class="btn btn-outline-success float-right m-2" data-toggle="modal" data-target="#"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button>
-        <button class="btn btn-outline-primary float-right m-2" id="btn-add-cate" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
+        <button class="btn btn-outline-success float-right m-2" data-toggle="modal" data-target="#add-service-plan"><i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</button>
+        <button class="btn btn-outline-primary float-right m-2" id="btn-search-service-plan" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
     </div>
 </div>
 
 <div class="row mt-3">
     <div class="col-12" id="tbl-service-plan">@{Html.RenderAction("Search", "ServicePlan", new { page = 1 });}</div>
 </div>
+
+
+@*Modal thêm gói cước*@
+<div class="modal fade" id="add-service-plan" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color:#1E8449 ">
+                <h5 class="modal-title"> <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp Thêm gói cước</h5>
+                <button type="button" class="close " style="color:coral" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Tên gói cước</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" id="txt-name" placeholder="Nhập tên gói cước" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Giá gói cước</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control number" id="txt-price" placeholder="Nhập giá gói cước" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Giá trị trong bao nhiêu tháng</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <input type="number" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 188 ? false : true" class="form-control number" id="value" placeholder="Nhập giá trị" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Danh mục</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <select class="form-control" id="cateID-value-add">
+                            @{
+                                foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
+                                {
+                                    <option value="@dt.ID">@dt.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Trạng thái</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <select class="form-control" id="status-value-add">
+                            <option value="1">Hoạt động</option>
+                            <option value="0">Ngưng hoạt động</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Mô tả</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12">
+                        <textarea class="form-control" style="height:75px !important" id="txt-description" placeholder="Nhập nội dung mô tả..."></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3 col-xs-12 col-sm-12">
+                        <strong>Ảnh đại diện</strong>
+                    </div>
+                    <div class="col-md-9 col-xs-12 col-sm-12 text-center">
+                        <a href="" class="text-bold mb-3" style="width:100%;height:100%; color: #5A5A5A;" id="add-img">
+                            <img id="tagImg" src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_photo-512.png" class="col-ml-2 col-md-2 px-0" alt="Chọn" />
+
+                        </a>
+                        <div class="col-md-4 offset-md-4">
+                            <div>
+                                <div class="article" id="div-add-img" style="position:relative">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2 float-right">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-success" onclick="">Thêm mới</button>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#status-value').change(function () {
+            SearchServicePlan();
+        })
+        $('#cateID-value').change(function () {
+            SearchServicePlan();
+        })
+    })
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-search-service-plan").click();
+        }
+    });
+
+    $("#add-img").off('click').on('click', function (e) {
+        e.preventDefault();
+        var fider = new CKFinder();
+        fider.selectActionFunction = function (fileUrl) {
+            $("#div-add-img").empty();
+            $("#div-add-img").append('<div id="img-add" style ="margin-top:10px;"><img class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + fileUrl + '" onclick="ChangeImg($(this));" /></div>');
+        }
+        fider.popup();
+    });
+
+    function ChangeImg($url) {
+        var fider = new CKFinder();
+        fider.selectActionFunction = function (fileUrl) {
+            var url_old = $url.attr('src');
+            $url.attr('src', fileUrl);
+        }
+        fider.popup();
+    }
+
+    function DeleteImg(obj) {
+        var temp = obj.attr('data');
+        $('#' + temp + '').remove();
+    }
+</script>
+
 
