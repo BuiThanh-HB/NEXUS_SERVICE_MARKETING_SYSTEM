@@ -59,5 +59,10 @@ namespace Data.Utils
         public const string FOR_DIAL = "D";//Để quay số 
         public const string CONNECT_PHONE_ONLY = "T";//Chỉ kết nối điện thoại
         public const string BROADBAND = "B";//Cho băng thông rộng
+
+        //Các type tin tức
+        public const int NEWS_TYPE = 1;//Tin tức
+        public const int EVENT_TYPE = 2;//Sự kiện
+        public const int PROMOTION_TYPE = 3;//Khuyến mại
     }
 }
