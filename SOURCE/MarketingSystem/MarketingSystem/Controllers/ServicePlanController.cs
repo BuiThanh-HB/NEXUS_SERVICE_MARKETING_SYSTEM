@@ -41,5 +41,18 @@ namespace MarketingSystem.Controllers
         {
             return Json(servicePlanBusiness.AddServicePlan(input), JsonRequestBehavior.AllowGet);
         }
+
+        //Cập nhật thông tin gói cước
+        [HttpPost]
+        public JsonResult UpdateServicePlan(ListServicePlanOutputModel input)
+        {
+            return Json(servicePlanBusiness.UpdateServicePlan(input), JsonRequestBehavior.AllowGet);
+        }
+
+        //Xóa gói cước
+        public JsonResult DelServicePlan(int id)
+        {
+            return Json(servicePlanBusiness.DelSercicePlan(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }

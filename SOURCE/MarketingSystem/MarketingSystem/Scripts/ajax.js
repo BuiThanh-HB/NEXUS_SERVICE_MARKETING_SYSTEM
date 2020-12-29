@@ -440,10 +440,10 @@ function SearchServicePlan() {
     var searchKey = $.trim($('#txt-search-key').val());
     var fromDate = $('#txt-from-date').val();
     var toDate = $('#txt-to-date').val();
-    var status = $('#status-value').val();
-    var cateID = $('#cateID-value').val();
+    var status = $('#status-value-search').val();
+    var cateID = $('#cateID-value-search').val();
     var Status = status == 1 ? true : false;
-    if (status < 0)
+    if (status > 1 || status == null)
         Status = null;
 
     $.ajax({
@@ -490,12 +490,13 @@ function AddServicePlan() {
         type: "POST",
         beforeSend: function () {
             $('#modalLoad').modal('show');
+            $('#add-service-plan').modal('hide');
         },
         success: function (res) {
             $('#modalLoad').modal('hide');
             if (res.Status == SUCCESS) {
-                toastr.success("Cập nhật danh mục thành công !");
-                setTimeout(function () { location.reload(); }, 3000)
+                toastr.success("Thêm mới gói cước thành công !");
+                setTimeout(function () { location.reload(); }, 2000)
             } else {
                 swal({
                     title: res.Message,
@@ -519,7 +520,6 @@ function GetServicePlanDetail(data) {
     var price = data.attr('data-price');
     var Status = Boolean(status) ? 1 : 0;
     price = cms_encode_currency_format(price);
-    alert(Status);
 
     //Đưa các giá trị vào các input tương ứng
     $('#txt-name-edit').val(name);
@@ -529,7 +529,103 @@ function GetServicePlanDetail(data) {
     $('#cateID-value-edit').val(cateID);
     $('#status-value-edit').val(Status);
     $('#txt-description-edit').val(descreiption);
-    $('#div-img-edit').append('<div style ="margin-top:10px;"><img id="img-edit" class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + img + '" onclick="ChangeImg($(this));" /></div>');
+    $('#div-img-edit').append('<div style ="margin-top:10px;"><img id="val-img-edit" class=" cursor-pointer" width="100%" height="100%" src="' + img + '" onclick="ChangeImg($(this));" /></div>');
 
     $('#service-plan-detail').modal('show');
+}
+
+//Cập nhật thông tin gói cước
+function UpdateServicePlan() {
+    var name = $.trim($('#txt-name-edit').val());
+    var price = parseInt($('#txt-price-edit').val().replace(/,/g, ''));
+    var value = parseInt($('#value-edit').val());
+    var status = $('#status-value-edit').val()
+    var Status = status == 1 ? true : false;
+    var img = $('#val-img-edit').attr('src');
+
+    if (name.length == 0 || typeof img === "undefined") {
+        swal({
+            title: "Vui lòng nhập đầy đủ thông tin!",
+            icon: "warning"
+        })
+        return;
+    }
+
+    if (price <= 0 || value <= 0) {
+        swal({
+            title: "Giá gói cước và giá trị tháng phải lớn hơn 0",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/ServicePlan/UpdateServicePlan",
+        data: $('#frm-edit-service-plan').serialize() + "&Price=" + price + "&Status=" + Status + "&ImageUrl=" + img,
+        type: "POST",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#service-plan-detail').modal('hide');
+            if (res.Status == SUCCESS) {
+                toastr.success("Cập nhật thông tin gói cước thành công !");
+                setTimeout(function () { location.reload(); }, 2000)
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}
+
+function DelServicePlan(id) {
+    if (!navigator.onLine) {
+        swal({
+            title: "Kiểm tra kết nối internet!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    swal({
+        title: "Bạn chắc chắn xóa chứ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: '/ServicePlan/DelServicePlan',
+                data: { id: id },
+                type: "POST",
+                beforeSend: function () {
+                    $('#modalLoad').modal('show');
+                },
+                success: function (response) {
+                    if (response.Status == SUCCESS) {
+                        $('#modalLoad').modal('hide');
+                        toastr.success("Xóa thành công !");
+                        SearchServicePlan();
+
+                    } else {
+                        $('#modalLoad').modal('hide');
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (result) {
+                    console.log(result.responseText);
+                }
+            });
+        }
+    })
 }

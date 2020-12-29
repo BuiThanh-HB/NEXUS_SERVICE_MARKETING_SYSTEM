@@ -105,6 +105,45 @@ namespace Data.Business
 
 
         //Cập nhật thông tin gói cước
-       // public JsonResultModel UpdateServicePlan
+        public JsonResultModel UpdateServicePlan(ListServicePlanOutputModel dt)
+        {
+            try
+            {
+                ServicePlan check = cnn.ServicePlans.Where(sv => sv.IsActive.Equals(SystemParam.ACTIVE) && sv.Name.Equals(dt.Name) && sv.CategoryID.Equals(dt.CateID) && !sv.ID.Equals(dt.ID)).FirstOrDefault();
+
+                if (check != null)
+                    return rp.response(SystemParam.ERROR, SystemParam.CODE_EXISTING, SystemParam.ERROR_MESSAGE_SERVICE_PLAN_EXISTING, "");
+                ServicePlan s = cnn.ServicePlans.Find(dt.ID);
+                s.Name = dt.Name;
+                s.CategoryID = dt.CateID;
+                s.Price = dt.Price;
+                s.Status = dt.Status;
+                s.Value = dt.Value;
+                s.Description = dt.Descreiption;
+                s.ImageUrl = dt.ImageUrl;
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
+            }
+            catch
+            {
+                return rp.serverError();
+            }
+        }
+
+        //Xóa gói cước
+        public JsonResultModel DelSercicePlan(int id)
+        {
+            try
+            {
+                ServicePlan s = cnn.ServicePlans.Find(id);
+                s.IsActive = SystemParam.NO_ACTIVE;
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
+            }
+            catch
+            {
+                return rp.serverError();
+            }
+        }
     }
 }

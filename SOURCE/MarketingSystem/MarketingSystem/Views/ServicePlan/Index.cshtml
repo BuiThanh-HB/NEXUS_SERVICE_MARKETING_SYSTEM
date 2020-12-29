@@ -28,15 +28,15 @@
         <i class="fa fa-calendar absolute-icon-calendar"></i>
     </div>
     <div class="col-md-4 col-12 mt-1">
-        <select class="form-control" id="status-value">
+        <select class="form-control" id="status-value-search">
             <option selected disabled hidden>--Trạng thái--</option>
-            <option value="-1">Tất cả</option>
+            <option value="2">Tất cả</option>
             <option value="1">Hoạt động</option>
             <option value="0">Ngừng hoạt động</option>
         </select>
     </div>
     <div class="col-md-4 col-12 mt-1">
-        <select class="form-control" id="cateID-value">
+        <select class="form-control" id="cateID-value-search">
             <option selected disabled hidden>--Danh mục--</option>
             @{
                 <option>Tất cả</option>
@@ -164,10 +164,10 @@
 
 <script>
     $(document).ready(function () {
-        $('#status-value').change(function () {
+        $('#status-value-search').change(function () {
             SearchServicePlan();
         })
-        $('#cateID-value').change(function () {
+        $('#cateID-value-search').change(function () {
             SearchServicePlan();
         })
     })
