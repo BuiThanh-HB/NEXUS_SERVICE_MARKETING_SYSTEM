@@ -190,15 +190,9 @@
     function ChangeImg($url) {
         var fider = new CKFinder();
         fider.selectActionFunction = function (fileUrl) {
-            var url_old = $url.attr('src');
             $url.attr('src', fileUrl);
         }
         fider.popup();
-    }
-
-    function DeleteImg(obj) {
-        var temp = obj.attr('data');
-        $('#' + temp + '').remove();
     }
 </script>
 

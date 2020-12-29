@@ -29,6 +29,8 @@ namespace MarketingSystem.Controllers
             ViewBag.cateID = cateID;
             ViewBag.fromDate = fromDate;
             ViewBag.toDate = toDate;
+            //Lấy danh sách danh mục
+            ViewBag.listCate = servicePlanBusiness.GetListCategory();
             return PartialView("_TableServicePlan", servicePlanBusiness.Search(page, searchKey, status, cateID, fromDate, toDate));
         }
 

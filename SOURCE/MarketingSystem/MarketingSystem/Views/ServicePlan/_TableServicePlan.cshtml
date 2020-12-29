@@ -59,7 +59,7 @@
                         <td>@dt.Value</td>
                         <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
                         <td>
-                            <a data-id="@dt.ID" data-name="@dt.Name" data-type="@dt.Status" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin danh mục" class="cursor-pointer">
+                            <a data-id="@dt.ID" data-name="@dt.Name" data-value="@dt.Value" data-image="@dt.ImageUrl" data-status="@dt.Status" data-price="@dt.Price" data-descreiption="@dt.Descreiption" data-cateID="@dt.CateID" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin gói cước" class="cursor-pointer">
                                 <i class="btnEdit fa fa-fw fa-edit"></i>
                             </a>
                             <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="DelServicePlan(@dt.ID)">
@@ -87,3 +87,128 @@
      )
     </div>
 </div>
+
+@*Modal thêm gói cước*@
+<div class="modal fade" id="service-plan-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-white" style="background-color:#1E8449 ">
+                <h5 class="modal-title"> <i class="fa fa-plus-square" aria-hidden="true"></i>&nbsp Chi tiết gói cước</h5>
+                <button type="button" class="close " style="color:coral" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="frm-edit-service-plan" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Tên gói cước</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="text" name="Name" class="form-control" id="txt-name-edit" placeholder="Nhập tên gói cước..." />
+                            <input type="hidden" name="ID" id="val-id" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Giá gói cước</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="text" class="form-control number" id="txt-price-edit" placeholder="Nhập giá gói cước..." />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Giá trị trong bao nhiêu tháng</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <input type="number" name="Value" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 189 || event.keyCode == 190 || event.keyCode == 188 ? false : true" class="form-control number" id="value-edit" placeholder="Nhập giá trị..." />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Danh mục</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <select class="form-control" id="cateID-value-edit" name="CateID">
+                                @{
+                                    foreach (var dt in (List<ListCategoryOutputModel>)ViewBag.listCate)
+                                    {
+                                        <option value="@dt.ID">@dt.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Trạng thái</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <select class="form-control" id="status-value-edit">
+                                <option value="1">Hoạt động</option>
+                                <option value="0">Ngưng hoạt động</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Mô tả</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12">
+                            <textarea class="form-control" name="Descreiption" style="height:75px !important" id="txt-description-edit" placeholder="Nhập nội dung mô tả..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3 col-xs-12 col-sm-12">
+                            <strong>Ảnh đại diện</strong>
+                        </div>
+                        <div class="col-md-9 col-xs-12 col-sm-12 text-center">
+                            <a href="" class="text-bold mb-3" style="width:100%;height:100%; color: #5A5A5A;" id="img-edit">
+                                <img src="https://cdn4.iconfinder.com/data/icons/social-communication/142/add_photo-512.png" class="col-3" alt="Chọn" />
+
+                            </a>
+                            <div class="col-8 offset-2">
+                                <div>
+                                    <div class="article" id="div-img-edit" style="position:relative">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-success" onclick="UpdateServicePlan()">Cập nhật</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $("#img-edit").off('click').on('click', function (e) {
+        e.preventDefault();
+        var fider = new CKFinder();
+        fider.selectActionFunction = function (fileUrl) {
+            $("#div-img-edit").empty();
+            $("#div-img-edit").append('<div style ="margin-top:10px;"><img id="img-edit" class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + fileUrl + '" onclick="ChangeImg($(this));" /></div>');
+        }
+        fider.popup();
+    });
+
+    function ChangeImg($url) {
+        var fider = new CKFinder();
+        fider.selectActionFunction = function (fileUrl) {
+            $url.attr('src', fileUrl);
+        }
+        fider.popup();
+    }
+</script>

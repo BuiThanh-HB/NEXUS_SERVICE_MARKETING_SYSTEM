@@ -60,7 +60,8 @@ namespace Data.Business
                         Status = s.Status,
                         Value = s.Value,
                         Price = s.Price,
-                        Descreiption = s.Description
+                        Descreiption = s.Description,
+                        CateID = s.CategoryID
                     }).OrderByDescending(s => s.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
                 return data;
             }
@@ -101,5 +102,9 @@ namespace Data.Business
                 return rp.serverError();
             }
         }
+
+
+        //Cập nhật thông tin gói cước
+       // public JsonResultModel UpdateServicePlan
     }
 }

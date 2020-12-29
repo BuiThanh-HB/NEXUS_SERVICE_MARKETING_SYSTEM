@@ -506,3 +506,30 @@ function AddServicePlan() {
         }
     })
 }
+
+//Chi tiết gói cước
+function GetServicePlanDetail(data) {
+    var status = data.attr('data-status');
+    var id = data.attr('data-id');
+    var name = data.attr('data-name');
+    var img = data.attr('data-image');
+    var descreiption = data.attr('data-descreiption');
+    var cateID = data.attr('data-cateID');
+    var value = data.attr('data-value');
+    var price = data.attr('data-price');
+    var Status = Boolean(status) ? 1 : 0;
+    price = cms_encode_currency_format(price);
+    alert(Status);
+
+    //Đưa các giá trị vào các input tương ứng
+    $('#txt-name-edit').val(name);
+    $('#val-id').val(id);
+    $('#txt-price-edit').val(price);
+    $('#value-edit').val(value);
+    $('#cateID-value-edit').val(cateID);
+    $('#status-value-edit').val(Status);
+    $('#txt-description-edit').val(descreiption);
+    $('#div-img-edit').append('<div style ="margin-top:10px;"><img id="img-edit" class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="' + img + '" onclick="ChangeImg($(this));" /></div>');
+
+    $('#service-plan-detail').modal('show');
+}
