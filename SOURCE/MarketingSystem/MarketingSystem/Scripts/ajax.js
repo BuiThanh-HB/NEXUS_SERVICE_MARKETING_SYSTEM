@@ -629,3 +629,27 @@ function DelServicePlan(id) {
         }
     })
 }
+
+function SearchNews() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    var status = $('#status-value-search').val();
+    var type = $('#type-value-search').val();
+    var Status = status == 1 ? true : false;
+    if (status < 1 || status == null)
+        Status = null;
+
+    $.ajax({
+        url: "/News/Search",
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, status: Status, type: type },
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-service-plan').html(res);
+        }
+    })
+}
