@@ -1,0 +1,72 @@
+﻿@using Data.Utils;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12 mt-5">
+    <div class="breadcrumb-holder">
+        <div class="row pb-3 pt-3">
+            <div class="text-dark">
+                <h4><i class="fa fa-fw fa-newspaper-o"></i> Quản lý bài viết</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-4 col-12 ">
+        <input class="form-control" id="txt-search-key" placeholder="Nhập tiêu đề bài viết" />
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <select class="form-control" id="status-value-search">
+            <option selected disabled hidden>--Trạng thái--</option>
+            <option value="2">Tất cả</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Ngừng hoạt động</option>
+        </select>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <select class="form-control" id="type-value-search">
+            <option selected disabled hidden>--Loại bài viết--</option>
+            <option value="0">Tất cả</option>
+            <option value="@SystemParam.NEWS_TYPE">Tin tức</option>
+            <option value="@SystemParam.EVENT_TYPE">Tin sự kiện</option>
+            <option value="@SystemParam.PROMOTION_TYPE">Tin khuyến mại</option>
+        </select>
+    </div>
+    <div class="col-md-4 col-12 mt-1 float-right">
+        <button class="btn btn-outline-success float-right m-2" onclick="window.location='/News/CreateNews'"><i class="fa fa-plus"></i> Thêm mới</button>
+        <button class="btn btn-outline-primary float-right m-2" id="btn-search-news" onclick="SearchNews()"><i class="fa fa-search"></i> Tìm kiếm</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12" id="tbl-news">
+        @{ Html.RenderAction("Search", "News", new { page = 1 });}
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#status-value-search').change(function () {
+            SearchNews();
+        })
+        $('#type-value-search').change(function () {
+            SearchNews();
+        })
+    })
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-search-news").click();
+        }
+    });
+</script>

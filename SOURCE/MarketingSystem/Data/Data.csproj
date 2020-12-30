@@ -137,6 +137,7 @@
     <Compile Include="Business\CategoryBusiness.cs" />
     <Compile Include="Business\GenericBusiness.cs" />
     <Compile Include="Business\LoginBusiness.cs" />
+    <Compile Include="Business\NewsBusiness.cs" />
     <Compile Include="Business\ResponseBusiness.cs" />
     <Compile Include="Business\ServicePlanBusiness.cs" />
     <Compile Include="Business\UserBusiness.cs" />
@@ -199,6 +200,7 @@
     </Compile>
     <Compile Include="Model\JsonResultModel.cs" />
     <Compile Include="Model\ListCategoryOutputModel.cs" />
+    <Compile Include="Model\ListNewsOutputModel.cs" />
     <Compile Include="Model\ListServicePlanOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\UserDetailOutputModel.cs" />

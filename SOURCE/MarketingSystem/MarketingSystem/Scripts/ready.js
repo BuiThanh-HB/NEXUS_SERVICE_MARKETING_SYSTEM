@@ -33,6 +33,12 @@ function FocusTabMenu() {
         case "/User/Index":
             $('#tabUsers').addClass('active');
             break;
+        case "/News/Index":
+            $('#tabNews').addClass('active');
+        case "/News/CreateNews":
+            $('#tabNews').addClass('active');
+        case "/News/UpdateNews":
+            $('#tabNews').addClass('active');
         default:
             break;
     }

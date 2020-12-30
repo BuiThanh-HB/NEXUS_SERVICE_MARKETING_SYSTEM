@@ -23,6 +23,7 @@ namespace Data.DB
         public System.DateTime CreatedDate { get; set; }
         public int Type { get; set; }
         public bool Status { get; set; }
+        public string Title { get; set; }
     
         public virtual CategoryNew CategoryNew { get; set; }
     }

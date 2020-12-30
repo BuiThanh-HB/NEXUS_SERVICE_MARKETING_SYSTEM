@@ -103,6 +103,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -603,6 +604,7 @@
           <Property Name="Type" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CategoryNew" Relationship="Self.FK_News_CategoryNews" FromRole="News" ToRole="CategoryNews" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1098,6 +1100,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="NEXUS_SystemModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
