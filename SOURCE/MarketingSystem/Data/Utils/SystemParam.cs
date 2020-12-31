@@ -64,5 +64,10 @@ namespace Data.Utils
         public const int NEWS_TYPE = 1;//Tin tức
         public const int EVENT_TYPE = 2;//Sự kiện
         public const int PROMOTION_TYPE = 3;//Khuyến mại
+
+        //Các role user admin
+        public const int ROLE_ADMIN = 1;//Role admin
+        public const int ROLE_CLERK = 2;//Nhân viên kế toán
+        public const int ROLE_TECHNICAL_STAFF = 3;//Nhân viên kỹ thuật
     }
 }
