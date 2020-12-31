@@ -18,6 +18,7 @@ namespace MarketingSystem.Controllers
         }
 
         //Chuyển trang thêm mới bài viết
+        [UserAuthenticationFilter]
         public ActionResult CreateNews()
         {
             return View();
@@ -33,6 +34,37 @@ namespace MarketingSystem.Controllers
             ViewBag.fromDate = fromDate;
             ViewBag.toDate = toDate;
             return PartialView("_TableNews", newsBusiness.Search(page, searchKey, status, type, fromDate, toDate));
+        }
+
+        //Thêm bài viết
+        [ValidateInput(false)]
+        [HttpPost]
+        public JsonResult CreateNews(int type, bool status, string content, string title, string summary, string img)
+        {
+            return Json(newsBusiness.CreateNews(type, status, content, title, summary, img), JsonRequestBehavior.AllowGet);
+        }
+
+        //Xem chi tết bài viết
+        [UserAuthenticationFilter]
+        [HttpGet]
+        public ActionResult GetNewsDetail(int id)
+        {
+            return View(newsBusiness.GetNewsDetail(id));
+        }
+
+        //Cập nhật bài viết
+        [ValidateInput(false)]
+        [HttpPost]
+        public JsonResult UpdateNews(int id, int type, bool status, string content, string title, string summary, string img)
+        {
+            return Json(newsBusiness.UpdateNews(id, type, status, content, title, summary, img), JsonRequestBehavior.AllowGet);
+        }
+
+        //Xóa bài viết
+        [HttpPost]
+        public JsonResult DelNews(int id)
+        {
+            return Json(newsBusiness.DelNews(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

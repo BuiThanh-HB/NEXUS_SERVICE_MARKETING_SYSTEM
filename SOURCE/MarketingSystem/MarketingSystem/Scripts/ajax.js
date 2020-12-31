@@ -649,7 +649,153 @@ function SearchNews() {
         },
         success: function (res) {
             $('#modalLoad').modal('hide');
-            $('#tbl-service-plan').html(res);
+            $('#tbl-news').html(res);
+        }
+    })
+}
+
+
+function CreateNews() {
+    var content = $.trim(CKEDITOR.instances['txt-content'].getData());
+    var type = $('#type-value').val();
+    var title = $.trim($('#txt-title').val());
+    var summary = $.trim($('#txt-summary').val());
+    var img = $('#img-add').attr('src');
+    var status = $('#status-value').val();
+    var Status = status == 1 ? true : false;
+
+    if (content.length == 0 || title.length == 0 || summary.length == 0) {
+        swal({
+            title: "Vui lòng nhập đầy đủ thông tin",
+            icon:"warning"
+        })
+        return;
+    }
+
+    if (typeof img === "undefined") {
+        swal({
+            title: "Vui lòng chọn ảnh đại diện cho bài viết",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/News/CreateNews",
+        data: { type: type, content: content, summary: summary, title: title, img: img, status: Status },
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "POST",
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            if (res.Status == SUCCESS) {
+                toastr.success("Thêm bài viết thành công !");
+                setTimeout(function () { window.location = "/News/Index"; }, 2000)
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}
+
+//Cập nhật bài viết
+function UpdateNews(id) {
+    var content = $.trim(CKEDITOR.instances['txt-content'].getData());
+    var type = $('#type-value').val();
+    var title = $.trim($('#txt-title').val());
+    var summary = $.trim($('#txt-summary').val());
+    var img = $('#img-add').attr('src');
+    var status = $('#status-value').val();
+    var Status = status == 1 ? true : false;
+
+    if (content.length == 0 || title.length == 0 || summary.length == 0) {
+        swal({
+            title: "Vui lòng nhập đầy đủ thông tin",
+            icon: "warning"
+        })
+        return;
+    }
+
+    if (typeof img === "undefined") {
+        swal({
+            title: "Vui lòng chọn ảnh đại diện cho bài viết",
+            icon: "warning"
+        })
+        return;
+    }
+
+    $.ajax({
+        url: "/News/UpdateNews",
+        data: { id: id, type: type, content: content, summary: summary, title: title, img: img, status: Status },
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "POST",
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            if (res.Status == SUCCESS) {
+                toastr.success("Cập nhật bài viết thành công !");
+                setTimeout(function () { window.location = "/News/Index"; }, 2000)
+            } else {
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
+        }
+    })
+}
+
+//Xóa bài viết
+function DelNews(id) {
+    if (!navigator.onLine) {
+        swal({
+            title: "Kiểm tra kết nối internet!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    swal({
+        title: "Bạn chắc chắn xóa chứ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: '/News/DelNews',
+                data: { id: id },
+                type: "POST",
+                beforeSend: function () {
+                    $('#modalLoad').modal('show');
+                },
+                success: function (response) {
+                    if (response.Status == SUCCESS) {
+                        $('#modalLoad').modal('hide');
+                        toastr.success("Xóa thành công !");
+                        SearchNews();
+
+                    } else {
+                        $('#modalLoad').modal('hide');
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        });
+                    }
+                },
+                error: function (result) {
+                    console.log(result.responseText);
+                }
+            });
         }
     })
 }

@@ -1,6 +1,8 @@
-﻿@using Data.Utils;
+﻿@using Data.Model;
+@using Data.Utils;
+@model NewsDetailOutputModel
 @{
-    ViewBag.Title = "CreateNews";
+    ViewBag.Title = "GetNewsDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -33,12 +35,12 @@
 </div>
 <div class="row mt-2">
     <div class="col-12">
-        <input class="form-control" id="txt-title" placeholder="Nhập tiêu đề bài viết" />
+        <input class="form-control" id="txt-title" placeholder="Nhập tiêu đề bài viết" value="@Model.Title" />
     </div>
 </div>
 <div class="row mt-2">
     <div class="col-12">
-        <textarea class="form-control" placeholder="Nhập Mô tả bài viết" id="txt-summary" style="height:75px !important"></textarea>
+        <textarea class="form-control" placeholder="Nhập Mô tả bài viết" id="txt-summary" style="height:75px !important">@Model.Summary</textarea>
     </div>
 </div>
 
@@ -53,7 +55,7 @@
     <div class="col-md-3 col-12">
         <div>
             <div class="article" id="div-add-img" style="position:relative">
-
+                <div style="margin-top:10px;"><img id="img-add" class="imgCreateCategory cursor-pointer" width="100%" height="100%" src="@Model.ImgUrl" onclick="ChangeImg($(this));" /></div>
             </div>
         </div>
     </div>
@@ -62,13 +64,13 @@
 <div class="row mt-2">
     <div class="col-12">
         <label>Nội dung</label>
-        <textarea id="txt-content"></textarea>
+        <textarea id="txt-content">@Model.Content</textarea>
     </div>
 </div>
 
 <div class="row mt-3 float-right mb-5">
     <div class="col-12 ">
-        <button class="btn btn-success" onclick="CreateNews()"><i class="fa fa-save mr-1"></i>Lưu</button>
+        <button class="btn btn-success" onclick="UpdateNews(@Model.ID)"><i class="fa fa-save mr-1"></i>Cập nhật</button>
     </div>
 </div>
 
@@ -77,6 +79,8 @@
 
 <script>
     $(document).ready(function () {
+        $('#type-value').val(@Model.Type);
+        $('#status-value').val(@Model.Status);
         CKEDITOR.replace('txt-content', {
             height: 300,
             disableObjectResizing: true

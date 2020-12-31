@@ -45,21 +45,21 @@
                         @{
                             if (dt.Status.Equals(SystemParam.ACTIVE))
                             {
-                                <td>Hoạt động</td>
+                                <td>Bài đăng</td>
 
                             }
                             else
                             {
-                                <td>Ngừng hoạt động</td>
+                                <td>Lưu nháp</td>
                             }
                         }
                         <td>@dt.CateName</td>
                         <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
                         <td>
-                            <a  data-placement="top" title="Cập nhật thông tin bài viết" class="cursor-pointer">
+                            <a  href="/News/GetNewsDetail?id=@dt.ID" title="Cập nhật thông tin bài viết" class="cursor-pointer">
                                 <i class="btnEdit fa fa-fw fa-edit"></i>
                             </a>
-                            <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="DelNews(@dt.ID)">
+                            <a data-toggle="tooltip" data-placement="top" title="Xóa bài viết này" class="cursor-pointer" onclick="DelNews(@dt.ID)">
                                 <i class="btnDelete fa fa-fw fa-trash-o"></i>
                             </a>
                         </td>

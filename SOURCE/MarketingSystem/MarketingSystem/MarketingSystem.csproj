@@ -1287,6 +1287,7 @@
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\News\CreateNews.cshtml" />
     <Content Include="Views\News\_TableNews.cshtml" />
+    <Content Include="Views\News\GetNewsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
