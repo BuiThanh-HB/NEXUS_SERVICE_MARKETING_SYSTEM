@@ -284,6 +284,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\UserAuthenticationFilter.cs" />
+    <Compile Include="Areas\FrontEnd\Controllers\HomeFrontEndController.cs" />
+    <Compile Include="Areas\FrontEnd\FrontEndAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1197,7 +1199,9 @@
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\style-front-end.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\styles-v2.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\sweetalert.min.css" />
     <Content Include="Content\toastr.css" />
@@ -1240,6 +1244,10 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Areas\FrontEnd\Views\web.config" />
+    <Content Include="Areas\FrontEnd\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\index.js" />
@@ -1291,6 +1299,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\FrontEnd\Data\" />
+    <Folder Include="Areas\FrontEnd\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

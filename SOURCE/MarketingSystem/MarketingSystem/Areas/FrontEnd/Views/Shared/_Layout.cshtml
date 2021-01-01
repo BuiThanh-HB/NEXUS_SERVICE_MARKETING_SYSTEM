@@ -1,0 +1,761 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Front-End nè</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="home ">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNDTTLW"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="warp" id="app">
+        <div class="container">
+            <header class="header js-header">
+                <div id="row-top" class="row-top">
+                    <div class="content">
+                        <a href="#" class="off-canvas-toggle">
+                            <i class="fs-sp-menu"></i>
+                        </a>
+                        <div class="blogo" style="">
+                            <a href="index.html" class="logo"> <img src="images/logo.png" alt="" /> </a>
+                            <a href="index.html" class="logo_sp"> <img src="images/logo_sp.png" alt="" /></a>
+                        </div>
+                        <ul class="link-top">
+                            <li><a href="gioi-thieu-viettel.html"><i class="icon-i-globe"></i>Giới thiệu Viettel</a></li>
+                            <li><a href="tin-tuc.html"><i class="icon-i-newspaper"></i>Tin tức sự kiện</a></li>
+                            <li><a href="chat-luong-dich-vu/quan-ly-chat-luong-dich-vu.html"><i class="icon-i-book"></i>Chất lượng dịch vụ</a></li>
+                            <li><a href="shop.html"><i class="icon-store"></i>Viettel shop</a></li>
+                            <li class="has-sub">
+                                <div class="current">
+                                    <span>
+                                        <i class="fs-user"></i><a href="#">Cá nhân</a>
+                                    </span>
+                                    <i class="icon-i-triangle"></i>
+                                </div>
+                                <ul class="submenu">
+                                    <li>
+                                        <a target="_blank" href="https://solutions.viettel.vn/"><i class="fs-icon-building"></i><span>Doanh nghiệp</span></a>
+                                        <a href="dang-ky-nguoi-ban.html"><i class="fs-icon-user2"></i><span>Kênh người bán</span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- <li><a href="https://viettel.vn/chuyenmanggiuso"><i class="icon-i-shuffle"></i>Chuyển mạng giữ số</a></li> -->
+                        </ul>
+                        <div class="search top-search">
+                            <div class="form-search">
+                                <div class="">
+                                    <input id="input_search" type="text" value="" placeholder="Tìm kiếm" />
+                                    <button id="button_search" class="btn-search-key-word"><i class="icon-i-search"></i></button>
+                                </div>
+                                <div class="history-search">
+                                    <div class="inner-search">
+                                        <div class="box-search">
+                                            <p class="title">Từ khóa HOT</p>
+                                            <div id="tag-search" class="tag-search">
+
+                                            </div>
+                                        </div>
+                                        <div class="box-search">
+                                            <p class="title">Lịch sử tìm kiếm</p>
+                                            <ul id="list-search" class="list-search">
+                                            </ul>
+                                        </div>
+                                        <div class="box-search">
+                                            <div class="delete-history">
+                                                <a class="btn btn-large cursor-pointer" id="delete_history_search">Xóa lịch sử tìm kiếm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-top visible-xs">
+                            <!-- giao dien search tren app mobile -->
+                            <div class="search-sp">
+                                <div class="search-sp__icon">
+                                    <i class="icon-search icon-i-search"></i>
+                                </div>
+                                <div class="search-sp__result">
+                                    <div class="search-sp__inner">
+                                        <div class="search-sp__box">
+                                            <div class="search-sp__input">
+                                                <input id="input_search_mobile" type="text" placeholder="Nhập từ khoá" />
+                                                <button id="button_search_mobile" class="btn-search-key-word"><i class="icon-i-search"></i></button>
+                                            </div>
+                                            <ul class="search-sp__tag tag-search">
+                                                <li id="tag-search_mobile" class="tag-search__item">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="search-sp__box">
+                                            <p class="search-sp__subtitle">Lịch sử tìm kiếm</p>
+                                            <ul class="search-sp__history history-search">
+                                                <li>
+                                                    <a id="list-search_mobile" class="history-search__link"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="search-sp__box">
+                                            <div class="search-sp__button">
+                                                <a id="delete_history_search_mobile" class="btn btn-large" href="#">Xóa lịch sử tìm kiếm</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="language">
+                            <div class="box-language">
+                                <ul>
+                                                        <li  class="active" >
+                                        <img src="https://vietteltelecom.vn/images/vn_flag.jpg" alt="Tiếng Việt" />
+                                    </li>
+                                    <li >
+                                        <img src="https://vietteltelecom.vn/images/en.png" alt="English" />
+                                    </li>
+                                </ul>
+                                <i class="icon-i-triangle"></i>
+                            </div>
+                            <ul class="list-language">
+                                <li>
+                                    <a href="https://vietteltelecom.vn/lang/vi"> <img src="https://vietteltelecom.vn/images/vn_flag.jpg" alt="Tiếng Việt" /></a>
+                                </li>
+                                <li>
+                                    <a href="https://vietteltelecom.vn/lang/en"> <img src="https://vietteltelecom.vn/images/en.png" alt="English" /></a>
+                                </li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row-menu">
+                    <div class="menu-pc">
+                        <div class="boxmenu left">
+                            <ul>
+                                <li>
+                                    <a href="di-dong.html">Dịch vụ di động</a>
+                                    <span class="show-sub"></span>
+                                    <ul class="submenu">
+                                        <li><a href="di-dong/goi-data.html">Gói cước data</a></li>
+                                        <li><a href="di-dong/goi-thoai-sms.html">Gói thoại/sms</a></li>
+                                        <li><a href="di-dong/sim-so.html">Mua sim số</a></li>
+                                        <li><a href="chuyentrasau.html">Chuyển sang trả sau</a></li>
+                                        <li><a href="di-dong/goi-cuoc.html">Gói cước chính</a></li>
+                                        <li><a href="di-dong/dich-vu-vas.html">Dịch vụ GTGT</a></li>
+                                        <li><a href="di-dong/dich-vu-quoc-te.html">Dịch vụ quốc tế</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="internet-truyenhinh.html">Internet / truyền hình</a>
+                                    <span class="show-sub"></span>
+                                    <ul class="submenu">
+                                        <li><a href="internet-truyenhinh/internet.html">Internet</a></li>
+                                        <li><a href="internet-truyenhinh/truyen-hinh.html">Truyền hình</a></li>
+                                        <li><a href="internet-truyenhinh/combo.html"> Combo Internet - Truyền hình</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://cong.viettel.vn/">Viettel ++</a>
+                                    <span class="show-sub"></span>
+                                    <ul class="submenu">
+                                        <li>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://cong.viettel.vn/gioi-thieu">
+                                                Giới
+                                                thiệu Viettel ++
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" rel="noopener noreferrer"
+                                               href="https://cong.viettel.vn/thong-tin-tai-khoan">Thông tin hội viên</a>
+                                        </li>
+                                        <li>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://cong.viettel.vn/uu-dai">
+                                                Ưu đãi
+                                                chương trình
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="dien-thoai-thiet-bi.html">Điện thoại - Thiết bị</a>
+                                </li>
+                                <li class="parent-col2">
+                                    <a href="ho-tro-khach-hang.html">Hỗ trợ khách hàng</a>
+                                    <span class="show-sub"></span>
+                                    <ul class="mega-menu submenu-right submenu">
+                                        <li class="sub col2">
+                                            <div class="sub-item">
+                                                <ul class="mega-sub">
+                                                    <li><a href="ho-tro/cau-hoi-thuong-gap.html">Câu hỏi thường gặp</a></li>
+                                                    <li><a href="video-huong-dan-cskh.html">Video hướng dẫn</a></li>
+                                                    <!-- <li><a href="#">Báo lỗi dịch vụ</a></li> -->
+                                                    <li><a href="cua-hang.html">Tìm kiếm cửa hàng</a></li>
+                                                    <li><a href="bao-hanh.html">Tra cứu bảo hành</a></li>
+                                                    <li><a href="tra-cuu-quang-cao.html">Tra cứu lịch sử đăng ký không nhận quảng cáo</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="sub-item">
+                                                <ul class="mega-sub">
+                                                    <li><a href="https://www.facebook.com/messages/t/Vietteltelecom" target="_blank">Chat Online với CSKH</a></li>
+                                                    <!-- <li><a href="#">Đặt lịch hẹn CSKH gọi lại</a></li> -->
+                                                    <li>
+                                                        <a href="gop-y-san-pham-dich-vu.html">Góp ý sản phẩm dịch vụ</a>
+                                                    </li>
+                                                    <li>
+                                                        <a target="_blank" href="https://www.facebook.com/groups/CSKH.Viettel">
+                                                            Cộng đồng
+                                                            Viettel Giải đáp online
+                                                        </a>
+                                                    </li>
+
+                                                    <li><a href="tra-cuu-thong-tin-thue-bao.html">Tra cứu thuê bao theo NĐ 49</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="thong-tin-tai-khoan.html">My Viettel</a>
+                                    <span class="show-sub"></span>
+                                    <ul class="mega-menu submenu-right submenu">
+                                        <li class="sub col3">
+                                            <div class="sub-item">
+                                                <h2>Quản lý tài khoản</h2>
+                                                <ul class="mega-sub">
+                                                    <li><a href="thong-tin-thue-bao.html">Thông tin thuê bao</a></li>
+                                                    <li><a href="thong-tin-tai-khoan.html">Dịch vụ đang sử dụng</a></li>
+                                                    <li><a href="thong-tin-tai-khoan.html">Khuyến mại dành cho bạn</a></li>
+                                                    <li><a href="lan-toa.html">Lan tỏa dịch vụ</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="sub-item">
+                                                <h2>Quản lý cước</h2>
+                                                <ul class="mega-sub">
+                                                    <li><a href="tra-cuoc.html">Tra cứu cước</a></li>
+                                                    <li><a href="nap-the.html">Thanh toán cước</a></li>
+                                                    <li><a href="hoadondientu.html">Hoá đơn bán hàng</a></li>
+                                                    <li><a href="tra-cuu-hoa-don-dien-tu.html">Hoá đơn điện tử</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="sub-item">
+                                                <h2>Tiện ích</h2>
+                                                <ul class="mega-sub">
+                                                    <li><a href="doi-sim-4G.html">Đổi sim</a></li>
+                                                    <li><a href="chuyentrasau.html">Chuyển sang trả sau</a></li>
+                                                    <li><a href="tra-cuu-ma-don-hang.html">Kiểm tra đơn hàng</a></li>
+                                                    <li><a href="pay.html">Thanh toán online</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="login-register">
+                            <ul class="not-login">
+                                <li class="active"><a href="dang-nhap.html">Đăng nhập</a></li>
+                                <li><a href="dang-ky.html">Đăng ký</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="menu-sp">
+                        <div class="menu-sp__inner">
+                            <div class="menu-sp__top">
+                                <!-- <div class="menu-sp__info">
+                                  <h1 class="menu-sp__logo">
+                                    <a href="#"><img src="../images_content/logo-sp.svg"/></a>
+                                  </h1>
+                                </div> -->
+                                <!-- <div class="menu-sp__noti noti">
+                                  <a class="noti__link" href="#">
+                                    <img src="../images_content/ic-notification.svg" />
+                                    <span class="noti__dot"></span>
+                                  </a>
+                                </div> -->
+                            </div>
+                            <div class="menu-sp__button">
+                                <a class="btn" href="dang-nhap.html">Đăng nhập</a>
+                                <a class="btn btn-blue" href="dang-ky.html">Đăng ký</a>
+                            </div>
+                            <div class="menu-sp__content">
+                                <div class="menu-sp__detail">
+                                    <ul class="menu-sp__list">
+                                        <li class="menu-sp__item">
+                                            <span class="menu-sp__link">
+                                                <a href="di-dong.html" class="menu-sp__text">Dịch vụ di động</a>
+                                                <span class="menu-sp__icon js-show-submenu" data-target="#service">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <span class="menu-sp__link">
+                                                <a href="internet-truyenhinh.html" class="menu-sp__text">Internet/Truyền hình</a>
+                                                <span class="menu-sp__icon js-show-submenu" data-target="#internet">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <span class="menu-sp__link">
+                                                <a target="_blank" href="https://cong.viettel.vn/" class="menu-sp__text">Viettel ++</a>
+                                                <span class="menu-sp__icon js-show-submenu" data-target="#viettel">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <span class="menu-sp__link">
+                                                <a href="dien-thoai-thiet-bi.html" class="menu-sp__text">Điện thoại - Thiết bị</a>
+                                            </span>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <a class="menu-sp__link" href="#">
+                                                <span class="menu-sp__text">Hỗ trợ khách hàng</span>
+                                                <span class="menu-sp__icon js-show-submenu" data-target="#support">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <span class="menu-sp__link">
+                                                <a href="thong-tin-tai-khoan.html" class="menu-sp__text">My Viettel</a>
+                                                <span class="menu-sp__icon js-show-submenu" data-target="#my-viettel">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </span>
+                                        </li>
+                                        <!-- <li class="menu-sp__item">
+                                          <a class="menu-sp__link" href="#">
+                                            <span class="menu-sp__text">Chuyển ngôn ngữ</span>
+                                            <span class="menu-sp__icon js-show-submenu" data-target="#language">
+                                              <i class="icon-i-next"></i>
+                                            </span>
+                                          </a>
+                                        </li> -->
+                                    </ul>
+                                    <ul class="menu-sp__list">
+                                        <li class="menu-sp__item">
+                                            <a class="menu-sp__link" href="gioi-thieu-viettel.html">
+                                                <span class="menu-sp__text">Giới thiệu Viettel</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <a class="menu-sp__link" href="tin-tuc.html">
+                                                <span class="menu-sp__text">Tin tức - Sự kiện</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <a class="menu-sp__link" href="chuyenmanggiuso.html">
+                                                <span class="menu-sp__text">Chuyển mạng giữ số</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sp__item">
+                                            <a class="menu-sp__link" href="shop.html">
+                                                <span class="menu-sp__text">Viettel shop</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="menu-sp__list">
+                                        <li class="menu-sp__item menu-slide">
+                                            <a class="menu-sp__link menu-slide__toggle closed"
+                                               href="#">
+                                                <span class="menu-sp__text">Cá nhân</span>
+                                                <span class="menu-sp__icon">
+                                                    <i class="icon-i-next"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="menu-slide__sub">
+                                                <li class="menu-slide__item">
+                                                    <a class="menu-slide__link" target="_blank" href="https://solutions.viettel.vn/">
+                                                        <span class="menu-slide__text">Doanh nghiệp</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="menu-sp__sub">
+                                    <div id="service" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Dịch vụ di động</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+
+                                                    <a class="menu-sub__link" href="di-dong/goi-data.html">
+                                                        <span class="menu-sub__text">Gói cước data</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+
+                                                    <a class="menu-sub__link" href="di-dong/goi-thoai-sms.html">
+                                                        <span class="menu-sub__text">Gói thoại/sms</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="di-dong/sim-so.html">
+                                                        <span class="menu-sub__text">Mua sim số</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="chuyentrasau.html">
+                                                        <span class="menu-sub__text">Chuyển sang trả sau</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="di-dong/goi-cuoc.html">
+                                                        <span class="menu-sub__text">Gói cước chính</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="di-dong/dich-vu-vas.html">
+                                                        <span class="menu-sub__text">Dịch vụ GTGT</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="di-dong/dich-vu-quoc-te.html">
+                                                        <span class="menu-sub__text">Dịch vụ quốc tế</span>
+                                                    </a>
+                                                </li>
+
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="internet" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Internet/Truyền hình</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="internet-truyenhinh/internet.html">
+                                                        <span class="menu-sub__text">Internet</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="internet-truyenhinh/truyen-hinh.html">
+                                                        <span class="menu-sub__text">Truyền hình</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="internet-truyenhinh/combo.html">
+                                                        <span class="menu-sub__text">Combo Internet - Truyền hình</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="viettel" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Viettel ++</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" target="_blank" href="https://cong.viettel.vn/gioi-thieu">
+                                                        <span class="menu-sub__text">Giới thiệu Viettel ++</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" target="_blank" href="https://cong.viettel.vn/thong-tin-tai-khoan">
+                                                        <span class="menu-sub__text">Thông tin hội viên</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" target="_blank" href="https://cong.viettel.vn/uu-dai">
+                                                        <span class="menu-sub__text">Ưu đãi chương trình</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="application" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Ứng dụng số</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="app1.html">
+                                                        <span class="menu-sub__text">MyViettel</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="ung-dung-so/5dmax/QXJ0aWNs15e05e791c3e2e.html">
+                                                        <span class="menu-sub__text">5Dmax</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="ung-dung-so/myclip/QXJ0aWNs15e070dedbf63a.html">
+                                                        <span class="menu-sub__text">My Clip</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="ung-dung-so/onme/QXJ0aWNs15e05e4e5d48c1.html">
+                                                        <span class="menu-sub__text">Onme</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="support" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Hỗ trợ khách hàng</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="ho-tro/cau-hoi-thuong-gap.html">
+                                                        <span class="menu-sub__text">Câu hỏi thường gặp</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="video-huong-dan-cskh.html">
+                                                        <span class="menu-sub__text">Video hướng dẫn</span>
+                                                    </a>
+                                                </li>
+                                                <!-- <li class="menu-sub__item">
+                                                  <a class="menu-sub__link" href="#">
+                                                    <span class="menu-sub__text">Báo lỗi dịch vụ</span>
+                                                  </a>
+                                                </li> -->
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="bao-hanh.html">
+                                                        <span class="menu-sub__text">Tra cứu bảo hành</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="cua-hang.html">
+                                                        <span class="menu-sub__text">Tìm kiếm cửa hàng</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" target="_blank" href="https://www.facebook.com/messages/t/Vietteltelecom">
+                                                        <span class="menu-sub__text">Chat online với CSKH</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="gop-y-san-pham-dich-vu.html">
+                                                        <span class="menu-sub__text">Góp ý sản phẩm dịch vụ</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" target="_blank" href="https://www.facebook.com/groups/CSKH.Viettel">
+                                                        <span class="menu-sub__text">Cộng đồng Viettel giải đáp online</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="tra-cuu-thong-tin-thue-bao.html">
+                                                        <span class="menu-sub__text">Tra cứu thuê bao theo NĐ 49</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="tra-cuu-quang-cao.html">
+                                                        <span class="menu-sub__text">Tra cứu lịch sử đăng ký không nhận quảng cáo</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div id="my-viettel" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">My Viettel</h4>
+                                            <ul class="menu-sub__child">
+                                                <h5 class="menu-sub__subtitle">Quản lý tài khoản</h5>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="thong-tin-thue-bao.html">
+                                                        <span class="menu-sub__text">Thông tin thuê bao</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="tra-cuoc.html">
+                                                        <span class="menu-sub__text">Tra cứu cước</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="nap-the.html">
+                                                        <span class="menu-sub__text">Thanh toán cước</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="lan-toa.html">
+                                                        <span class="menu-sub__text">Lan tỏa dịch vụ</span>
+                                                    </a>
+                                                </li>
+                                                <!-- <li class="menu-sub__item">
+                                                  <a class="menu-sub__link" href="#">
+                                                    <span class="menu-sub__text">Dịch vụ đang sử dụng</span>
+                                                  </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                  <a class="menu-sub__link" href="#">
+                                                    <span class="menu-sub__text">Khuyến mại dành cho bạn</span>
+                                                  </a>
+                                                </li> -->
+                                            </ul>
+                                            <ul class="menu-sub__child">
+                                                <h5 class="menu-sub__subtitle">Quản lý cước</h5>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="hoadondientu.html">
+                                                        <span class="menu-sub__text">Hoá đơn bán hàng</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="tra-cuu-hoa-don-dien-tu.html">
+                                                        <span class="menu-sub__text">Hoá đơn điện tử</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="doi-sim-4G.html">
+                                                        <span class="menu-sub__text">Đổi sim</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="chuyentrasau.html">
+                                                        <span class="menu-sub__text">Chuyển sang trả sau</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="pay.html">
+                                                        <span class="menu-sub__text">Thanh toán online</span>
+                                                    </a>
+                                                </li>
+                                                <!-- <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Tra cứu cước</span>
+                                                    </a>
+                                                  </li>
+                                                  <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Thanh toán cước</span>
+                                                    </a>
+                                                  </li>
+                                                  <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Hoá đơn điện tử</span>
+                                                    </a>
+                                                  </li>
+                                                </ul>
+                                                <ul class="menu-sub__child">
+                                                  <h5 class="menu-sub__subtitle">Tiện ích</h5>
+                                                  <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Đổi sim</span>
+                                                    </a>
+                                                  </li>
+                                                  <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Kiểm tra thông tin thẻ cào</span>
+                                                    </a>
+                                                  </li>
+                                                  <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                      <span class="menu-sub__text">Chuyển đổi thuê bao trả trước trả sau</span>
+                                                    </a>
+                                                  </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div id="language" class="menu-sub">
+                                        <a class="menu-sp__back js-close-submenu">
+                                            <i class="icon-i-prev"></i>
+                                            Quay lại
+                                        </a>
+                                        <div class="menu-sub__list">
+                                            <h4 class="menu-sub__title">Ngôn ngữ</h4>
+                                            <ul class="menu-sub__child">
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                        <span class="menu-sub__text">Tiếng anh</span>
+                                                    </a>
+                                                </li>
+                                                <li class="menu-sub__item">
+                                                    <a class="menu-sub__link" href="#">
+                                                        <span class="menu-sub__text">Tiếng việt</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            @RenderBody()
+
+            <div class="footer">
+                <div class="image_chatbot">
+                    <div id="ipcc-chat-minimum">
+                        <div class="sale-person">
+                            <img src="images/chatbot/Chatbot%20girl.png">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="content"> -->
+                <!-- <p>common.intro<br />
+                            common.intro2</p>
+                        <div class="hotline-footer">
+                            <span><i class="icon-email"></i> common.intro3</span>
+                            <span><i class="icon-map"></i> common.intro4</span>
+                            <span><i class="icon-phone-f"></i> common.intro5</span>
+                            <span><i class="icon-hotline"></i> common.intro6</span>
+                        </div> -->
+                <common-footer></common-footer>
+
+                <!-- <p class="text-center">WEBSITE THỬ NGHIỆM CỦA VIETTEL</p>
+                        <p  class="text-center">Cơ quan chủ quản: Tổng Công ty Viễn thông Viettel (Viettel Telecom) – Chi nhánh Tập đoàn Công nghiệp – Viễn thông Quân đội</p>
+                        <p  class="text-center">Mã số doanh nghiệp: 0100109106-011 do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp lần đầu ngày 18/7/2005, sửa đổi lần thứ 15 ngày 18/12/2018</p>
+                        <p  class="text-center">Chịu trách nhiệm nội dung: Ông Cao Anh Sơn</p>
+                        <p  class="text-center">
+                            <i class="icon-map"></i> Trụ sở: Số 1 Giang Văn Minh, P Kim Mã, Q Ba Đình. | <i class="icon-phone-f"></i> Chăm sóc khách hàng: 18008098/198 (miễn phí) </p>
+                        <ul class="link-social">
+                            <li><a href="https://www.facebook.com/Vietteltelecom/"><i class="icon-i-facebook"></i></a></li>
+                            <li><a href="https://www.youtube.com/user/Viettelchannels"><i class="icon-i-youtube"></i></a></li>
+                            <li><a href="https://zalo.me/1814378069399742003"><i class="icon-zalo"></i></a></li>
+                        </ul>
+                        <p class="copyright">© Viettel Telecom 2015. All rights reserved.</p> -->
+                <!-- </div> -->
+
+            </div>
+
+        </div>
+        <modal-checking-order></modal-checking-order>
+    </div>
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>

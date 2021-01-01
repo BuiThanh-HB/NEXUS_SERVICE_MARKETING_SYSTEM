@@ -21,7 +21,10 @@ namespace APIProject
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                       "~/Content/bootstrap.min.css",
+                      "~/Content/bootstrap-413.css",
+                      "~/Content/style-front-end.css",
+                      "~/Content/styles-v2.css",
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/layout/js").Include(
