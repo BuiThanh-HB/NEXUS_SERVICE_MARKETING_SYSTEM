@@ -288,6 +288,7 @@
     <Compile Include="Areas\FrontEnd\FrontEndAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\ServicePlanController.cs" />
@@ -1296,6 +1297,7 @@
     <Content Include="Views\News\CreateNews.cshtml" />
     <Content Include="Views\News\_TableNews.cshtml" />
     <Content Include="Views\News\GetNewsDetail.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
