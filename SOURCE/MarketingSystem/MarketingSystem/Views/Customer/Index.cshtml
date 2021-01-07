@@ -4,5 +4,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="col-md-12 mt-5">
+    <div class="breadcrumb-holder">
+        <div class="row pb-3 pt-3">
+            <div class="text-dark">
+                <h4><i class="fa fa-fw fa-users"></i> Quản lý bài viết</h4>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-4 col-12 ">
+        <input class="form-control" id="txt-search-key" placeholder="Nhập tên hoặc số điện thoại khách hàng" />
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-4 col-12 mt-1 float-right offset-md-8">
+        <button class="btn btn-outline-primary float-right m-2" id="btn-search-cus" onclick="SearchCus()"><i class="fa fa-search"></i> Tìm kiếm</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-12" id="tbl-customer">
+        @{ Html.RenderAction("Search", "Customer", new { page = 1 });}
+    </div>
+</div>
+
+<script>
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-search-cus").click();
+        }
+    });
+</script>

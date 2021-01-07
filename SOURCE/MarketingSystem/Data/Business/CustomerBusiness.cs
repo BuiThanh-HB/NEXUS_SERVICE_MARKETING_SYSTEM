@@ -2,6 +2,7 @@
 using Data.DB;
 using Data.Model;
 using Data.Utils;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,8 @@ namespace Data.Business
             {
                 if (cnn.Customers.Any(x => (x.Phone == input.phone || x.Email == input.email) && x.IsActive))
                 {
-                  return  rp.response(0, 0, "Email hoặc số điện thoại đã tồn tại", null);
-     
+                    return rp.response(0, 0, "Email hoặc số điện thoại đã tồn tại", null);
+
                 }
                 else
                 {
@@ -41,10 +42,11 @@ namespace Data.Business
                     cus.IsActive = true;
                     cnn.Customers.Add(cus);
                     cnn.SaveChanges();
-                  return  rp.response(1, 1, "Thêm khách hàng thành công", null);
-              
+                    return rp.response(1, 1, "Thêm khách hàng thành công", null);
+
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return rp.serverError();
             }
@@ -62,7 +64,7 @@ namespace Data.Business
         }
         public List<SelectOptionModel> GetListDistrict(int province_id)
         {
-            return cnn.Districts.Where(c=>c.ProvinceID==province_id).Select(x => new SelectOptionModel
+            return cnn.Districts.Where(c => c.ProvinceID == province_id).Select(x => new SelectOptionModel
             {
 
                 id = x.ID,
@@ -71,7 +73,7 @@ namespace Data.Business
         }
         public List<SelectOptionModel> GetListVillage(int district_id)
         {
-            return cnn.Villages.Where(c=>c.DistrictID==district_id).Select(x => new SelectOptionModel
+            return cnn.Villages.Where(c => c.DistrictID == district_id).Select(x => new SelectOptionModel
             {
 
                 id = x.ID,
@@ -79,26 +81,53 @@ namespace Data.Business
             }).ToList();
         }
 
-        public JsonResultModel Login(string userName,string password)
+        public JsonResultModel Login(string userName, string password)
         {
             try
             {
-         
+
                 var data = cnn.Customers.Where(x => x.IsActive && (x.Phone == userName || x.Email == userName)).FirstOrDefault();
                 if (data == null)
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
-                if(!Util.CheckPass(password,data.Password))
+                if (!Util.CheckPass(password, data.Password))
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
                 else
                 {
                     HttpContext.Current.Session["Client"] = data;/// chỗ này thích lưu cái gì thì tự lưu nhé
-                     return rp.response(1, 1, "Thành coong", null);
+                    return rp.response(1, 1, "Thành coong", null);
 
-                }    
+                }
             }
             catch
             {
                 return rp.serverError();
+            }
+        }
+
+        //Tìm kiếm thông tin khách hàng
+        public IPagedList<ListCustomerOutputModel> Search(int page, string searchKey, string fromDate, string toDate)
+        {
+            try
+            {
+                DateTime? fd = Util.ConvertDate(fromDate);
+                DateTime? td = Util.ConvertDate(toDate);
+                if (td.HasValue)
+                    td = td.Value.AddDays(1);
+                var data = cnn.Customers.Where(c => c.IsActive.Equals(SystemParam.ACTIVE) && (!String.IsNullOrEmpty(searchKey) ? c.Name.Contains(searchKey) || c.Phone.Contains(searchKey) : true)
+                && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true))
+                    .Select(c => new ListCustomerOutputModel
+                    {
+                        ID = c.ID,
+                        Name = c.Name,
+                        Phone = c.Phone,
+                        CreatedDate = c.CreatedDate,
+                        Address = String.IsNullOrEmpty(c.Address) ? c.Village.Name + " " + c.District.Name + " Tỉnh " + c.Province.Name : c.Address
+                    }).OrderByDescending(c => c.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                return data;
+            }
+            catch
+            {
+                return new List<ListCustomerOutputModel>().ToPagedList(1, 1);
             }
         }
     }

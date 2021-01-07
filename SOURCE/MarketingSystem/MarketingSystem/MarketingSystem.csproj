@@ -1301,6 +1301,7 @@
     <Content Include="Views\News\_TableNews.cshtml" />
     <Content Include="Views\News\GetNewsDetail.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\_TableCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

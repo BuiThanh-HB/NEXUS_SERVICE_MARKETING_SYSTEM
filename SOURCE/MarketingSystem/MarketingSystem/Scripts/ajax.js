@@ -799,3 +799,21 @@ function DelNews(id) {
         }
     })
 }
+
+function SearchCus() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    $.ajax({
+        url: "/Customer/Search",
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate},
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-customer').html(res);
+        }
+    })
+}

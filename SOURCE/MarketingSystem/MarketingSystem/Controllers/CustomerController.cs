@@ -16,5 +16,14 @@ namespace MarketingSystem.Controllers
         {
             return View();
         }
+
+        //Tìm kiếm thông tin khách hàng
+        public PartialViewResult Search(int page, string searchKey, string fromDate, string toDate)
+        {
+            ViewBag.searchKey = searchKey;
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+            return PartialView("_TableCustomer", customerBusiness.Search(page, searchKey, fromDate, toDate));
+        }
     }
 }
