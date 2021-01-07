@@ -17,8 +17,7 @@ namespace MarketingSystem.Areas.FrontEnd
             context.MapRoute(
                 "FrontEnd_default",
                 "FrontEnd/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
-                new string[] { "MarketingSystem.Areas.FrontEnd.Controllers" }
+                new { Controller="HomeFontEnd",action = "Index", id = UrlParameter.Optional }
             );
         }
     }

@@ -17,6 +17,7 @@ namespace APIProject.Controllers
         public CategoryBusiness categoryBusiness;
         public ServicePlanBusiness servicePlanBusiness;
         public NewsBusiness newsBusiness;
+        public CustomerBusiness customerBusiness;
 
         public BaseController() : base()
         {
@@ -25,6 +26,7 @@ namespace APIProject.Controllers
             categoryBusiness = new CategoryBusiness(this.GetContext());
             servicePlanBusiness = new ServicePlanBusiness(this.GetContext());
             newsBusiness = new NewsBusiness(this.GetContext());
+            customerBusiness = new CustomerBusiness(this.GetContext());
         }
         /// <summary>
         /// Create new context if null

@@ -1248,8 +1248,11 @@
     <Content Include="Areas\FrontEnd\Views\_ViewStart.cshtml" />
     <Content Include="Areas\FrontEnd\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Index.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Register.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
+    <Content Include="Scripts\font-end.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

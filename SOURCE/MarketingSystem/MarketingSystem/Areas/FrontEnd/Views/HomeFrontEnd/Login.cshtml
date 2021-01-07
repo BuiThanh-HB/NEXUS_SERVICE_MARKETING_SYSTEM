@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+
+            <h3>Đăng Nhập</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 ">
+            <form id="form-register" class="center">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email hoặc số điện thoại</label>
+                    <input type="text" class="form-control" id="user-name" placeholder="Email hoặc số điện thoại" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mật Khẩu</label>
+                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu" autocomplete="off">
+                </div>             
+                <button type="button" id="btn-login" class="btn btn-primary offset-md-5 offset-sm-3 mt-4" onclick="Login()">Đăng nhập</button>
+            </form>
+        </div>
+    </div>
+</div>
+
