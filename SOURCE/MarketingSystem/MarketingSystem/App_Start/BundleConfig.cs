@@ -22,10 +22,13 @@ namespace APIProject
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                        "~/Content/bootstrap.min.css",
-                      "~/Content/bootstrap-413.css",
-                      "~/Content/style-front-end.css",
-                      "~/Content/styles-v2.css",
-                      "~/Content/site.css"));
+                      "~/Content/sweetalert.css",
+                      "~/Content/PagedList.css",
+                      "~/Content/chartist-plugin-tooltip.css",
+                      "~/Content/font-awesome.min.css",
+                      "~/Content/style.css",
+                      "~/Content/site.css",
+                      "~/Content/jquery-ui.css", "~/Content/toastr.min.css", "~/Content/dropify.min.css"));
 
             bundles.Add(new ScriptBundle("~/layout/js").Include(
                 "~/Scripts/jquery.min.js",
@@ -39,6 +42,11 @@ namespace APIProject
                        "~/Scripts/toastr.min.js",
                        "~/Scripts/dropify.min.js"
                       ));
+            bundles.Add(new ScriptBundle("~/client/js").Include(
+                 //"~/Scripts/jquery.flexslider.js",
+                 //"~/Scripts/jquery.inview.js",
+                 //"~/Scripts/script.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/main/js").Include(
                      "~/Scripts/jquery.unobtrusive-ajax.min.js",
@@ -60,7 +68,6 @@ namespace APIProject
                     ));
             bundles.Add(new StyleBundle("~/main/css").Include(
                       "~/Content/bootstrap.min.css",
-                      "~/Content/bootstrap-413.css",
                       "~/Content/sweetalert.css",
                       "~/Content/PagedList.css",
                       "~/Content/font-awesome.min.css",

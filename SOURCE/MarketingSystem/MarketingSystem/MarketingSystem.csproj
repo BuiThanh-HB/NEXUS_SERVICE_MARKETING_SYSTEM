@@ -1186,7 +1186,11 @@
     <Content Include="Content\ckfinder\_samples\skin_v1.html" />
     <Content Include="Content\ckfinder\_samples\standalone.html" />
     <Content Include="Content\ckfinder\_samples\standalone_v1.html" />
+    <Content Include="Content\flexslider.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\front-end.css" />
     <Content Include="Content\images\baotri.jpg" />
     <Content Include="Content\images\icon.jpg" />
     <Content Include="Content\images\Team.png" />
@@ -1200,9 +1204,7 @@
     <Content Include="Content\jquery-ui.theme.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\style-front-end.css" />
     <Content Include="Content\style.css" />
-    <Content Include="Content\styles-v2.css" />
     <Content Include="Content\sweetalert.css" />
     <Content Include="Content\sweetalert.min.css" />
     <Content Include="Content\toastr.css" />
@@ -1251,6 +1253,15 @@
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Index.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Register.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\Login.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\font-end.js" />
@@ -1261,6 +1272,8 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.flexslider.js" />
+    <Content Include="Scripts\jquery.inview.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -1274,6 +1287,7 @@
     <Content Include="Scripts\ready.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\vendorscripts.bundle.js" />
