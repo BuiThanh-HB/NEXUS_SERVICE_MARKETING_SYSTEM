@@ -40,13 +40,13 @@ namespace APIProject.Controllers
         {
             try
             {
-                if (Session[Sessions.LOGIN] != null)
+                if (Session[SystemParam.ADMIN] != null)
                 {
-                    LoginOutputModel userLogin = (LoginOutputModel)Session[Sessions.LOGIN];
+                    LoginOutputModel userLogin = (LoginOutputModel)Session[SystemParam.ADMIN];
                     int? userID = loginBusiness.checkTokenUser(userLogin.Token);
                     if (String.IsNullOrEmpty(userLogin.Token) || userID == 0)
                     {
-                        Session[Sessions.LOGIN] = null;
+                        Session[SystemParam.ADMIN] = null;
                         userLogin.Role = -1;
                     }
                     return Json(userLogin, JsonRequestBehavior.AllowGet);
@@ -64,7 +64,7 @@ namespace APIProject.Controllers
         {
             try
             {
-                Session[Sessions.LOGIN] = null;
+                Session[SystemParam.ADMIN] = null;
                 return SystemParam.SUCCESS;
             }
             catch

@@ -19,7 +19,7 @@ namespace APIProject.App_Start
         {
             try
             {
-                LoginOutputModel session = (LoginOutputModel)filterContext.HttpContext.Session[Sessions.LOGIN];
+                LoginOutputModel session = (LoginOutputModel)filterContext.HttpContext.Session[SystemParam.ADMIN];
                 if (session == null || session.Account == null || session.Role <= 0 || session.Account == "")
                 {
                     //Chuyen ve trang dang nhap

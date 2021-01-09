@@ -1,6 +1,7 @@
 ﻿using APIProject.Models;
 using Data.DB;
 using Data.Model;
+using Data.Model.APIWeb;
 using Data.Utils;
 using PagedList;
 using System;
@@ -86,15 +87,22 @@ namespace Data.Business
             try
             {
 
-                var data = cnn.Customers.Where(x => x.IsActive && (x.Phone == userName || x.Email == userName)).FirstOrDefault();
-                if (data == null)
+                var user = cnn.Customers.Where(x => x.IsActive && (x.Phone == userName || x.Email == userName)).FirstOrDefault();
+                if (user == null)
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
-                if (!Util.CheckPass(password, data.Password))
+                if (!Util.CheckPass(password, user.Password))
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
                 else
                 {
+                    LoginOutputModel data = new LoginOutputModel();
+                    string token = Util.CreateMD5(DateTime.Now.ToString());
+                    data.Id = user.ID;
+                    data.Token = user.Token;
+                    data.Name = user.Name;
+                    user.Token = token;
+                    cnn.SaveChanges();
                     HttpContext.Current.Session["Client"] = data;/// chỗ này thích lưu cái gì thì tự lưu nhé
-                    return rp.response(1, 1, "Thành coong", null);
+                    return rp.response(1, 1, "Thành công", null);
 
                 }
             }

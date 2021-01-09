@@ -33,6 +33,7 @@ namespace Data.DB
         public int DistrictID { get; set; }
         public int VillageID { get; set; }
         public string Address { get; set; }
+        public string Note { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

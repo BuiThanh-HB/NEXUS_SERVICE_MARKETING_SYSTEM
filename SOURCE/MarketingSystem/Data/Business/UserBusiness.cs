@@ -23,7 +23,7 @@ namespace Data.Business
         {
             try
             {
-                LoginOutputModel session = (LoginOutputModel)HttpContext.Current.Session[Sessions.LOGIN];
+                LoginOutputModel session = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
                 User u = cnn.Users.Find(session.Id);
                 if (Util.CheckPass(OldPass, u.Password))
                 {

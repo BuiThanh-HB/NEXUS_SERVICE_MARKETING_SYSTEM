@@ -17,6 +17,8 @@ namespace Data.Utils
 
         public const int ERROR = 0;
         public const int SUCCESS = 1;
+        public static string ADMIN = "Login";//Session admin
+        public static string CLIENT = "Client";//Session người dùng
 
 
         public const string CONVERT_DATETIME = "dd/MM/yyyy";
@@ -69,5 +71,12 @@ namespace Data.Utils
         public const int ROLE_ADMIN = 1;//Role admin
         public const int ROLE_CLERK = 2;//Nhân viên kế toán
         public const int ROLE_TECHNICAL_STAFF = 3;//Nhân viên kỹ thuật
+
+        //Status defined
+        public const int CANCEL = 0;//Trạng thái bị từ chối
+        public const int PENDING = 1;//Trạng thái chờ xử lý
+        public const int ACCEPT = 2;//Trạng thái được xác nhận
+        public const int COMPLETE = 3;//Trạng thái hoàn thành
+        
     }
 }

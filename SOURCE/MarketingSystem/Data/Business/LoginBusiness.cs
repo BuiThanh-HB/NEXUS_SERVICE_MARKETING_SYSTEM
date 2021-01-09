@@ -42,7 +42,7 @@ namespace Data.Business
                         data.Token = token;
                         us.Token = token;
                         cnn.SaveChanges();
-                        HttpContext.Current.Session[Sessions.LOGIN] = data;
+                        HttpContext.Current.Session[SystemParam.ADMIN] = data;
                         return rp.response(SUCCESS, SUCCESS_CODE, SUCCESS_MESSAGE, "");
                     }
                     else
