@@ -129,7 +129,7 @@ namespace Data.Business
                         Name = c.Name,
                         Phone = c.Phone,
                         CreatedDate = c.CreatedDate,
-                        Address = String.IsNullOrEmpty(c.Address) ? c.Village.Name + " " + c.District.Name + " Tỉnh " + c.Province.Name : c.Address
+                        Address = String.IsNullOrEmpty(c.Address) ? c.Village.Name + "-" + c.District.Name + "-" + c.Province.Name : c.Address
                     }).OrderByDescending(c => c.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
                 return data;
             }

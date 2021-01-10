@@ -16,7 +16,7 @@ namespace MarketingSystem.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public PartialViewResult Search(int page, string searchKey, string fromDate, string toDate, int? status)
         {
             ViewBag.searchKey = searchKey;
@@ -24,6 +24,11 @@ namespace MarketingSystem.Controllers
             ViewBag.toDate = toDate;
             ViewBag.status = status;
             return PartialView("_TableOrder", orderBusiness.Search(page, searchKey, fromDate, toDate, status));
+        }
+        [HttpGet]
+        public PartialViewResult GetOrderDetail(int id)
+        {
+            return PartialView("_OrderDetail", orderBusiness.GetOrderDetail(id));
         }
     }
 }

@@ -46,6 +46,33 @@ namespace Data.Business
             }
         }
 
+        //Lấy thông tin chi tiết đơn hàng
+        public OrderDetailOuputModel GetOrderDetail(int id)
+        {
+            try
+            {
+                OrderDetailOuputModel data = new OrderDetailOuputModel();
+                Order o = cnn.Orders.Find(id);
+                data.ID = o.ID;
+                data.CusName = o.Customer.Name;
+                data.CusPhone = o.Customer.Phone;
+                data.Code = o.Code;
+                data.TotalPrice = o.TotalPrice;
+                data.Discount = o.Discount;
+                data.CreatedDate = o.CreatedDate;
+                data.AdminNote = o.AdminNote;
+                data.ServiceName = o.ServicePlan.Name;
+                data.LocationRequest = !String.IsNullOrEmpty(o.Address) ? o.Village.Name + "-" + o.District.Name + "-" + o.Province.Name : o.Address;
+                data.Status = o.Status;
+                return data;
+            }
+            catch
+            {
+                return new OrderDetailOuputModel();
+            }
+           
+        }
+
         //Đăng ký dịch vụ
         public JsonResultModel CreateOrder(OrderInputModel input)
         {

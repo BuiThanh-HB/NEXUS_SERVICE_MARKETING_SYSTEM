@@ -837,3 +837,21 @@ function SearchOrder() {
         }
     })
 }
+
+function GetOrderDetail(id) {
+    $.ajax({
+        url: "/Order/GetOrderDetail",
+        data: {id:id},
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "GET",
+        success: function (res) {
+            console.log(res)
+            $('#modalLoad').modal('hide');
+            $('.modal-backdrop').modal('hide');
+            $('#div-order-detail').html(res);
+            $('#md-order-detail').modal('show');
+        }
+    })
+}

@@ -1,0 +1,141 @@
+﻿@using Data.Model
+@using Data.Utils
+@model Data.Model.OrderDetailOuputModel
+
+<div class="modal fade" id="md-order-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết đơn hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="fm-order-detail">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <strong class="offset-md-1">Thông Tin Đơn Hàng</strong>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-user ml-5 mr-2"></i><span style="color:darkgrey">Người Mua</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtCusName">@Model.CusName</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-phone ml-5 mr-2"></i><span style="color:darkgrey">Số Điện Thoại</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtPhone">@Model.CusPhone</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-map-marker ml-5 mr-2"></i><span style="color:darkgrey">Địa Chỉ Đăng Ký</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtAddress">@Model.LocationRequest</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-clock-o ml-5 mr-2"></i><span style="color:darkgrey">Ngày Đặt</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b>@Model.CreatedDate.ToString("dd-MM-yyy hh:mm")</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-toggle-on ml-5 mr-2"></i><span style="color:darkgrey">Trạng Thái</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px;">
+                                    <select class="form-control" id="status-value-detail">
+                                        <option selected disabled hidden>--Trạng thái--</option>
+                                        <option value="@SystemParam.PENDING" class="text-warning">Chờ xác nhận</option>
+                                        <option value="@SystemParam.ACCEPT" class="text-primary">Đã xác nhận</option>
+                                        <option value="@SystemParam.COMPLETE" class="text-success">Hoàn thành</option>
+                                        <option value="@SystemParam.CANCEL" class="text-danger">Hủy</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                    @*<div class="row mt-4">
+                        <div class="col-md-12 m-auto">
+                            <strong class="offset-md-1 ">Chi Tiết Đơn Hàng</strong>
+                            <div class="row mt-3">
+                                <div class="offset-md-1 col-md-10 offset-md-1">
+                                    <table class="table table-hover table-bordered">
+                                        <thead class="bg-thead text-center text-white">
+                                            <tr>
+                                                <th>Tên Sản Phẩm</th>
+                                                <th>Số Lượng</th>
+                                                <th>Đơn Giá</th>
+                                                <th>Thành Tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center">
+                                            @{
+                                                foreach (var item in Model.ListItem)
+                                                {
+                                                    <tr>
+                                                        <td>@item.ItemName</td>
+                                                        <td>@item.ItemQTY</td>
+                                                        <td>@String.Format("{0:0,0 vnđ}", @item.ItemPrice)</td>
+                                                        <td>@String.Format("{0:0,0 vnđ}", @item.ItemTotalPrice)</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-7 col-md-5 mt-4">
+                                    Tổng Tiền: <span id="dtTotalPrice" style="color:red"><b>@String.Format("{0:0,0 vnđ}", @Model.TotalPrice)</b></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-7 col-md-5 mt-4">
+                                    Chiết Khấu <span class="text-danger">(%)</span>:
+                                    @{
+                                        if (Model.Status == 2)
+                                        {
+                                            <span style=" margin:5px">@Model.Discount  %</span>
+                                        }
+                                        else
+                                        {
+                                            <input type="text" class=" number text-center " style="width:40%" id="txtDiscount" name="Discount" value="@Model.Discount" onkeyup="calPrice(this)" />
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-7 col-md-5 mt-4">
+                                    Tổng Cộng: <span style="color:red"><b id="Pay"></b></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>*@
+
+                    <div class="modal-footer">
+                        <button type="button" id="btnBill" class="btn btn-success"><i class="fa fa-download mr-1"></i>Xuất Hóa Đơn</button>
+                        <button type="submit" id="btnSave" data-id="@Model.ID" class="btn btn-primary" onclick="SaveEditOrder(@Model.ID)">Lưu</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

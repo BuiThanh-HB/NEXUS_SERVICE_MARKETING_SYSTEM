@@ -208,6 +208,7 @@
     <Compile Include="Model\ListServicePlanOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\NewsDetailOutputModel.cs" />
+    <Compile Include="Model\OrderDetailOuputModel.cs" />
     <Compile Include="Model\OrderInputModel.cs" />
     <Compile Include="Model\RegisterCustomerInputModel.cs" />
     <Compile Include="Model\SelectOptionModel.cs" />

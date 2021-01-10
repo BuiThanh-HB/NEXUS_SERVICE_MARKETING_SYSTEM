@@ -57,7 +57,7 @@
 
                         <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
                         <td>
-                            <a href="" title="Cập nhật đơn hàng" class="cursor-pointer">
+                            <a onclick="GetOrderDetail(@dt.ID)" title="Cập nhật đơn hàng" class="cursor-pointer">
                                 <i class="btnEdit fa fa-fw fa-edit"></i>
                             </a>
                         </td>
