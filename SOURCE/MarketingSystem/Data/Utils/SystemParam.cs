@@ -29,7 +29,7 @@ namespace Data.Utils
 
 
         public const string TOKEN_INVALID = "Phiên đăng nhập hết hạn";
-        public const string TOKEN_NOT_FOUND = "Token not found";
+        public const string TOKEN_NOT_FOUND = "Mời bạn đăng nhập";
         public const string SERVER_ERROR = "Hệ thống đang bảo trì!";
         public const string SUCCESS_MESSAGE = "Thành công";
         public const string ERROR_MESSAGE = "Thất bại";

@@ -1,6 +1,8 @@
 ﻿using Data.Business;
 using Data.DB;
+using Data.Model;
 using Data.Model.APIWeb;
+using Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,7 @@ namespace APIProject.Controllers
         public ServicePlanBusiness servicePlanBusiness;
         public NewsBusiness newsBusiness;
         public CustomerBusiness customerBusiness;
+        public OrderBusiness orderBusiness;
 
         public BaseController() : base()
         {
@@ -27,6 +30,7 @@ namespace APIProject.Controllers
             servicePlanBusiness = new ServicePlanBusiness(this.GetContext());
             newsBusiness = new NewsBusiness(this.GetContext());
             customerBusiness = new CustomerBusiness(this.GetContext());
+            orderBusiness = new OrderBusiness(this.GetContext());
         }
         /// <summary>
         /// Create new context if null
@@ -38,6 +42,21 @@ namespace APIProject.Controllers
                 Context = new NEXUS_SystemEntities();
             }
             return Context;
+        }
+
+        public UserDetailOutputModel admin
+        {
+            get
+            {
+                return Session[SystemParam.ADMIN] as UserDetailOutputModel;
+            }
+        }
+        public UserDetailOutputModel client
+        {
+            get
+            {
+                return Session[SystemParam.ADMIN] as UserDetailOutputModel;
+            }
         }
     }
 }

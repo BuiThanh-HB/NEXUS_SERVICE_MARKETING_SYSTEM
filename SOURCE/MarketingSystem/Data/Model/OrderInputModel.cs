@@ -7,6 +7,7 @@ namespace Data.Model
 {
     public class OrderInputModel
     {
+        public string token { get; set; }
         public int ServiceID { get; set; }
         public int ProvinceID { get; set; }
         public int DistrictID { get; set; }
