@@ -1,4 +1,5 @@
 ﻿@using Data.Model.APIWeb
+@using Data.Utils
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@
                             <a class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" style="color:black;font-size:15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @{
 
-                                    var ss = (LoginOutputModel)HttpContext.Current.Session["Login"];
+                                    var ss = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
                                     if (ss == null)
                                     {
                                         Response.Redirect("/Home/Login");
@@ -77,12 +78,24 @@
                                 <li id="tabServicePlan">
                                     <a href="/ServicePlan/Index"><i class="fa fa-mobile-phone ic-menu"></i>Gói cước</a>
                                 </li>
+                                <li id="tabOrder">
+                                    <a href="/Order/Index"><i class="fa fa-shopping-basket ic-menu"></i>Quản lý đơn hàng</a>
+                                </li>
                                 <li id="tabNews">
                                     <a href="/News/Index"><i class="fa fa-newspaper-o ic-menu"></i>Tin tức</a>
                                 </li>
-                                <li id="tabUsers">
-                                    <a href="/User/Index"><i class="fa fa-user-circle-o  ic-menu" aria-hidden="true"></i>Tài khoản</a>
-                                </li>
+                                @{
+
+                                    var user = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
+                                    if (user.Role.Equals(SystemParam.ROLE_ADMIN))
+                                    {
+                                        <li id="tabUser" style="display: inline !important;" class="mb-5">
+                                            <a href="/User/Index"><i class="fa fa-user-circle"></i>Tài khoản</a>
+                                        </li>
+                                    }
+
+                                }
+
                             </ul>
                         </nav>
                     </div>

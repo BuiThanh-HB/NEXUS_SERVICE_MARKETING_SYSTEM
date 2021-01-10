@@ -2,6 +2,7 @@
 using Data.DB;
 using Data.Model;
 using Data.Utils;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,34 @@ namespace Data.Business
 
         }
 
+        //Tìm kiếm thông tin đơn hàng
+        public IPagedList<ListOrderOutputModel> Search(int page, string searchKey, string fromDate, string toDate, int? status)
+        {
+            try
+            {
+                DateTime? fd = Util.ConvertDate(fromDate);
+                DateTime? td = Util.ConvertDate(toDate);
+                if (td.HasValue)
+                    td = td.Value.AddDays(1);
+                var data = cnn.Orders.Where(o => o.IsActive.Equals(SystemParam.ACTIVE) && (!String.IsNullOrEmpty(searchKey) ? o.Code.Contains(searchKey) : true)
+                && (fd.HasValue ? o.CreatedDate >= fd.Value : true) && (td.HasValue ? o.CreatedDate <= td.Value : true) && (status.HasValue && status.Value >= 0 ? o.Status.Equals(status.Value) : true))
+                    .Select(o => new ListOrderOutputModel
+                    {
+                        ID = o.ID,
+                        CusName = o.Customer.Name,
+                        CusPhone = o.Customer.Phone,
+                        CreatedDate = o.CreatedDate,
+                        Status = o.Status,
+                        Code = o.Code
+                    }).OrderByDescending(o => o.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                return data;
+            }
+            catch
+            {
+                return new List<ListOrderOutputModel>().ToPagedList(1, 1);
+            }
+        }
+
         //Đăng ký dịch vụ
         public JsonResultModel CreateOrder(OrderInputModel input)
         {
@@ -29,7 +58,7 @@ namespace Data.Business
                 ServicePlan s = cnn.ServicePlans.Find(input.ServiceID);
                 Order o = new Order();
                 Random rd = new Random();
-                string code = s.Category.Type + rd.Next(10000,99999) + rd.Next(10000, 99999);
+                string code = s.Category.Type + rd.Next(10000, 99999) + rd.Next(10000, 99999);
 
                 o.Code = code;
                 o.CustomerID = cus.ID;
@@ -48,7 +77,7 @@ namespace Data.Business
                 cnn.SaveChanges();
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.ToString();
                 return rp.serverError();

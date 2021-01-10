@@ -817,3 +817,23 @@ function SearchCus() {
         }
     })
 }
+
+function SearchOrder() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    var status = $('#status-value-search').val();
+
+    $.ajax({
+        url: "/Order/Search",
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, status: status },
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-order').html(res);
+        }
+    })
+}

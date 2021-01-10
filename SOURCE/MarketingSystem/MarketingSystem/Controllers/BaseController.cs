@@ -44,18 +44,18 @@ namespace APIProject.Controllers
             return Context;
         }
 
-        public UserDetailOutputModel admin
+        public LoginOutputModel admin
         {
             get
             {
-                return Session[SystemParam.ADMIN] as UserDetailOutputModel;
+                return Session[SystemParam.ADMIN] as LoginOutputModel;
             }
         }
-        public UserDetailOutputModel client
+        public LoginOutputModel client
         {
             get
             {
-                return Session[SystemParam.ADMIN] as UserDetailOutputModel;
+                return Session[SystemParam.CLIENT] as LoginOutputModel;
             }
         }
     }

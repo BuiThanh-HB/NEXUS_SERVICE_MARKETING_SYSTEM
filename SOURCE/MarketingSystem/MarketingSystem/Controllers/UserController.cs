@@ -1,5 +1,6 @@
 ﻿using APIProject.App_Start;
 using APIProject.Controllers;
+using Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace Base.Controllers
         [UserAuthenticationFilter]
         public ActionResult Index()
         {
+            if (!admin.Role.Equals(SystemParam.ROLE_ADMIN))
+{
+                HttpResponseBase response = Response;
+                response.Redirect("/Home/Index");
+            }
+
             return View();
         }
         public JsonResult changepass(string OldPass, string NewPass)

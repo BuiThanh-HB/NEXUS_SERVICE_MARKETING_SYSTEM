@@ -20,6 +20,7 @@ namespace APIProject.App_Start
             try
             {
                 LoginOutputModel session = (LoginOutputModel)filterContext.HttpContext.Session[SystemParam.ADMIN];
+                LoginOutputModel client = (LoginOutputModel)filterContext.HttpContext.Session[SystemParam.CLIENT];
                 if (session == null || session.Account == null || session.Role <= 0 || session.Account == "")
                 {
                     //Chuyen ve trang dang nhap
@@ -34,8 +35,8 @@ namespace APIProject.App_Start
             catch
             {
                 var routeValues = new RouteValueDictionary();
-                routeValues["controller"] = "Home";
-                routeValues["action"] = "Login";
+                routeValues["controller"] = "FrontEnd/HomeFrontEnd";
+                routeValues["action"] = "Index";
                 filterContext.Result = new RedirectToRouteResult(routeValues);
             }
         }

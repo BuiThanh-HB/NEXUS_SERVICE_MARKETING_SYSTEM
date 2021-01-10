@@ -1,5 +1,6 @@
 ﻿using APIProject.Controllers;
 using Data.Model;
+using Data.Model.APIWeb;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,10 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         }
 
         //Đăng ký dịch vụ
+        [HttpPost]
         public JsonResult CreateOrder(OrderInputModel input)
         {
+            input.token = client.Token;
             return Json(orderBusiness.CreateOrder(input), JsonRequestBehavior.AllowGet);
         }
     }

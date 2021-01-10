@@ -204,6 +204,7 @@
     <Compile Include="Model\ListCategoryOutputModel.cs" />
     <Compile Include="Model\ListCustomerOutputModel.cs" />
     <Compile Include="Model\ListNewsOutputModel.cs" />
+    <Compile Include="Model\ListOrderOutputModel.cs" />
     <Compile Include="Model\ListServicePlanOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\NewsDetailOutputModel.cs" />
