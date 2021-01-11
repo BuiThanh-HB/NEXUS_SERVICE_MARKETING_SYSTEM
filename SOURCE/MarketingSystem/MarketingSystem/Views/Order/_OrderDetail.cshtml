@@ -3,7 +3,7 @@
 @model Data.Model.OrderDetailOuputModel
 
 <div class="modal fade" id="md-order-detail" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg mw-100 w-75" role="document">
+    <div class="modal-dialog modal-lg mw-100 w-50" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Chi tiết đơn hàng</h5>
@@ -50,6 +50,14 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-sticky-note ml-5 mr-2"></i><span style="color:darkgrey">Ghi chú của khách</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b>@Model.Note</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
                                     <i class="fa fa-toggle-on ml-5 mr-2"></i><span style="color:darkgrey">Trạng Thái</span>
                                 </div>
                                 <div class="col-md-7" style="font-size:14px;">
@@ -69,65 +77,45 @@
 
                         </div>
                     </div>
-                    @*<div class="row mt-4">
-                        <div class="col-md-12 m-auto">
-                            <strong class="offset-md-1 ">Chi Tiết Đơn Hàng</strong>
-                            <div class="row mt-3">
-                                <div class="offset-md-1 col-md-10 offset-md-1">
-                                    <table class="table table-hover table-bordered">
-                                        <thead class="bg-thead text-center text-white">
-                                            <tr>
-                                                <th>Tên Sản Phẩm</th>
-                                                <th>Số Lượng</th>
-                                                <th>Đơn Giá</th>
-                                                <th>Thành Tiền</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center">
-                                            @{
-                                                foreach (var item in Model.ListItem)
-                                                {
-                                                    <tr>
-                                                        <td>@item.ItemName</td>
-                                                        <td>@item.ItemQTY</td>
-                                                        <td>@String.Format("{0:0,0 vnđ}", @item.ItemPrice)</td>
-                                                        <td>@String.Format("{0:0,0 vnđ}", @item.ItemTotalPrice)</td>
-                                                    </tr>
-                                                }
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="offset-7 col-md-5 mt-4">
-                                    Tổng Tiền: <span id="dtTotalPrice" style="color:red"><b>@String.Format("{0:0,0 vnđ}", @Model.TotalPrice)</b></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="offset-7 col-md-5 mt-4">
-                                    Chiết Khấu <span class="text-danger">(%)</span>:
-                                    @{
-                                        if (Model.Status == 2)
-                                        {
-                                            <span style=" margin:5px">@Model.Discount  %</span>
-                                        }
-                                        else
-                                        {
-                                            <input type="text" class=" number text-center " style="width:40%" id="txtDiscount" name="Discount" value="@Model.Discount" onkeyup="calPrice(this)" />
-                                        }
-                                    }
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="offset-7 col-md-5 mt-4">
-                                    Tổng Cộng: <span style="color:red"><b id="Pay"></b></span>
-                                </div>
-                            </div>
-
+                    <div class="row mt-5">
+                        <div class="col-12 text-left">
+                            <strong class="offset-md-1">Chi tiết đơn hàng</strong>
                         </div>
-                    </div>*@
 
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 offset-md-1 col-5"> <i class="fa fa-bookmark ml-5 mr-2"></i><span style="color:darkgrey">Tên dịch vụ</span></div>
+                        <div class="col-md-7 col-7" style="font-size:14px">
+                            <b>@Model.ServiceName</b>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4 offset-md-1 col-5"> <i class="fa fa-bitcoin ml-5 mr-2"></i><span style="color:darkgrey">Tổng tiền</span></div>
+                        <div class="col-md-7 col-7" style="font-size:14px">
+                            <input class="form-control number" value="@String.Format("{0:n0}",Model.TotalPrice)" id="txt-price" />
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 offset-md-1 col-5"> <i class="fa fa-bitcoin ml-5 mr-2"></i><span style="color:darkgrey">Chiết khấu(%)</span></div>
+                        <div class="col-md-7 col-7" style="font-size:14px">
+                            <div class="row">
+                                <div class="col-md-3"><input id="number-discount" type="number" value="@Model.DiscountValue" class="form-control mr-3" onkeydown="javascript: return event.keyCode == 69 || event.keyCode == 190 || event.keyCode == 189 ? false : true" /></div>
+                                <div class="col-md-6 text-center">
+                                    <b>Thành tiền: </b> <span id="val-discount" class="text-danger">@String.Format("{0:n0}", Model.Discount)</span>
+                                    <input type="hidden" id="discount-default" value="@Model.Discount" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-4 offset-md-1 col-5"> <i class="fa fa-sticky-note ml-5 mr-2"></i><span style="color:darkgrey">Ghi chú admin</span></div>
+                        <div class="col-md-7 col-7" style="font-size:14px">
+                            <textarea class="form-control" style="height:75px;" placeholder="Nhập ghi chú">@Model.AdminNote</textarea>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" id="btnBill" class="btn btn-success"><i class="fa fa-download mr-1"></i>Xuất Hóa Đơn</button>
                         <button type="submit" id="btnSave" data-id="@Model.ID" class="btn btn-primary" onclick="SaveEditOrder(@Model.ID)">Lưu</button>
@@ -139,3 +127,30 @@
         </div>
     </div>
 </div>
+
+
+<script>
+
+
+    $('#txt-price').on('input', function () {
+        var price = cms_decode_currency_format($(this).val());
+        $(this).val(cms_encode_currency_format(price));
+        $('#val-discount').text(cms_encode_currency_format(price));
+        $('#number-discount').val(0);
+    });
+
+    $('#number-discount').on('input', function () {
+        var totalPrice = parseInt($('#txt-price').val().replace(/,/g, ''));
+        var value = totalPrice * (100 - $(this).val()) / 100;
+        $('#val-discount').text(cms_encode_currency_format(value));
+        if (value < 0) {
+            swal({
+                title: "Chiết khấu không được vượt quá tổng tiền hiệ tại!",
+                icon: "warning"
+            })
+            $(this).val(0);
+            $('#val-discount').text(cms_encode_currency_format(totalPrice));
+
+        }
+    })
+</script>

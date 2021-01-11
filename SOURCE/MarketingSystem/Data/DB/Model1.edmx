@@ -124,6 +124,7 @@
           <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Note" Type="nvarchar" MaxLength="500" />
           <Property Name="AdminNote" Type="nvarchar" MaxLength="1000" />
+          <Property Name="DiscountValue" Type="int" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -633,6 +634,7 @@
           <NavigationProperty Name="Village" Relationship="Self.FK_Order_Village" FromRole="Order" ToRole="Village" />
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DiscountValue" Type="Int32" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1120,6 +1122,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="NEXUS_SystemModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
                 <ScalarProperty Name="AdminNote" ColumnName="AdminNote" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

@@ -847,7 +847,6 @@ function GetOrderDetail(id) {
         },
         type: "GET",
         success: function (res) {
-            console.log(res)
             $('#modalLoad').modal('hide');
             $('.modal-backdrop').modal('hide');
             $('#div-order-detail').html(res);
