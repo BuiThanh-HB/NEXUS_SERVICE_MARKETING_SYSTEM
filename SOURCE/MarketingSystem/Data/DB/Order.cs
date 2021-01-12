@@ -35,6 +35,7 @@ namespace Data.DB
         public string Address { get; set; }
         public string Note { get; set; }
         public string AdminNote { get; set; }
+        public Nullable<int> DiscountValue { get; set; }
     
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

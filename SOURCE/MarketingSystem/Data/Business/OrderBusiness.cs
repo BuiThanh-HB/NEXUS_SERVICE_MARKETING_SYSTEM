@@ -60,17 +60,19 @@ namespace Data.Business
                 data.TotalPrice = o.TotalPrice;
                 data.Discount = o.Discount;
                 data.CreatedDate = o.CreatedDate;
-                data.AdminNote = o.AdminNote;
+                data.Note = o.Note;
+                data.AdminNote = !String.IsNullOrEmpty(o.AdminNote) ? o.AdminNote : "Chưa cập nhật";
                 data.ServiceName = o.ServicePlan.Name;
                 data.LocationRequest = !String.IsNullOrEmpty(o.Address) ? o.Village.Name + "-" + o.District.Name + "-" + o.Province.Name : o.Address;
                 data.Status = o.Status;
+                data.DiscountValue = o.DiscountValue.HasValue ? o.DiscountValue.Value : 0;
                 return data;
             }
             catch
             {
                 return new OrderDetailOuputModel();
             }
-           
+
         }
 
         //Đăng ký dịch vụ
