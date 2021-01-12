@@ -78,6 +78,22 @@ namespace APIProject
                       "~/Content/style.css",
                       "~/Content/jquery-ui.css", "~/Content/toastr.min.css", "~/Content/dropify.min.css"));
 
+            // font end 
+            bundles.Add(new StyleBundle("~/fontend/css").Include(                      
+                      "~/Content/font_end/css/style.css",
+                      "~/Content/font_end/css/animate.css"
+                      ));
+            bundles.Add(new StyleBundle("~/fontend/stylecss").Include(
+                      "~/Content/font_end/style.css"
+                      ));
+            bundles.Add(new StyleBundle("~/fontend/js").Include(
+                      "~/Content/font_end/js/jquery-1.11.1.min.js",
+                      "~/Content/font_end/js/plugins.js",
+                      "~/Content/font_end/js/app.js"
+                      ));
+            bundles.Add(new StyleBundle("~/fontend/fonts").Include(
+                      "~/Content/font_end/fonts/font-awesome.min.css"
+                      ));
             BundleTable.EnableOptimizations = false;
         }
     }
