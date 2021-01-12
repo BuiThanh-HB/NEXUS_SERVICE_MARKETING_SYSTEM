@@ -22,7 +22,7 @@ namespace Data.DB
         public System.DateTime CreatedDate { get; set; }
         public int UserID { get; set; }
     
-        public virtual CustomerServicePlan CustomerServicePlan { get; set; }
         public virtual User User { get; set; }
+        public virtual CustomerServicePlan CustomerServicePlan { get; set; }
     }
 }

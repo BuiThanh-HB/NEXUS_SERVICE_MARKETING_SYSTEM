@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="NEXUS_SystemModel.Category" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
         <EntityTypeShape EntityType="NEXUS_SystemModel.CategoryNew" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="NEXUS_SystemModel.Customer" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="NEXUS_SystemModel.CustomerServicePlan" Width="1.5" PointX="9.75" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="NEXUS_SystemModel.District" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
         <EntityTypeShape EntityType="NEXUS_SystemModel.Feedback" Width="1.5" PointX="12.75" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="NEXUS_SystemModel.HistoryCustomerServicePlan" Width="1.5" PointX="15" PointY="11" IsExpanded="true" />
@@ -24,11 +23,8 @@
         <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_District" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_Province" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Customer_Village" ManuallyRouted="false" />
-        <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Feedback_Customer" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_District_Province" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_District" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Village_District" ManuallyRouted="false" />
@@ -37,6 +33,10 @@
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_Province" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_ServicePlan" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_Village" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.CustomerServicePlan" Width="1.5" PointX="12" PointY="15.375" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Order" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

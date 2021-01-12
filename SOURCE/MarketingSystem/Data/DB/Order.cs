@@ -38,11 +38,11 @@ namespace Data.DB
         public Nullable<int> DiscountValue { get; set; }
     
         public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
         public virtual District District { get; set; }
         public virtual Province Province { get; set; }
         public virtual ServicePlan ServicePlan { get; set; }
         public virtual Village Village { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
     }
 }

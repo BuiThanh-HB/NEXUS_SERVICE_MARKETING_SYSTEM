@@ -1,5 +1,6 @@
 ﻿using APIProject.App_Start;
 using APIProject.Controllers;
+using Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +26,19 @@ namespace MarketingSystem.Controllers
             ViewBag.status = status;
             return PartialView("_TableOrder", orderBusiness.Search(page, searchKey, fromDate, toDate, status));
         }
+
+        //Lấy chi tiết đơn hàng
         [HttpGet]
         public PartialViewResult GetOrderDetail(int id)
         {
             return PartialView("_OrderDetail", orderBusiness.GetOrderDetail(id));
+        }
+
+        //Cập nhật trạng thái đơn hàng
+        [HttpPost]
+        public JsonResult UpdateBill(OrderDetailOuputModel input)
+        {
+            return Json(orderBusiness.UpdateBill(input, admin.Id, admin.Role));
         }
     }
 }

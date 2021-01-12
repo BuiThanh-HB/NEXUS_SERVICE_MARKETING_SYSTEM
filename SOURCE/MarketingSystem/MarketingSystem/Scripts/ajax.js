@@ -667,7 +667,7 @@ function CreateNews() {
     if (content.length == 0 || title.length == 0 || summary.length == 0) {
         swal({
             title: "Vui lòng nhập đầy đủ thông tin",
-            icon:"warning"
+            icon: "warning"
         })
         return;
     }
@@ -806,7 +806,7 @@ function SearchCus() {
     var toDate = $('#txt-to-date').val();
     $.ajax({
         url: "/Customer/Search",
-        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate},
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate },
         type: "GET",
         beforeSend: function () {
             $('#modalLoad').modal('show');
@@ -838,10 +838,11 @@ function SearchOrder() {
     })
 }
 
+//Lấy chi tiết đơn hàng
 function GetOrderDetail(id) {
     $.ajax({
         url: "/Order/GetOrderDetail",
-        data: {id:id},
+        data: { id: id },
         beforeSend: function () {
             $('#modalLoad').modal('show');
         },
@@ -851,6 +852,47 @@ function GetOrderDetail(id) {
             $('.modal-backdrop').modal('hide');
             $('#div-order-detail').html(res);
             $('#md-order-detail').modal('show');
+        }
+    })
+}
+
+//Cập nhật đơn hàng
+function SaveEditOrder() {
+    var status = $('#status-value-detail').val();
+    var total = parseInt($('#txt-price').val().replace(/,/g, ''));
+    var discount = parseInt($('#val-discount').text().replace(/,/g, ''));
+    var note = $.trim($('#note-admin').val());
+    if (status == 0 && note.length == 0) {
+        swal({
+            title: "Vui lòng nhập lý do từ chối",
+            text: "",
+            icon: "warning"
+        });
+        return;
+    }
+
+    $.ajax({
+        url: "/Order/UpdateBill",
+        data: $('#fm-order-detail').serialize() + "&TotalPrice=" + total + "&Discount=" + discount,
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        type: "POST",
+        success: function (res) {
+            if (response.Status == SUCCESS) {
+                $('#modalLoad').modal('hide');
+                $('#fm-order-detail').modal('hide')
+                toastr.success("Xóa thành công !");
+                SearchOrder();
+
+            } else {
+                $('#modalLoad').modal('hide');
+                swal({
+                    title: res.Message,
+                    text: "",
+                    icon: "error"
+                });
+            }
         }
     })
 }

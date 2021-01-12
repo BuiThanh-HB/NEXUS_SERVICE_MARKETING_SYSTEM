@@ -20,6 +20,13 @@ namespace Data.Utils
         public static string ADMIN = "Login";//Session admin
         public static string CLIENT = "Client";//Session người dùng
 
+        //config email
+        public const string HOST_DEFAULT = "smtp.gmail.com";
+        public const string EMAIL_CONFIG = "nexussystem123@gmail.com";
+        public const string PASS_CONFIG = "johbktjcpplkpvmo";
+        public const string PASS_EMAIL = "123456aA@";
+        public const string HEAD_EMAIL = "NEXUS SYSTEM";
+
 
         public const string CONVERT_DATETIME = "dd/MM/yyyy";
         public const string CONVERT_DATETIME_HAVE_HOUR = "dd/MM/yyyy HH:mm";

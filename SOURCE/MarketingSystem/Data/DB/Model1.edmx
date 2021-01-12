@@ -52,7 +52,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" />
-          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
         </EntityType>
@@ -528,28 +528,9 @@
           <NavigationProperty Name="District" Relationship="Self.FK_Customer_District" FromRole="Customer" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="Self.FK_Customer_Province" FromRole="Customer" ToRole="Province" />
           <NavigationProperty Name="Village" Relationship="Self.FK_Customer_Village" FromRole="Customer" ToRole="Village" />
-          <NavigationProperty Name="CustomerServicePlans" Relationship="Self.FK_CustomerServicePlan_Customer" FromRole="Customer" ToRole="CustomerServicePlan" />
           <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="CustomerServicePlan">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="ActiveDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ExtendDate" Type="DateTime" Precision="3" />
-          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerServicePlan_Customer" FromRole="CustomerServicePlan" ToRole="Customer" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_CustomerServicePlan_Order" FromRole="CustomerServicePlan" ToRole="Order" />
-          <NavigationProperty Name="HistoryCustomerServicePlans" Relationship="Self.FK_HistoryCustomerServicePlan_CustomerServicePlan" FromRole="CustomerServicePlan" ToRole="HistoryCustomerServicePlan" />
+          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="Customer" ToRole="CustomerServicePlan" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -590,8 +571,8 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CustomerServicePlan" Relationship="Self.FK_HistoryCustomerServicePlan_CustomerServicePlan" FromRole="HistoryCustomerServicePlan" ToRole="CustomerServicePlan" />
           <NavigationProperty Name="User" Relationship="Self.FK_HistoryCustomerServicePlan_Users" FromRole="HistoryCustomerServicePlan" ToRole="Users" />
+          <NavigationProperty Name="CustomerServicePlan" Relationship="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" FromRole="HistoryCustomerServicePlan" ToRole="CustomerServicePlan" />
         </EntityType>
         <EntityType Name="News">
           <Key>
@@ -627,7 +608,6 @@
           <Property Name="VillageID" Type="Int32" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="CustomerServicePlans" Relationship="Self.FK_CustomerServicePlan_Order" FromRole="Order" ToRole="CustomerServicePlan" />
           <NavigationProperty Name="District" Relationship="Self.FK_Order_District" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="Self.FK_Order_Province" FromRole="Order" ToRole="Province" />
           <NavigationProperty Name="ServicePlan" Relationship="Self.FK_Order_ServicePlan" FromRole="Order" ToRole="ServicePlan" />
@@ -635,6 +615,7 @@
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="DiscountValue" Type="Int32" />
+          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Order" FromRole="Order" ToRole="CustomerServicePlan" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -761,18 +742,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerServicePlan_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="CustomerServicePlan" Type="Self.CustomerServicePlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CustomerServicePlan">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Feedback_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
@@ -794,30 +763,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerServicePlan_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="CustomerServicePlan" Type="Self.CustomerServicePlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CustomerServicePlan">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryCustomerServicePlan_CustomerServicePlan">
-          <End Role="CustomerServicePlan" Type="Self.CustomerServicePlan" Multiplicity="1" />
-          <End Role="HistoryCustomerServicePlan" Type="Self.HistoryCustomerServicePlan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerServicePlan">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="HistoryCustomerServicePlan">
-              <PropertyRef Name="CustomerServicePlanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -921,7 +866,6 @@
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="CategoryNews" EntityType="Self.CategoryNew" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="CustomerServicePlans" EntityType="Self.CustomerServicePlan" />
           <EntitySet Name="Districts" EntityType="Self.District" />
           <EntitySet Name="Feedbacks" EntityType="Self.Feedback" />
           <EntitySet Name="HistoryCustomerServicePlans" EntityType="Self.HistoryCustomerServicePlan" />
@@ -952,10 +896,6 @@
             <End Role="Village" EntitySet="Villages" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerServicePlan_Customer" Association="Self.FK_CustomerServicePlan_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
-          </AssociationSet>
           <AssociationSet Name="FK_Feedback_Customer" Association="Self.FK_Feedback_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Feedback" EntitySet="Feedbacks" />
@@ -963,14 +903,6 @@
           <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerServicePlan_Order" Association="Self.FK_CustomerServicePlan_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryCustomerServicePlan_CustomerServicePlan" Association="Self.FK_HistoryCustomerServicePlan_CustomerServicePlan">
-            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
-            <End Role="HistoryCustomerServicePlan" EntitySet="HistoryCustomerServicePlans" />
           </AssociationSet>
           <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
             <End Role="Province" EntitySet="Provinces" />
@@ -1004,7 +936,75 @@
             <End Role="Village" EntitySet="Villages" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <EntitySet Name="CustomerServicePlans" EntityType="NEXUS_SystemModel.CustomerServicePlan" />
+          <AssociationSet Name="FK_CustomerServicePlan_Customer" Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerServicePlan_Order" Association="NEXUS_SystemModel.FK_CustomerServicePlan_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryCustomerServicePlan_CustomerServicePlan" Association="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan">
+            <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
+            <End Role="HistoryCustomerServicePlan" EntitySet="HistoryCustomerServicePlans" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="CustomerServicePlan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="ActiveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExtendDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="CustomerServicePlan" ToRole="Customer" />
+          <NavigationProperty Name="Order" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Order" FromRole="CustomerServicePlan" ToRole="Order" />
+          <NavigationProperty Name="HistoryCustomerServicePlans" Relationship="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" FromRole="CustomerServicePlan" ToRole="HistoryCustomerServicePlan" />
+        </EntityType>
+        <Association Name="FK_CustomerServicePlan_Customer">
+          <End Type="NEXUS_SystemModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="NEXUS_SystemModel.CustomerServicePlan" Role="CustomerServicePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerServicePlan">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerServicePlan_Order">
+          <End Type="NEXUS_SystemModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="NEXUS_SystemModel.CustomerServicePlan" Role="CustomerServicePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerServicePlan">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryCustomerServicePlan_CustomerServicePlan">
+          <End Type="NEXUS_SystemModel.CustomerServicePlan" Role="CustomerServicePlan" Multiplicity="1" />
+          <End Type="NEXUS_SystemModel.HistoryCustomerServicePlan" Role="HistoryCustomerServicePlan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerServicePlan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="HistoryCustomerServicePlan">
+              <PropertyRef Name="CustomerServicePlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1046,23 +1046,6 @@
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
                 <ScalarProperty Name="VillageID" ColumnName="VillageID" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerServicePlans">
-            <EntityTypeMapping TypeName="NEXUS_SystemModel.CustomerServicePlan">
-              <MappingFragment StoreEntitySet="CustomerServicePlan">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
-                <ScalarProperty Name="ExtendDate" ColumnName="ExtendDate" />
-                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1198,6 +1181,23 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerServicePlans">
+            <EntityTypeMapping TypeName="NEXUS_SystemModel.CustomerServicePlan">
+              <MappingFragment StoreEntitySet="CustomerServicePlan">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="ExtendDate" ColumnName="ExtendDate" />
+                <ScalarProperty Name="ActiveDate" ColumnName="ActiveDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

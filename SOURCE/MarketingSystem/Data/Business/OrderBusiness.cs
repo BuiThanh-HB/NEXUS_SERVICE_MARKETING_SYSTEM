@@ -75,6 +75,105 @@ namespace Data.Business
 
         }
 
+        //Cập nhật đơn hàng
+        public JsonResultModel UpdateBill(OrderDetailOuputModel input, int userID, int role)
+        {
+            try
+            {
+                EmailBusiness email = new EmailBusiness();
+                if (role.Equals(SystemParam.ROLE_TECHNICAL_STAFF))
+                    return rp.response(SystemParam.ERROR, SystemParam.FAIL, "Bạn không được phép sửa đơn hàng", null);
+                Order o = cnn.Orders.Find(input.ID);
+
+                switch (input.Status)
+                {
+                    case SystemParam.PENDING:
+                       
+                        o.DiscountValue = input.DiscountValue;
+                        o.Discount = input.Discount;
+                        o.TotalPrice = input.TotalPrice;
+                        o.AdminNote = input.AdminNote;
+                        if (o.Status != input.Status)
+                        {
+                            email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đang chờ xác nhận");
+                        }
+                        o.Status = input.Status;
+                        break;
+                    case SystemParam.ACCEPT:
+                        o.Status = input.Status;
+                        o.DiscountValue = input.DiscountValue;
+                        o.Discount = input.Discount;
+                        o.TotalPrice = input.TotalPrice;
+                        o.AdminNote = input.AdminNote;
+                        if (o.Status != input.Status)
+                        {
+                            email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đã được xác nhận");
+                        }
+                        break;
+
+                    case SystemParam.COMPLETE:
+                       
+                        o.DiscountValue = input.DiscountValue;
+                        o.Discount = input.Discount;
+                        o.TotalPrice = input.TotalPrice;
+                        o.AdminNote = input.AdminNote;
+
+                        //Lưu lịch sử
+                        List<HistoryCustomerServicePlan> history = new List<HistoryCustomerServicePlan>();
+                        HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
+                        history.Add(h);
+                        history.Add(h);
+                        h.Note = "Dịch vụ dược kích hoạt";
+                        h.UserID = userID;
+                        h.IsActive = SystemParam.ACTIVE;
+                        h.CreatedDate = DateTime.Now;
+
+                        //Kích hoạt gói cước
+                        CustomerServicePlan c = new CustomerServicePlan();
+                        c.CustomerID = o.CustomerID;
+                        c.ActiveDate = DateTime.Now;
+                        c.ExtendDate = DateTime.Now;
+                        c.ExpiryDate = DateTime.Now.AddMonths(o.ServicePlan.Value);
+                        c.CreatedDate = DateTime.Now;
+                        c.code = o.Code;
+                        c.OrderID = o.ID;
+                        c.Status = SystemParam.ACTIVE;
+                        c.IsActive = SystemParam.ACTIVE;
+                        c.HistoryCustomerServicePlans = history;
+                        if (o.Status != input.Status)
+                        {
+                            email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đã được hoàn thành");
+                        }
+
+                        o.Status = input.Status;
+                        break;
+
+                    case SystemParam.CANCEL:
+                        
+                        o.DiscountValue = input.DiscountValue;
+                        o.Discount = input.Discount;
+                        o.TotalPrice = input.TotalPrice;
+                        o.AdminNote = input.AdminNote;
+
+                        if (o.Status != input.Status)
+                        {
+                            email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn bị trừ chối vì lý do: " + input.AdminNote);
+                        }
+                        o.Status = input.Status;
+                        break;
+                    default:
+                        break;
+                }
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
+            }
+            catch(Exception e)
+            {
+                e.ToString();
+                return rp.serverError();
+            }
+        }
+
         //Đăng ký dịch vụ
         public JsonResultModel CreateOrder(OrderInputModel input)
         {
