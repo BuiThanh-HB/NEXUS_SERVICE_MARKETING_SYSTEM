@@ -87,9 +87,11 @@ namespace APIProject
                       "~/Content/font_end/style.css"
                       ));
             bundles.Add(new StyleBundle("~/fontend/js").Include(
-                      "~/Content/font_end/js/jquery-1.11.1.min.js",
+                       "~/Content/font_end/js/jquery-1.11.1.min.js",
+                      //"~/Scripts/jquery-3.4.1.min.js",
                       "~/Content/font_end/js/plugins.js",
-                      "~/Content/font_end/js/app.js"
+                      "~/Content/font_end/js/app.js",
+                      "~/Scripts/font-end.js"
                       ));
             bundles.Add(new StyleBundle("~/fontend/fonts").Include(
                       "~/Content/font_end/fonts/font-awesome.min.css"
