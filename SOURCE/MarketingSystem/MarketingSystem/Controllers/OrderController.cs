@@ -40,5 +40,21 @@ namespace MarketingSystem.Controllers
         {
             return Json(orderBusiness.UpdateBill(input, admin.Id, admin.Role));
         }
+
+        //Xuất hóa đơn
+        [UserAuthenticationFilter]
+        public FileResult ExportBill(int id)
+        {
+            try
+            {
+                return File(orderBusiness.ExportBill(id).GetAsByteArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Bill.xlsx");
+
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                return null;
+            }
+        }
     }
 }

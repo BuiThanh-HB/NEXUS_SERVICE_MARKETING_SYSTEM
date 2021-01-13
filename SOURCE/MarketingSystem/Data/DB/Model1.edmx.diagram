@@ -37,6 +37,7 @@
         <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Order" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

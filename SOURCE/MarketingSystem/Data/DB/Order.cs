@@ -36,6 +36,7 @@ namespace Data.DB
         public string Note { get; set; }
         public string AdminNote { get; set; }
         public Nullable<int> DiscountValue { get; set; }
+        public Nullable<int> UserHandleID { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual District District { get; set; }
@@ -44,5 +45,6 @@ namespace Data.DB
         public virtual Village Village { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
+        public virtual User User { get; set; }
     }
 }

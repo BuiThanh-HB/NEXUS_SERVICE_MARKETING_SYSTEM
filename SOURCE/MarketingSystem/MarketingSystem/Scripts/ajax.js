@@ -896,3 +896,16 @@ function SaveEditOrder() {
         }
     })
 }
+
+function ExportBill(id) {
+    $.ajax({
+        url: window.location = "ExportBill?id=" + id,
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function () {
+            $('#modalLoad').modal('hide');
+            $('#fm-order-detail').modal('hide');
+        }
+    })
+}

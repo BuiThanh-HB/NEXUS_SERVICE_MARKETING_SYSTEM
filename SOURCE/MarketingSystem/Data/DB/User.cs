@@ -19,6 +19,7 @@ namespace Data.DB
         {
             this.Feedbacks = new HashSet<Feedback>();
             this.HistoryCustomerServicePlans = new HashSet<HistoryCustomerServicePlan>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int ID { get; set; }
@@ -34,5 +35,7 @@ namespace Data.DB
         public virtual ICollection<Feedback> Feedbacks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryCustomerServicePlan> HistoryCustomerServicePlans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
