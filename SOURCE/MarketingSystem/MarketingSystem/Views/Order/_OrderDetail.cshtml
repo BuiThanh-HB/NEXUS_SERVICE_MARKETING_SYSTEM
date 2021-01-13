@@ -127,7 +127,7 @@
                     <div class="modal-footer">
                         <button type="button" id="btnBill" class="btn btn-success"><i class="fa fa-download mr-1"></i>Xuất Hóa Đơn</button>
                         <button type="submit" id="btnSave" class="btn btn-primary" onclick="SaveEditOrder()">Lưu</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     </div>
                 </form>
             </div>
@@ -140,6 +140,8 @@
 <script>
     $(document).ready(function () {
         $('#status-value-detail').val(@Model.Status);
+        if (@Model.Status == 3)
+            $('#status-value-detail').prop('disabled', true);
     })
 
     $('#txt-price').on('input', function () {

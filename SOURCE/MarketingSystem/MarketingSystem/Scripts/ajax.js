@@ -880,9 +880,9 @@ function SaveEditOrder() {
         type: "POST",
         success: function (res) {
             if (response.Status == SUCCESS) {
+                toastr.success("Cập nhật đơn hàng thành công !");
                 $('#modalLoad').modal('hide');
                 $('#fm-order-detail').modal('hide')
-                toastr.success("Xóa thành công !");
                 SearchOrder();
 
             } else {

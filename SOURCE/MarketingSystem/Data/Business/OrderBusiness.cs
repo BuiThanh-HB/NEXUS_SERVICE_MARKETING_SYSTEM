@@ -88,7 +88,7 @@ namespace Data.Business
                 switch (input.Status)
                 {
                     case SystemParam.PENDING:
-                       
+
                         o.DiscountValue = input.DiscountValue;
                         o.Discount = input.Discount;
                         o.TotalPrice = input.TotalPrice;
@@ -112,44 +112,49 @@ namespace Data.Business
                         break;
 
                     case SystemParam.COMPLETE:
-                       
+
                         o.DiscountValue = input.DiscountValue;
                         o.Discount = input.Discount;
                         o.TotalPrice = input.TotalPrice;
                         o.AdminNote = input.AdminNote;
 
-                        //Lưu lịch sử
-                        List<HistoryCustomerServicePlan> history = new List<HistoryCustomerServicePlan>();
-                        HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
-                        history.Add(h);
-                        history.Add(h);
-                        h.Note = "Dịch vụ dược kích hoạt";
-                        h.UserID = userID;
-                        h.IsActive = SystemParam.ACTIVE;
-                        h.CreatedDate = DateTime.Now;
 
-                        //Kích hoạt gói cước
-                        CustomerServicePlan c = new CustomerServicePlan();
-                        c.CustomerID = o.CustomerID;
-                        c.ActiveDate = DateTime.Now;
-                        c.ExtendDate = DateTime.Now;
-                        c.ExpiryDate = DateTime.Now.AddMonths(o.ServicePlan.Value);
-                        c.CreatedDate = DateTime.Now;
-                        c.code = o.Code;
-                        c.OrderID = o.ID;
-                        c.Status = SystemParam.ACTIVE;
-                        c.IsActive = SystemParam.ACTIVE;
-                        c.HistoryCustomerServicePlans = history;
                         if (o.Status != input.Status)
                         {
+                            //Lưu lịch sử
+                            List<HistoryCustomerServicePlan> history = new List<HistoryCustomerServicePlan>();
+                            HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
+                            history.Add(h);
+                            history.Add(h);
+                            h.Note = "Dịch vụ dược kích hoạt";
+                            h.UserID = userID;
+                            h.IsActive = SystemParam.ACTIVE;
+                            h.CreatedDate = DateTime.Now;
+
+                            //Kích hoạt gói cước
+                            CustomerServicePlan c = new CustomerServicePlan();
+                            c.CustomerID = o.CustomerID;
+                            c.ActiveDate = DateTime.Now;
+                            c.ExtendDate = DateTime.Now;
+                            c.ExpiryDate = DateTime.Now.AddMonths(o.ServicePlan.Value);
+                            c.CreatedDate = DateTime.Now;
+                            c.code = o.Code;
+                            c.OrderID = o.ID;
+                            c.Status = SystemParam.ACTIVE;
+                            c.IsActive = SystemParam.ACTIVE;
+                            c.HistoryCustomerServicePlans = history;
+                            cnn.CustomerServicePlans.Add(c);
+
+
                             email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đã được hoàn thành");
                         }
 
                         o.Status = input.Status;
+
                         break;
 
                     case SystemParam.CANCEL:
-                        
+
                         o.DiscountValue = input.DiscountValue;
                         o.Discount = input.Discount;
                         o.TotalPrice = input.TotalPrice;
@@ -167,7 +172,7 @@ namespace Data.Business
                 cnn.SaveChanges();
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.ToString();
                 return rp.serverError();
