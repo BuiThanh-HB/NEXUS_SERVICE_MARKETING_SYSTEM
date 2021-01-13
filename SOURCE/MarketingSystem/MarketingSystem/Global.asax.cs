@@ -1,4 +1,5 @@
 ﻿using APIProject;
+using MarketingSystem.Job;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace MarketingSystem
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Thực hiện chạy tiến trình 
+            JobScheduler jobScheduler = new JobScheduler();
+            jobScheduler.Start();
         }
     }
 }
