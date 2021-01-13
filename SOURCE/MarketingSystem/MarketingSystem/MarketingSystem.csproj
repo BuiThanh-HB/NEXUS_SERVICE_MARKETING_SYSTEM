@@ -1378,6 +1378,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\_TableOrder.cshtml" />
     <Content Include="Views\Order\_OrderDetail.cshtml" />
+    <Content Include="Template\Bill.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
