@@ -100,7 +100,6 @@ namespace Data.Business
                         o.Status = input.Status;
                         break;
                     case SystemParam.ACCEPT:
-                        o.Status = input.Status;
                         o.DiscountValue = input.DiscountValue;
                         o.Discount = input.Discount;
                         o.TotalPrice = input.TotalPrice;
@@ -109,6 +108,7 @@ namespace Data.Business
                         {
                             email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đã được xác nhận");
                         }
+                        o.Status = input.Status;
                         break;
 
                     case SystemParam.COMPLETE:
