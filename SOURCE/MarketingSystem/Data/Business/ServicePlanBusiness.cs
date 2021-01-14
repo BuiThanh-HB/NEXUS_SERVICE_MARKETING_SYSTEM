@@ -145,5 +145,99 @@ namespace Data.Business
                 return rp.serverError();
             }
         }
+
+        // tìm kiếm web
+        public IPagedList<ListServicePlanOutputModel> SearchFontEnd(int page = 1, string searchKey = "",int status = 1, int cateID = 0)
+        {
+            try
+            {
+                var data = cnn.ServicePlans.Where(s => s.IsActive.Equals(SystemParam.ACTIVE) 
+                    && (!String.IsNullOrEmpty(searchKey) ? s.Name.Contains(searchKey) : true)
+                    && s.Status.Equals(SystemParam.ACTIVE) 
+                    && (cateID > 0 ? s.CategoryID.Equals(cateID) : true))
+                    .Select(s => new ListServicePlanOutputModel
+                    {
+                        ID = s.ID,
+                        Name = s.Name,
+                        ImageUrl = s.ImageUrl,
+                        CateName = s.Category.Name,
+                        CreatedDate = s.CreatedDate,
+                        Status = s.Status,
+                        Value = s.Value,
+                        Price = s.Price,
+                        Descreiption = s.Description,
+                        CateID = s.CategoryID
+                    })
+                    .OrderByDescending(s => s.ID).ToList()
+                    .ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                return data;
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
+            }
+        }
+        
+        public ListServicePlanOutputModel ServiceDetail(int ID)
+        {
+            try
+            {
+                var data = cnn.ServicePlans.Where(s => s.ID.Equals(ID))
+                    .Select(s => new ListServicePlanOutputModel
+                    {
+                        ID = s.ID,
+                        Name = s.Name,
+                        ImageUrl = s.ImageUrl,
+                        CateName = s.Category.Name,
+                        CreatedDate = s.CreatedDate,
+                        Status = s.Status,
+                        Value = s.Value,
+                        Price = s.Price,
+                        Descreiption = s.Description,
+                        CateID = s.CategoryID
+                    }).FirstOrDefault();
+                return data;
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return new ListServicePlanOutputModel();
+            }
+        }
+
+        // danh sách gói dịch vụ của người dungf
+        public IPagedList<ListServicePlanOutputModel> SearchMyService(int CusID, int page = 1, string searchKey = "", int cateID = 0)
+        {
+            try
+            {
+                var data = cnn.ServicePlans.Where(s => s.IsActive.Equals(SystemParam.ACTIVE)
+                    && (!String.IsNullOrEmpty(searchKey) ? s.Name.Contains(searchKey) : true)
+                    && s.Status.Equals(SystemParam.ACTIVE)
+                    && (cateID > 0 ? s.CategoryID.Equals(cateID) : true))
+                    .Select(s => new ListServicePlanOutputModel
+                    //.Select(s => new Custom
+                    {
+                        ID = s.ID,
+                        Name = s.Name,
+                        ImageUrl = s.ImageUrl,
+                        CateName = s.Category.Name,
+                        CreatedDate = s.CreatedDate,
+                        Status = s.Status,
+                        Value = s.Value,
+                        Price = s.Price,
+                        Descreiption = s.Description,
+                        CateID = s.CategoryID
+                    })
+                    .OrderByDescending(s => s.ID).ToList()
+                    .ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                return data;
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
+            }
+        }
     }
 }

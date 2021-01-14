@@ -13,5 +13,16 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             return View();
         }
+        public PartialViewResult SearchAboutUS(int Page=1, string Name="")
+        {
+            try
+            {
+                return PartialView("_AboutUs", "");
+            }
+            catch
+            {
+                return PartialView("_AboutUs", /*new List<ListPostCategory>().ToPagedList(1, 1)*/ "");
+            }
+        }
     }
 }

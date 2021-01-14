@@ -1,0 +1,65 @@
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@model  PagedList.IPagedList<ListServicePlanOutputModel>
+
+@* dùng forearch từ mode *@
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 col-xs-6 col-us">
+                <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
+                    <div class="pricing-title">
+                         <h2 class="pricing-type" onclick="serviceDetail(@item.ID)"> @item.Name</h2>
+                        <small>For small bussiness</small>
+                    </div>
+                    <div class="price-tag">
+                        <strong>$@item.Price</strong>
+                        <small>/Per month</small>
+                    </div>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                    <ul class="list-fa">
+                        <li><i class="fa fa-check"></i> @item.Name</li>
+                        <li><i class="fa fa-check"></i> @item.CateName</li>
+                        <li><i class="fa fa-check"></i> 50 GB disc space</li>
+                        <li><i class="fa fa-check"></i> 10 email accounts</li>
+                        <li><i class="fa fa-check"></i> Support 24/h</li>
+                        <li><i class="fa fa-check"></i> Admin panel</li>
+                    </ul>
+                </div> <!-- .pricing-table -->
+            </div>
+        }
+    </div> <!-- .row -->
+</div> <!-- .container -->
+
+@*// phân trang*@
+<div class="col-md-12">
+    <div class="row float-right">
+        @Html.PagedListPager(
+           Model,
+           page => Url.Action("SearchService", "ServicePlanFE", new { Page = page }),
+           PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listService" })
+         )
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    // chi tiết dịch vụ
+    function serviceDetail(id) {
+        $.ajax({
+            url: "/ServicePlanFE/ServiceDetail",
+            data: { ID:id },
+            success: function (rs) {
+                alert(1);
+                //$('#modalLoad').modal('hide');
+                $("#listService").html(rs);
+            }
+        });
+    }
+
+</script>
