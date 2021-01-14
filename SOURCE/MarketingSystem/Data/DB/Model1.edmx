@@ -125,6 +125,7 @@
           <Property Name="Note" Type="nvarchar" MaxLength="500" />
           <Property Name="AdminNote" Type="nvarchar" MaxLength="1000" />
           <Property Name="DiscountValue" Type="int" />
+          <Property Name="UserHandleID" Type="int" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -181,6 +182,18 @@
           <Property Name="Type" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="DistrictID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Order__UserHandl__3C69FB99">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserHandleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__ServicePl__Categ__3A81B327">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="ServicePlan" Type="Self.ServicePlan" Multiplicity="*" />
@@ -412,6 +425,10 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Village" EntityType="Self.Village" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Order__UserHandl__3C69FB99" Association="Self.FK__Order__UserHandl__3C69FB99">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK__ServicePl__Categ__3A81B327" Association="Self.FK__ServicePl__Categ__3A81B327">
             <End Role="Category" EntitySet="Category" />
             <End Role="ServicePlan" EntitySet="ServicePlan" />
@@ -616,6 +633,8 @@
           <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="DiscountValue" Type="Int32" />
           <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Order" FromRole="Order" ToRole="CustomerServicePlan" />
+          <Property Name="UserHandleID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" FromRole="Order" ToRole="User" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -669,6 +688,7 @@
           <Property Name="Role" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Users" FromRole="Users" ToRole="Feedback" />
           <NavigationProperty Name="HistoryCustomerServicePlans" Relationship="Self.FK_HistoryCustomerServicePlan_Users" FromRole="Users" ToRole="HistoryCustomerServicePlan" />
+          <NavigationProperty Name="Orders" Relationship="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" FromRole="User" ToRole="Order" />
         </EntityType>
         <EntityType Name="Village">
           <Key>
@@ -949,6 +969,10 @@
             <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
             <End Role="HistoryCustomerServicePlan" EntitySet="HistoryCustomerServicePlans" />
           </AssociationSet>
+          <AssociationSet Name="FK__Order__UserHandl__3C69FB99" Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CustomerServicePlan">
           <Key>
@@ -1002,6 +1026,18 @@
             </Principal>
             <Dependent Role="HistoryCustomerServicePlan">
               <PropertyRef Name="CustomerServicePlanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__UserHandl__3C69FB99">
+          <End Type="NEXUS_SystemModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="NEXUS_SystemModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserHandleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1105,6 +1141,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="NEXUS_SystemModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="UserHandleID" ColumnName="UserHandleID" />
                 <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
                 <ScalarProperty Name="AdminNote" ColumnName="AdminNote" />
                 <ScalarProperty Name="Note" ColumnName="Note" />

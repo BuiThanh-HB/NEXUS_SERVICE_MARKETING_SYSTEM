@@ -2,9 +2,11 @@
 using Data.DB;
 using Data.Model;
 using Data.Utils;
+using OfficeOpenXml;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -56,6 +58,7 @@ namespace Data.Business
                 data.ID = o.ID;
                 data.CusName = o.Customer.Name;
                 data.CusPhone = o.Customer.Phone;
+                data.CusEmail = o.Customer.Email;
                 data.Code = o.Code;
                 data.TotalPrice = o.TotalPrice;
                 data.Discount = o.Discount;
@@ -66,6 +69,7 @@ namespace Data.Business
                 data.LocationRequest = !String.IsNullOrEmpty(o.Address) ? o.Village.Name + "-" + o.District.Name + "-" + o.Province.Name : o.Address;
                 data.Status = o.Status;
                 data.DiscountValue = o.DiscountValue.HasValue ? o.DiscountValue.Value : 0;
+                data.UserHandleName = o.UserHandleID.HasValue ? o.User.Name : "Chưa cập nhật";
                 return data;
             }
             catch
@@ -98,6 +102,7 @@ namespace Data.Business
                             email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đang chờ xác nhận");
                         }
                         o.Status = input.Status;
+                        o.UserHandleID = userID;
                         break;
                     case SystemParam.ACCEPT:
                         o.DiscountValue = input.DiscountValue;
@@ -109,6 +114,7 @@ namespace Data.Business
                             email.configClient(o.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Đơn hàng " + o.Code + " của bạn đã được xác nhận");
                         }
                         o.Status = input.Status;
+                        o.UserHandleID = userID;
                         break;
 
                     case SystemParam.COMPLETE:
@@ -150,6 +156,7 @@ namespace Data.Business
                         }
 
                         o.Status = input.Status;
+                        o.UserHandleID = userID;
 
                         break;
 
@@ -214,6 +221,41 @@ namespace Data.Business
             {
                 e.ToString();
                 return rp.serverError();
+            }
+        }
+
+        //Xuất hóa đơn 
+        public ExcelPackage ExportBill(int id)
+        {
+            try
+            {
+                OrderDetailOuputModel data = GetOrderDetail(id);
+                string path = HttpContext.Current.Server.MapPath(@"/Template/Bill.xlsx");
+                FileInfo file = new FileInfo(path);
+                ExcelPackage pack = new ExcelPackage(file);
+
+                ExcelWorksheet sheet = pack.Workbook.Worksheets[1];
+
+
+                sheet.Cells[4, 2].Value = data.Code;
+                sheet.Cells[5, 2].Value = data.CreatedDate.ToString(SystemParam.CONVERT_DATETIME_HAVE_HOUR);
+                sheet.Cells[6, 2].Value = data.ServiceName;
+                sheet.Cells[7, 2].Value = data.LocationRequest;
+                sheet.Cells[8, 2].Value = String.Format("0n:0", data.TotalPrice);
+                sheet.Cells[9, 2].Value = data.AdminNote;
+                sheet.Cells[10, 2].Value = data.DiscountValue;
+                sheet.Cells[11, 2].Value = data.Discount;
+                sheet.Cells[12, 2].Value = data.UserHandleName;
+                sheet.Cells[16, 2].Value = data.CusName;
+                sheet.Cells[17, 2].Value = data.CusPhone;
+                sheet.Cells[18, 2].Value = data.CusEmail;
+
+                return pack;
+            }
+            catch(Exception e)
+            {
+                e.ToString();
+                return null;
             }
         }
     }
