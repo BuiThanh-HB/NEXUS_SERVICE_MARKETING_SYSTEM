@@ -55,95 +55,9 @@
         </div>
     </div> <!-- .feature-section -->
 
-    <div class="fullwidth-block pricing-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-xs-6 col-us">
-                    <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
-                        <div class="pricing-title">
-                            <h2 class="pricing-type">Basic</h2>
-                            <small>For small bussiness</small>
-                        </div>
-                        <div class="price-tag">
-                            <strong>$9.99</strong>
-                            <small>/Per month</small>
-                        </div>
-                        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                        <ul class="list-fa">
-                            <li><i class="fa fa-check"></i> Quad core</li>
-                            <li><i class="fa fa-check"></i> 50 GB ram</li>
-                            <li><i class="fa fa-check"></i> 50 GB disc space</li>
-                            <li><i class="fa fa-check"></i> 10 email accounts</li>
-                            <li><i class="fa fa-check"></i> Support 24/h</li>
-                            <li><i class="fa fa-check"></i> Admin panel</li>
-                        </ul>
-                    </div> <!-- .pricing-table -->
-                </div>
-                <div class="col-md-3 col-xs-6 col-us">
-                    <div class="pricing-table wow fadeInLeft">
-                        <div class="pricing-title">
-                            <h2 class="pricing-type">Standard</h2>
-                            <small>For medium bussiness</small>
-                        </div>
-                        <div class="price-tag">
-                            <strong>$59.99</strong>
-                            <small>/Per month</small>
-                        </div>
-                        <p class="pricing-desc">Etiam interdum nulla eros odio scelerisque magna</p>
-                        <ul class="list-fa">
-                            <li><i class="fa fa-check"></i> Quad core</li>
-                            <li><i class="fa fa-check"></i> 50 GB ram</li>
-                            <li><i class="fa fa-check"></i> 100 GB disc space</li>
-                            <li><i class="fa fa-check"></i> 50 email accounts</li>
-                            <li><i class="fa fa-check"></i> Support 24/h</li>
-                            <li><i class="fa fa-check"></i> Admin panel</li>
-                        </ul>
-                    </div> <!-- .pricing-table -->
-                </div>
-                <div class="col-md-3 col-xs-6 col-us">
-                    <div class="pricing-table wow fadeInRight">
-                        <div class="pricing-title">
-                            <h2 class="pricing-type">Advanced</h2>
-                            <small>For large bussiness</small>
-                        </div>
-                        <div class="price-tag">
-                            <strong>$99.99</strong>
-                            <small>/Per month</small>
-                        </div>
-                        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                        <ul class="list-fa">
-                            <li><i class="fa fa-check"></i> Quad core</li>
-                            <li><i class="fa fa-check"></i> 50 GB ram</li>
-                            <li><i class="fa fa-check"></i> 250 GB disc space</li>
-                            <li><i class="fa fa-check"></i> 100 email accounts</li>
-                            <li><i class="fa fa-check"></i> Support 24/h</li>
-                            <li><i class="fa fa-check"></i> Admin panel</li>
-                        </ul>
-                    </div> <!-- .pricing-table -->
-                </div>
-                <div class="col-md-3 col-xs-6 col-us">
-                    <div class="pricing-table wow fadeInRight" data-wow-delay=".3s">
-                        <div class="pricing-title">
-                            <h2 class="pricing-type">Professional</h2>
-                            <small>For corporate bussiness</small>
-                        </div>
-                        <div class="price-tag">
-                            <strong>$299.99</strong>
-                            <small>/Per month</small>
-                        </div>
-                        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                        <ul class="list-fa">
-                            <li><i class="fa fa-check"></i> Quad core</li>
-                            <li><i class="fa fa-check"></i> 50 GB ram</li>
-                            <li><i class="fa fa-check"></i> 500 GB disc space</li>
-                            <li><i class="fa fa-check"></i> 100 email accounts</li>
-                            <li><i class="fa fa-check"></i> Support 24/h</li>
-                            <li><i class="fa fa-check"></i> Admin panel</li>
-                        </ul>
-                    </div> <!-- .pricing-table -->
-                </div>
-            </div> <!-- .row -->
-        </div> <!-- .container -->
+    <div class="fullwidth-block pricing-section" id="listService">
+        @{ Html.RenderAction("SearchService", "ServicePlanFE", new { Page = 1 });}
+        
     </div> <!-- .pricing-section -->
 
 </div> <!-- .inner-content -->

@@ -1324,6 +1324,8 @@
     <Content Include="Areas\FrontEnd\Views\Contact\Index.cshtml" />
     <Content Include="Areas\FrontEnd\Views\AboutUs\Index.cshtml" />
     <Content Include="Content\font_end\dummy\.DS_Store" />
+    <Content Include="Areas\FrontEnd\Views\AboutUs\_AboutUs.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\ServicePlanFE\_Service.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\font-end.js" />
