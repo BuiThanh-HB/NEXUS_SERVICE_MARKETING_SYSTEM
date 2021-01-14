@@ -149,6 +149,7 @@
   <ItemGroup>
     <Compile Include="Business\CategoryBusiness.cs" />
     <Compile Include="Business\CustomerBusiness.cs" />
+    <Compile Include="Business\CustomerServicePlanBusiness.cs" />
     <Compile Include="Business\EmailBusiness.cs" />
     <Compile Include="Business\GenericBusiness.cs" />
     <Compile Include="Business\LoginBusiness.cs" />

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Web;
+using Data.Business;
 
 namespace MarketingSystem.Job
 {
@@ -13,7 +14,8 @@ namespace MarketingSystem.Job
 
         public async Task SendNoti()
         {
-            System.Diagnostics.Debug.WriteLine("job start");
+            CustomerServicePlanBusiness plan = new CustomerServicePlanBusiness();
+            plan.ReportServiceStatusToCus();
         }
 
         public async Task Execute(IJobExecutionContext context)
