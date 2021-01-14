@@ -1,5 +1,7 @@
 ﻿using APIProject.Controllers;
 using Data.Model;
+using Data.Model.APIWeb;
+using Data.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/HomeFrontEnd
         public ActionResult Index()
         {
+            LoginOutputModel cus = client;
             return View();
         }
         public ActionResult Register()
@@ -45,6 +48,35 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         public JsonResult GetListVillage(int district_id)
         {
             return Json(customerBusiness.GetListVillage(district_id), JsonRequestBehavior.AllowGet);
+        }
+
+
+        // 
+        public PartialViewResult CusDetail()
+        {
+            try
+            {
+                //var data = servicePlanBusiness.ServiceDetail(ID);
+                return PartialView("CusDetail");
+            }
+            catch
+            {
+                return PartialView("CusDetail");
+            }
+        }
+
+        //đăng xuất
+        public int Logout()
+        {
+            try
+            {
+                Session["Client"] = null;
+                return SystemParam.SUCCESS;
+            }
+            catch
+            {
+                return SystemParam.ERROR;
+            }
         }
     }
 }

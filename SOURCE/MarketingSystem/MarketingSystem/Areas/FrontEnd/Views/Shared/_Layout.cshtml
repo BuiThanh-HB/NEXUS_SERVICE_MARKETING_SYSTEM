@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 
-    <title>Homepage</title>
+    <title>NEXUS_System</title>
     <!-- Loading third party fonts -->
     <link href="http://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet" type="text/css">
     @*<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">*@
@@ -14,9 +14,9 @@
     @*<link rel="stylesheet" href="css/animate.css">*@
     @*<link rel="stylesheet" href="style.css">*@
     @Styles.Render("~/fontend/css")
-    @Scripts.Render("~/fontend/js") 
-    @Styles.Render("~/fontend/fonts") 
-    @Styles.Render("~/fontend/stylecss") 
+    @Scripts.Render("~/fontend/js")
+    @Styles.Render("~/fontend/fonts")
+    @Styles.Render("~/fontend/stylecss")
     <!--[if lt IE 9]>
     <script src="js/ie-support/html5.js"></script>
     <script src="js/ie-support/respond.js"></script>
@@ -31,19 +31,45 @@
         <header class="site-header">
             <div class="top-header">
                 <div class="container">
-                    <a href="tel:80049123441">Call Us: (800) 49123441</a>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <a href="tel:80049123441">Call Us: (800) 49123441</a>
+                        </div>
+                        <div class="col-md-4">
+                            @{ 
+                                var ss = (@Data.Model.APIWeb.LoginOutputModel)HttpContext.Current.Session["Client"];
+                                if (ss == null)
+                                {
+                                    <nav class="member-navigation pull-right">
+                                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
+                                        <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
+                                    </nav> 
+                                    }
+                                else
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @(ss.Name)
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
+                                            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
+                                            <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                                            <a onclick="logout();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
+                                        </div>
+                                    </div> 
+                                } 
+                            }
 
-                    <nav class="member-navigation pull-right">
-                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
-                        @*<a href="#"><i class="fa fa-user"></i> Register</a><li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-                        <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
-                    </nav> <!-- .member-navigation -->
+                        </div>
+                    </div>
+
                 </div> <!-- .container -->
             </div> <!-- .top-header -->
 
             <div class="bottom-header">
                 <div class="container">
-                    
+
                     <a href="@Url.Action("Index","/HomeFrontEnd")" class="branding pull-left">
                         <img src="~/Content/font_end/images/logo-footer.png" alt="Site title" class="logo-icon">
                         <h1 class="site-title">Company <span>Name</span></h1>
@@ -106,11 +132,75 @@
         </footer> <!-- .site-footer -->
 
     </div> <!-- #site-content -->
-
     @*<script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/plugins.js"></script>
-    <script src="js/app.js"></script>*@
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>*@
 
+    @*// modal đổi mật khẩu*@
+    <div id="changePassword" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Mật khẩu hiện tại</label>
+                            <input class="form-control" type="password" id="txtCurrentPassword" />
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Mật khẩu mới</label>
+                            <input class="form-control" type="password" id="txtNewPassword" />
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Xác nhận mật khẩu mới</label>
+                            <input class="form-control" type="password" id="txtConfirmPassword" />
+                            <i class="iconChangePassword text-success fa fa-check"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
+
+<script type="text/javascript">
+    function logout() {
+        if (!navigator.onLine) {
+            swal({
+                title: "Kiểm tra kết nối internet!",
+                text: "",
+                icon: "warning"
+            })
+            return;
+        }
+        $.ajax({
+            url: '/HomeFontEnd/Logout',
+            data: {},
+            type: 'POST',
+            success: function (response) {
+                if (response == SUCCESS) {
+                    location.reload();
+                }
+            },
+            error: function (result) {
+                console.log(result.responseText);
+            }
+        });
+    }
+
+</script>

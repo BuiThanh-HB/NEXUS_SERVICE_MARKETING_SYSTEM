@@ -51,5 +51,18 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             input.token = client.Token;
             return Json(orderBusiness.CreateOrder(input), JsonRequestBehavior.AllowGet);
         }
+
+        public PartialViewResult CusService()
+        {
+            try
+            {
+                var data = new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
+                return PartialView("CusService", data);
+            }
+            catch
+            {
+                return PartialView("CusService", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
+            }
+        }
     }
 }
