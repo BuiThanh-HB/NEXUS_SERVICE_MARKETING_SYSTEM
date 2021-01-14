@@ -56,8 +56,24 @@
     </div> <!-- .feature-section -->
 
     <div class="fullwidth-block pricing-section" id="listService">
-        @{ Html.RenderAction("SearchService", "ServicePlanFE", new { Page = 1 });}
-        
+        @{
+            Html.RenderAction("SearchService", "ServicePlanFE", new { Page = 1 });
+        }
+
     </div> <!-- .pricing-section -->
 
 </div> <!-- .inner-content -->
+@* model load *@
+@*<div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content text-center py-3">
+            <div class="modal-body text-center">
+                <i class="fa fa-spinner text-success fa-spin" style="font-size: 40px;"></i>
+                <div class="col-md-12 text-center mt-2">
+                    <span>Đang xử lý</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+

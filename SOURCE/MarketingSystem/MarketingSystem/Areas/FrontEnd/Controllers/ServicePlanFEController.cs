@@ -1,6 +1,7 @@
 ﻿using APIProject.Controllers;
 using Data.Model;
 using Data.Model.APIWeb;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,33 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/ServicePlanFE
         public ActionResult Index()
         {
+            ViewBag.ListCategory = servicePlanBusiness.GetListCategory();
             return View();
         }
 
-        public PartialViewResult SearchService(int Page = 1, string Name = "")
+        public PartialViewResult SearchService(int Page = 1, string Name = "" , int CateID = 0)
         {
             try
             {
-                var data = servicePlanBusiness.GetListCategory();
+                var data = servicePlanBusiness.SearchFontEnd(Page, Name, 1, CateID);
                 return PartialView("_Service",data);
             }
             catch
             {
-                return PartialView("_Service"/*new List<ListPostCategory>().ToPagedList(1, 1)*/ );
+                return PartialView("_Service", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
+            }
+        }
+        
+        public PartialViewResult ServiceDetail(int ID)
+        {
+            try
+            {
+                var data = servicePlanBusiness.ServiceDetail(ID);
+                return PartialView("_ServiceDetail",data);
+            }
+            catch
+            {
+                return PartialView("_ServiceDetail", new ListServicePlanOutputModel());
             }
         }
         //Đăng ký dịch vụ
