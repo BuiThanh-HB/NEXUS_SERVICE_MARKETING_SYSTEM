@@ -11,10 +11,10 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-md-3 col-xs-6 col-us">
+            <div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@item.ID)">
                 <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
                     <div class="pricing-title">
-                         <h2 class="pricing-type" onclick="serviceDetail(@item.ID)"> @item.Name</h2>
+                         <h2 class="pricing-type"> @item.Name</h2>
                         <small>For small bussiness</small>
                     </div>
                     <div class="price-tag">
@@ -47,19 +47,3 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-    // chi tiết dịch vụ
-    function serviceDetail(id) {
-        $.ajax({
-            url: "/ServicePlanFE/ServiceDetail",
-            data: { ID:id },
-            success: function (rs) {
-                alert(1);
-                //$('#modalLoad').modal('hide');
-                $("#listService").html(rs);
-            }
-        });
-    }
-
-</script>

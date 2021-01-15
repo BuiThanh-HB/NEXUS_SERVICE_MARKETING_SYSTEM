@@ -15,10 +15,19 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/ServicePlanFE
         public ActionResult Index()
         {
+            if(client != null)
+            {
+                ViewBag.cusID = client.Id;
+            }
+            else
+            {
+                ViewBag.cusID = 0;
+            }
+           
             ViewBag.ListCategory = servicePlanBusiness.GetListCategory();
             return View();
         }
-
+        
         public PartialViewResult SearchService(int Page = 1, string Name = "" , int CateID = 0)
         {
             try
@@ -31,24 +40,45 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
                 return PartialView("_Service", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
             }
         }
-        
         public PartialViewResult ServiceDetail(int ID)
         {
             try
             {
+                ViewBag.LisProvince = customerBusiness.GetListProvince();
                 var data = servicePlanBusiness.ServiceDetail(ID);
-                return PartialView("_ServiceDetail",data);
+                return PartialView("_ServiceDetail", data);
             }
             catch
             {
                 return PartialView("_ServiceDetail", new ListServicePlanOutputModel());
             }
         }
+        //public JsonResult ServiceDetail(int ID)
+        //{
+        //    try
+        //    {
+        //        ViewBag.LisProvince = customerBusiness.GetListProvince();
+        //        var data = servicePlanBusiness.ServiceDetail(ID);
+        //        return Json(data, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch
+        //    {
+        //        return Json(null, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
         //Đăng ký dịch vụ
         [HttpPost]
-        public JsonResult CreateOrder(OrderInputModel input)
+        public JsonResult CreateOrder(int ServiceID,string Note,int ProvinceID , int DistrictID , int VillageID , string Address)
         {
+            OrderInputModel input = new OrderInputModel();
+            input.ServiceID = ServiceID;
             input.token = client.Token;
+            input.Note = Note;
+            input.ProvinceID = ProvinceID;
+            input.DistrictID = DistrictID;
+            input.VillageID = VillageID;
+            input.Address = Address;
+
             return Json(orderBusiness.CreateOrder(input), JsonRequestBehavior.AllowGet);
         }
 
