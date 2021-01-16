@@ -54,7 +54,7 @@ namespace Data.Business
 
                     //Lưu lại lịch sử gói cước
                     HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
-                    h.Note = "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động và ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME));
+                    h.Note = "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động và ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME);
                     h.UserID = 1;
                     h.IsActive = SystemParam.ACTIVE;
                     h.CreatedDate = DateTime.Now;
