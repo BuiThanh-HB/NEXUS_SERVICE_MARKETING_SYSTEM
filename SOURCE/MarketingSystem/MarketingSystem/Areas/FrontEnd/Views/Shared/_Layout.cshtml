@@ -38,25 +38,25 @@
                         </div>
                         <div class="col-md-4">
                             @{ var ss = (@Data.Model.APIWeb.LoginOutputModel)HttpContext.Current.Session["Client"];
-                                            if (ss == null)
-                                            {
-                                <nav class="member-navigation pull-right">
-                                    <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
-                                    <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
-                                </nav> }
-                                            else
-                                            {
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        @(ss.Name)
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
-                                        <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
-                                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                                        <a onclick="logoutweb();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
-                                    </div>
-                                </div> } }
+                                if (ss == null)
+                                {
+                    <nav class="member-navigation pull-right">
+                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
+                        <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
+                    </nav> }
+                else
+                {
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @(ss.Name)
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
+            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
+            <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+            <a onclick="logoutweb();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
+        </div>
+    </div> } }
 
                         </div>
                     </div>
@@ -133,61 +133,63 @@
         <script src="js/plugins.js"></script>
         <script src="js/app.js"></script>*@
 
-    @*// modal đổi mật khẩu*@
-    <div id="changePassword" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <label>Mật khẩu hiện tại</label>
-                            <input class="form-control" type="password" id="txtCurrentPassword" />
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <label>Mật khẩu mới</label>
-                            <input class="form-control" type="password" id="txtNewPassword" />
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <label>Xác nhận mật khẩu mới</label>
-                            <input class="form-control" type="password" id="txtConfirmPassword" />
-                            <i class="iconChangePassword text-success fa fa-check"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    @* model load *@
-    <div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content text-center py-3">
-                <div class="modal-body text-center">
-                    <i class="fa fa-spinner text-success fa-spin" style="font-size: 40px;"></i>
-                    <div class="col-md-12 text-center mt-2">
-                        <span>Đang xử lý</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
+
+@*// modal đổi mật khẩu*@
+<!--<div id="changePassword" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Mật khẩu hiện tại</label>
+                        <input class="form-control" type="password" id="txtCurrentPassword" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Mật khẩu mới</label>
+                        <input class="form-control" type="password" id="txtNewPassword" />
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <label>Xác nhận mật khẩu mới</label>
+                        <input class="form-control" type="password" id="txtConfirmPassword" />
+                        <i class="iconChangePassword text-success fa fa-check"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+@* model load *@
+<!--<div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content text-center py-3">
+            <div class="modal-body text-center">
+                <i class="fa fa-spinner text-success fa-spin" style="font-size: 40px;"></i>
+                <div class="col-md-12 text-center mt-2">
+                    <span>Đang xử lý</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
 
 <script type="text/javascript">
     function logoutweb() {

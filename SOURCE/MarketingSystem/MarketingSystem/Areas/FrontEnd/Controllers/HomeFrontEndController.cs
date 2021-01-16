@@ -51,7 +51,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         }
 
 
-        // 
+        // chi tiết người dùng
         public PartialViewResult CusDetail()
         {
             try
