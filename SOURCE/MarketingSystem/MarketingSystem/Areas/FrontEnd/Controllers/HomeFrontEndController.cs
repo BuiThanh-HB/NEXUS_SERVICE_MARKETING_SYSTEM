@@ -51,7 +51,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         }
 
 
-        // 
+        // chi tiết người dùng
         public PartialViewResult CusDetail()
         {
             try
@@ -70,7 +70,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
-                Session["Client"] = null;
+                Session[SystemParam.CLIENT] = null;
                 return SystemParam.SUCCESS;
             }
             catch

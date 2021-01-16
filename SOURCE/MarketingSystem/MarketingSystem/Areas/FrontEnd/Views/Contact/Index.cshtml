@@ -25,7 +25,7 @@
     <div class="fullwidth-block">
         <div class="container">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <h1 class="wow fadeInLeft">Addresss</h1>
                     <address class="wow fadeInLeft">
                         <p>Company Name</p>
@@ -33,18 +33,18 @@
                         <p>Phone: +1 932 349 313 <br>info@companyname.com</p>
                     </address>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <h1 class="wow fadeInRight">Contact Form</h1>
                     <form action="#">
                         <div class="row">
-                            <div class="col-md-4">
+                            @*<div class="col-md-4">
                                 <p class="wow fadeInRight"><input type="text" placeholder="Your name..."></p>
                                 <p class="wow fadeInRight"><input type="text" placeholder="Company Name..."></p>
                                 <p class="wow fadeInRight"><input type="email" placeholder="Email..."></p>
-                            </div>
-                            <div class="col-md-8">
-                                <p class="wow fadeInRight"><textarea name="" id=""></textarea></p>
-                                <input type="submit" class="button pull-right wow fadeInRight" value="Send Messages">
+                            </div>*@
+                            <div class="col-md-12">
+                                <p class="wow fadeInRight"><textarea name="" id="txtContent"></textarea></p>
+                                <input type="submit" class="button pull-right wow fadeInRight" id="btnCreateFeedback" value="Send Messages">
                             </div>
                         </div>
                     </form>
@@ -55,3 +55,33 @@
 
 
 </div> <!-- .inner-content -->
+
+<script type="text/javascript">
+    $('#btnCreateFeedback').click(function () {
+        var content = $('#txtContent').val();
+        $.ajax({
+            url: "/Contact/CreateFeedBack",
+            type: "POST",
+            data: { Content: content },
+            success: function (rs) {
+                if (rs == -1) {
+                    // chuyển qua đăng nhập
+                    location.href = "/FrontEnd/HomeFrontEnd/Login";
+                } else if (rs > 0) {
+                    // thành công
+                    swal({
+                        title: "Thành công !",
+                        text: "",
+                        icon: "success"
+                    })
+                }
+                // thất bại
+                swal({
+                    title: "Thất bại !",
+                    text: "",
+                    icon: "Errorwarning"
+                })
+            }
+        });
+    });
+</script>

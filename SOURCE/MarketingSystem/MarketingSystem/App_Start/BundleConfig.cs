@@ -88,7 +88,7 @@ namespace APIProject
                       ));
             bundles.Add(new StyleBundle("~/fontend/js").Include(
                       //"~/Content/font_end/js/jquery-1.11.1.min.js",
-                      "~/Scripts/jquery-3.4.1.min.js",
+                      //"~/Scripts/jquery-3.4.1.min.js",
                       "~/Content/font_end/js/plugins.js",
                       "~/Content/font_end/js/app.js",
                       "~/Scripts/font-end.js"

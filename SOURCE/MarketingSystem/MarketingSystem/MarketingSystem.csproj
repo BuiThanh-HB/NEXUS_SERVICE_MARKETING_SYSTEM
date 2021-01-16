@@ -1341,6 +1341,7 @@
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\_ServiceDetail.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\CusDetail.cshtml" />
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\CusService.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\News\_ListNewsWeb.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\font-end.js" />
