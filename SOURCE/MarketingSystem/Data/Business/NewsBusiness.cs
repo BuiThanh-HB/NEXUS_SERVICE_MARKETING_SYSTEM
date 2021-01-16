@@ -45,7 +45,7 @@ namespace Data.Business
                 return new List<ListNewsOutputModel>().ToPagedList(1, 1);
             }
         }
-
+        
         //Thêm bài đăng
 
         public JsonResultModel CreateNews(int type, bool status, string content, string title, string summary, string img)
@@ -129,6 +129,33 @@ namespace Data.Business
             catch
             {
                 return rp.serverError();
+            }
+        }
+
+
+        // web
+        public IPagedList<ListNewsOutputModel> SearchNewsWeb(int page, string searchKey)
+        {
+            try
+            {
+                var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE) 
+                    && (!String.IsNullOrEmpty(searchKey) ? n.Title.Contains(searchKey) : true)
+                    &&  n.Status.Equals(SystemParam.ACTIVE)
+                    &&  n.Type.Equals(1))
+                    .Select(n => new ListNewsOutputModel()
+                    {
+                        ID = n.ID,
+                        Title = n.Title,
+                        Status = n.Status,
+                        ImgUrl = n.ImageUrl,
+                        CateName = n.CategoryNew.Name,
+                        CreatedDate = n.CreatedDate
+                    }).OrderByDescending(n => n.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                return data;
+            }
+            catch
+            {
+                return new List<ListNewsOutputModel>().ToPagedList(1, 1);
             }
         }
     }

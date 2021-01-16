@@ -1,4 +1,5 @@
-﻿using Data.Model;
+﻿using APIProject.Controllers;
+using Data.Model;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MarketingSystem.Areas.FrontEnd.Controllers
 {
-    public class NewsController : Controller
+    public class NewsController : BaseController
     {
         // GET: FrontEnd/News
         public ActionResult Index()
@@ -19,8 +20,8 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
-                //var data = servicePlanBusiness.SearchFontEnd(Page, Name, 1, CateID);
-                return PartialView("_ListNewsWeb", new List<ListNewsOutputModel>().ToPagedList(1, 1));
+                var data = newsBusiness.SearchNewsWeb(Page, Name);
+                return PartialView("_ListNewsWeb", data);
             }
             catch
             {

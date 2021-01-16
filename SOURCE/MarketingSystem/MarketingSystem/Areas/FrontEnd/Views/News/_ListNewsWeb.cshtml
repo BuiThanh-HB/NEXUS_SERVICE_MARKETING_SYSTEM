@@ -7,35 +7,53 @@
 
 @model  PagedList.IPagedList<ListNewsOutputModel>
 
-<article class="post hentry wow fadeInUp">
-    <h2 class="entry-title"><a href="#">Marvels mighty mutants go worldwide and beyond</a></h2>
-    <figure class="featured-image"><img src="dummy/featured-image-1.jpg" alt=""></figure>
-    <div class="entry-summary">
-        <p>Iron Man, Thor, Captain America and the rest of Earths Mightiest Heroes unite to stand against the threats none can face alone. See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action. </p>
-    </div>
-    <a href="#" class="more-link button">Read more</a>
-</article> <!-- .post -->
-<article class="post hentry wow fadeInUp">
+@{
+    if (Model == null)
+    {
+        <h1>Không tồn tại dữ liệu</h1>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <h1>@item.ID</h1>
+
+            <article class="post hentry wow fadeInUp">
+                <h2 class="entry-title"><a href="#">Marvels mighty mutants go worldwide and beyond</a></h2>
+                <figure class="featured-image"><img src="dummy/featured-image-1.jpg" alt=""></figure>
+                <div class="entry-summary">
+                    <p>Iron Man, Thor, Captain America and the rest of Earths Mightiest Heroes unite to stand against the threats none can face alone. See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action. </p>
+                </div>
+                <a href="#" class="more-link button">Read more</a>
+            </article>
+ <!-- .post -->
+        }
+    }
+
+}
+
+
+<!--<article class="post hentry wow fadeInUp">
     <h2 class="entry-title"><a href="#">Marvels mighty mutants go worldwide and beyond</a></h2>
     <figure class="featured-image"><img src="dummy/featured-image-2.jpg" alt=""></figure>
     <div class="entry-summary">
         <p>Iron Man, Thor, Captain America and the rest of Earths Mightiest Heroes unite to stand against the threats none can face alone. See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action. </p>
     </div>
     <a href="#" class="more-link button">Read more</a>
-</article> <!-- .post -->
-<article class="post hentry wow fadeInUp">
+</article>--> <!-- .post -->
+<!--<article class="post hentry wow fadeInUp">
     <h2 class="entry-title"><a href="#">Marvels mighty mutants go worldwide and beyond</a></h2>
     <figure class="featured-image"><img src="dummy/featured-image-3.jpg" alt=""></figure>
     <div class="entry-summary">
         <p>Iron Man, Thor, Captain America and the rest of Earths Mightiest Heroes unite to stand against the threats none can face alone. See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action. </p>
     </div>
     <a href="#" class="more-link button">Read more</a>
-</article> <!-- .post -->
-
+</article>--> <!-- .post -->
 <!--<div class="pagination">
     <a href="#" class="button secondary">&larr; Older posts</a>
     <a href="#" class="button secondary">Newer posts &rarr;</a>
-</div>--> <!-- .pagination -->
+</div>-->
+ <!-- .pagination -->
 <div class="col-md-12">
     <div class="row float-right">
         @Html.PagedListPager(
