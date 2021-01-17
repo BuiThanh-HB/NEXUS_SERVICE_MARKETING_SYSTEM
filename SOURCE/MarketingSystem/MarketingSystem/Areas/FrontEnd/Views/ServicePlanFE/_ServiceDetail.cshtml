@@ -5,7 +5,27 @@
 <h1>Đây là chi tiết dịch vụ</h1>
 <h1>@Model.Name</h1>
 
-
+<div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@Model.ID)">
+    <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
+        <div class="pricing-title">
+            <h2 class="pricing-type"> @Model.Name</h2>
+            <small>For small bussiness</small>
+        </div>
+        <div class="price-tag">
+            <strong>$@Model.Price</strong>
+            <small>/Per month</small>
+        </div>
+        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+        <ul class="list-fa">
+            <li><i class="fa fa-check"></i> @Model.Name</li>
+            <li><i class="fa fa-check"></i> @Model.CateName</li>
+            <li><i class="fa fa-check"></i> 50 GB disc space</li>
+            <li><i class="fa fa-check"></i> 10 email accounts</li>
+            <li><i class="fa fa-check"></i> Support 24/h</li>
+            <li><i class="fa fa-check"></i> Admin panel</li>
+        </ul>
+    </div> <!-- .pricing-table -->
+</div>
 @*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
 
 <!-- Button trigger modal -->
@@ -30,7 +50,7 @@
                             @{
                                 foreach (var item in (List<SelectOptionModel>)ViewBag.LisProvince)
                                 {
-                                    <option value="@item.id">@item.value</option>
+                                    <option value="@Model.id">@Model.value</option>
                                 }
                             }
 
@@ -42,7 +62,7 @@
                             @{
                                 foreach (var item in (List<SelectOptionModel>)ViewBag.ListDistrict)
                                 {
-                                    <option value="@item.id">@item.value</option>
+                                    <option value="@Model.id">@Model.value</option>
                                 }
                             }
                         </select>
@@ -53,7 +73,7 @@
                             @{
                                 foreach (var item in (List<SelectOptionModel>)ViewBag.ListVillage)
                                 {
-                                    <option value="@item.id">@item.value</option>
+                                    <option value="@Model.id">@Model.value</option>
                                 }
                             }
                         </select>
