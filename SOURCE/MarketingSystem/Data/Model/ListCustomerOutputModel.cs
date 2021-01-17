@@ -12,6 +12,7 @@ namespace Data.Model
         public string Phone { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Address { get; set; }
+        public string StatusStr { get; set; }
 
     }
 }

@@ -34,6 +34,7 @@ namespace Data.DB
         public int DistrictID { get; set; }
         public int VillageID { get; set; }
         public string Token { get; set; }
+        public Nullable<bool> Status { get; set; }
     
         public virtual District District { get; set; }
         public virtual Province Province { get; set; }

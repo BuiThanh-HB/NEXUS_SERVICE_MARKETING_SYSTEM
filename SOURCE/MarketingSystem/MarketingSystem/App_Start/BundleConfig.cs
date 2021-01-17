@@ -43,9 +43,9 @@ namespace APIProject
                        "~/Scripts/dropify.min.js"
                       ));
             bundles.Add(new ScriptBundle("~/client/js").Include(
-                 //"~/Scripts/jquery.flexslider.js",
-                 //"~/Scripts/jquery.inview.js",
-                 //"~/Scripts/script.js"
+                //"~/Scripts/jquery.flexslider.js",
+                //"~/Scripts/jquery.inview.js",
+                //"~/Scripts/script.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/main/js").Include(
@@ -64,7 +64,8 @@ namespace APIProject
 
 
             bundles.Add(new ScriptBundle("~/bundle/js").Include(
-                    "~/Scripts/jquery-ui.js"
+                    "~/Scripts/jquery-ui.js",
+                     "~/Scripts/jquery.unobtrusive-ajax.min.js"
                     ));
             bundles.Add(new StyleBundle("~/main/css").Include(
                       "~/Content/bootstrap.min.css",
@@ -79,7 +80,7 @@ namespace APIProject
                       "~/Content/jquery-ui.css", "~/Content/toastr.min.css", "~/Content/dropify.min.css"));
 
             // font end 
-            bundles.Add(new StyleBundle("~/fontend/css").Include(                      
+            bundles.Add(new StyleBundle("~/fontend/css").Include(
                       "~/Content/font_end/css/style.css",
                       "~/Content/font_end/css/animate.css"
                       ));
@@ -87,14 +88,29 @@ namespace APIProject
                       "~/Content/font_end/style.css"
                       ));
             bundles.Add(new StyleBundle("~/fontend/js").Include(
-                      //"~/Content/font_end/js/jquery-1.11.1.min.js",
-                      //"~/Scripts/jquery-3.4.1.min.js",
-                      "~/Content/font_end/js/plugins.js",
-                      "~/Content/font_end/js/app.js",
+                      "~/Scripts/jquery.min.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/libscripts.bundle.js",
+                      "~/Scripts/vendorscripts.bundle.js",
+                      "~/Scripts/sweetalert.min.js",
+                      "~/Scripts/mainscripts.bundle.js",
+                      "~/Scripts/bootstrap-413.js",
+                      "~/Scripts/index.js",
+                       "~/Scripts/toastr.min.js",
+                       "~/Scripts/dropify.min.js",
+                      //    "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                      //"~/Scripts/angular.min.js",
+                      // "~/Content/font_end/js/app.js",
+                      // "~/Content/font_end/js/plugins.js",
                       "~/Scripts/font-end.js"
                       ));
             bundles.Add(new StyleBundle("~/fontend/fonts").Include(
-                      "~/Content/font_end/fonts/font-awesome.min.css"
+                      "~/Content/font_end/fonts/font-awesome.min.css",
+                       "~/Content/sweetalert.css",
+                      "~/Content/PagedList.css",
+                      "~/Content/font-awesome.min.css",
+                       "~/Content/PagedList.css",
+                      "~/Content/toastr.min.css", "~/Content/dropify.min.css"
                       ));
             BundleTable.EnableOptimizations = false;
         }

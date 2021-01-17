@@ -80,7 +80,7 @@
                                 </li>
 
                                 @{
-                                    if (user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF))
+                                    if (!user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF))
                                     {
                                         <li id="tabServicePlanManage">
                                             <a href="/ServicePlanManage/Index"><i class="fa fa-mobile-phone ic-menu"></i>Quản lý gói cước</a>

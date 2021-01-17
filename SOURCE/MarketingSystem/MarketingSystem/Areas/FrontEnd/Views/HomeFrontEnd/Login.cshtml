@@ -10,7 +10,7 @@
             <h3>Đăng Nhập</h3>
         </div>
     </div>
-    <div class="row" >
+    <div class="row">
         <div class="col-12 ">
             <form id="form-register" class="center">
                 <div class="form-group">
@@ -20,10 +20,18 @@
                 <div class="form-group" style="margin-top:10px">
                     <label for="exampleInputEmail1">Mật Khẩu</label>
                     <input type="password" class="form-control" id="password" placeholder="Mật khẩu" autocomplete="off">
-                </div>             
+                </div>
                 <button style="margin-top:20px;background-color:#0680f9 ; border-radius:5px" type="button" id="btn-login" class="btn btn-primary" onclick="Login()">Đăng nhập</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-login").click();
+        }
+    });
+</script>
 
