@@ -12,6 +12,7 @@ namespace Data.Model
         public int Role { get; set; }
         public string UserName { get; set; }
         public string Phone { get; set; }
+        public int role { get; set; }
         public DateTime? CreateDate { set; get; }
         public string Token { get; set; }
         public string CraeteDateStr

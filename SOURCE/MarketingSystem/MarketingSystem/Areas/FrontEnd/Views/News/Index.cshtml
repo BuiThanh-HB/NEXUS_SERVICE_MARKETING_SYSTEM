@@ -11,11 +11,22 @@
                     <a href="index.html">Home</a> &rarr;
                     <a href="#">News</a>
                 </div>
-                <div class="col-md-5 col-sm-12">
+                <div class="col-md-3 offset-md-0 col-sm-6 mt-1">
+                    <select id="cateNewsID" class="form-control">
+                        <optgroup label="Tiêu đề">
+                            <option value="0">Tất cả </option>
+                            @foreach (var tp in ViewBag.ListCategory)
+                            {
+                                <option value="@tp.ID">@tp.Name</option>
+                            }
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-md-4 col-sm-12">
                     <input type="text" class="form-control" id="txtSearchService" placeholder="Nội dung tìm kiếm" />
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <button class="btn btn-block btn-primary" id="btnSearchService"><i class="fa fa-search"></i>Tìm kiếm</button>
+                    <button class="btn btn-block btn-primary" id="btnSearchNews"><i class="fa fa-search"></i>Tìm kiếm</button>
                 </div>
             </div>
 

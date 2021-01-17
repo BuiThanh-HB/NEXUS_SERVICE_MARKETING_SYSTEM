@@ -28,9 +28,9 @@ namespace MarketingSystem.Controllers
         }
 
         //Khóa tài khoản của khách hàng
-        public JsonResult BlockAccount(int id)
+        public JsonResult ChangeStatus(int id)
         {
-            return Json(customerBusiness.BlockAccount(id), JsonRequestBehavior.AllowGet);
+            return Json(customerBusiness.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

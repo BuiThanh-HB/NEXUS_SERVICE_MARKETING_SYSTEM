@@ -4,5 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Quản lý dịch vụ</h2>
+<div class="col-md-12 mt-5">
+    <div class="breadcrumb-holder">
+        <div class="row pb-3 pt-3">
+            <div class="text-dark">
+                <h4><i class="fa fa-mobile-phone"></i> Quản lý gói cước của khách hàng</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-3 col-12 mt-1">
+        <input id="txt-search-key" class="form-control" placeholder="Nhập tên hoặc số điện thoại của khách hàng" />
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <input id="txt-search-key" class="form-control" placeholder="Nhập mã gói cước" />
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
+        <i class="fa fa-calendar absolute-icon-calendar"></i>
+    </div>
+    <div class="col-md-3 col-12 mt-1">
+        <select class="form-control" id="status-value-search">
+            <option selected disabled hidden>--Trạng thái--</option>
+            <option value="2">Tất cả</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Ngừng hoạt động</option>
+        </select>
+    </div>
+    <div class="col-md-3 offset-md-6 col-12 mt-1 text-right">
+        <button class="btn btn-outline-primary float-right" id="btn-search-service-plan" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
+    </div>
+</div>
+<div class="row mt-1">
+
+</div>
 

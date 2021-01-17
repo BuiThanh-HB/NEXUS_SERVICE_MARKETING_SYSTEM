@@ -87,6 +87,7 @@ namespace Data.Utils
 
 
         public const int WRONG_PASSWORD = 2;
+        public const int COUNT_LIST_WEB = 8;
         
     }
 }

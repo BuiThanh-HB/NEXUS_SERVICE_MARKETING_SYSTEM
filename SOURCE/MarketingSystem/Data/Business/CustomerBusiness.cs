@@ -100,7 +100,7 @@ namespace Data.Business
                     LoginOutputModel data = new LoginOutputModel();
                     string token = Util.CreateMD5(DateTime.Now.ToString());
                     data.Id = user.ID;
-                    data.Token = user.Token;
+                    data.Token = token;
                     data.Name = user.Name;
                     user.Token = token;
                     cnn.SaveChanges();
@@ -144,13 +144,16 @@ namespace Data.Business
         }
 
         //Khóa tài khoản khách hàng
-        public JsonResultModel BlockAccount(int id)
+        public JsonResultModel ChangeStatus(int id)
         {
             try
             {
+                EmailBusiness email = new EmailBusiness();
                 Customer cus = cnn.Customers.Find(id);
-                cus.Status = SystemParam.NO_ACTIVE;
+                cus.Status = !cus.Status.Value;
                 cnn.SaveChanges();
+                if (cus.Status.Equals(SystemParam.NO_ACTIVE))
+                    email.configClient(cus.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Tài khoản của bạn tạm thời bị khóa");
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", null);
             }
             catch
@@ -162,15 +165,15 @@ namespace Data.Business
         {
             try
             {
-                var passUser = cnn.Users.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
+                var passUser = cnn.Customers.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
 
-                if (!Util.CheckPass(CurrentPassword, passUser.Password))
+                if (passUser != null && !Util.CheckPass(CurrentPassword, passUser.Password))
                 {
                     return SystemParam.WRONG_PASSWORD;
                 }
 
-                User user = cnn.Users.Find(ID);
-                user.Password = Util.GenPass(NewPassword);
+                Customer cus = cnn.Customers.Find(ID);
+                cus.Password = Util.GenPass(NewPassword);
                 cnn.SaveChanges();
                 return SystemParam.SUCCESS;
             }

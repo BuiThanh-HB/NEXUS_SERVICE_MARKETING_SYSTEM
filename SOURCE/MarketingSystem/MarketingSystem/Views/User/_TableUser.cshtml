@@ -37,10 +37,24 @@
                         <td> @stt </td>
                         <td> @data.UserName </td>
                         <td> @data.Phone </td>
-                        <td class="text-bold">Admin</td>
+                        @{
+                            switch (data.role)
+                            {
+                                case SystemParam.ROLE_ADMIN:
+                                    <td class="text-bold">Admin</td>
+                                    break;
+                                case SystemParam.ROLE_CLERK:
+                                    <td class="text-bold">Nhân viên kế toán</td>
+                                    break;
+                                case SystemParam.ROLE_TECHNICAL_STAFF:
+                                    <td class="text-bold">Nhân viên kỹ thuật</td>
+                                    break;
+                            }
+                        }
+
                         <td> @data.CraeteDateStr </td>
                         <td>
-                            <a data-id="@data.ID" data-name="@data.UserName" data-phone="@data.Phone" onclick="GetUserDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin tài khoản" class="cursor-pointer">
+                            <a data-id="@data.ID" data-name="@data.UserName" data-phone="@data.Phone" data-role="@data.role" onclick="GetUserDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin tài khoản" class="cursor-pointer">
                                 <i class="btnEdit fa fa-fw fa-edit"></i>
                             </a>
                             <a data-toggle="tooltip" data-placement="top" title="Xóa tài khoản." class="cursor-pointer" onclick="deleteUser(@data.ID)">
@@ -65,7 +79,7 @@
      {
          HttpMethod = "GET",
          UpdateTargetId = "tableUser",
-        LoadingElementId = "modalLoad"
+         LoadingElementId = "modalLoad"
      })
      )
     </div>

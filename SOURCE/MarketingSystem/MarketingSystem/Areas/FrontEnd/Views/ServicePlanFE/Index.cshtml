@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Data.Model
+@using Data.Utils
+@{
     //ViewBag.cus = cusid;
     Layout = "~/Areas/FrontEnd/Views/Shared/_Layout.cshtml";
 }
@@ -93,6 +95,7 @@
 </div>
 
 
+
 <script type="text/javascript">
     // tất cả js của dịch vụ viết ở đây
     // danh sách tìm kiếm
@@ -128,12 +131,75 @@
         });
     }
 
-    // đặt đơn hàng
-    function CreateOrder(serviceid, cusid) {
-        alert(cusid);
-        if (!cusid > 0) {
+    function ChangProvinceService($target) {
+        let province_id = $target.val();
+        $.ajax({
+            url: "/HomeFrontEnd/GetListDistrict",
+            type: "GET",
+            data: {
+                province_id: province_id
+            }, success: function (res) {
+                $("#district-service").empty();
+                $.each(res, function () {
+                    $("#district-service").append('<option value="' + this.id + '">' + this.value + '</option>')
+                })
+                ChangeDistrict($("#district-service"))
+            }
+        })
+    }
 
-        }
+    function ChangeDistrictService($target) {
+        let district_id = $target.val();
+        $.ajax({
+            url: "/HomeFrontEnd/GetListVillage",
+            type: "GET",
+            data: {
+                district_id: district_id
+            }, success: function (res) {
+                $("#village-service").empty();
+                $.each(res, function () {
+                    $("#village-service").append('<option value="' + this.id + '">' + this.value + '</option>')
+                })
+            }
+        })
+    }
+    // đặt đơn hàng
+    function createOrder(id) {
+        var note = $('#txtNoteservice').val();
+        var provinceid = $('#province-service').val();
+        var districtid = $('#district-service').val();
+        var villageid = $('#village-service').val();
+        var address = $('#txtAddressservice').val();
+        $.ajax({
+            url: "/FrontEnd/ServicePlanFE/CreateOrder",
+            data: { ServiceID: id, Note: note, ProvinceID: provinceid, DistrictID: districtid, VillageID: villageid, Address: address},
+            type: "POST",
+            success: function (rs) {
+                if (rs == 1)
+                {
+                    swal({
+                        title: "Thành công!",
+                        text: "",
+                        icon: "success"
+                    });
+                }
+                else if (rs == -1)
+                {
+                    // chuyển qua login 
+                    alert("chuyển qua đăng nhập");
+                } else
+                {
+                    swal({
+                        title: "Thất bại!",
+                        text: "",
+                        icon: "warning"
+                    });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 
 </script>

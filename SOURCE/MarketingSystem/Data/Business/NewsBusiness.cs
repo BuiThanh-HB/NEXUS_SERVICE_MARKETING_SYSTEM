@@ -134,11 +134,12 @@ namespace Data.Business
 
 
         // web
-        public IPagedList<ListNewsOutputModel> SearchNewsWeb(int page, string searchKey ,int type = SystemParam.NEWS_TYPE)
+        public IPagedList<ListNewsOutputModel> SearchNewsWeb(int page, string searchKey ,int CateNewsID = 0)
         {
             try
             {
                 var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE) 
+                    && CateNewsID > 0 ? n.CategoryNewID.Equals(CateNewsID) : true
                     && (!String.IsNullOrEmpty(searchKey) ? n.Title.Contains(searchKey) : true)
                     &&  n.Status.Equals(SystemParam.ACTIVE)
                    )
@@ -151,7 +152,7 @@ namespace Data.Business
                         ImgUrl = n.ImageUrl,
                         CateName = n.CategoryNew.Name,
                         CreatedDate = n.CreatedDate
-                    }).OrderByDescending(n => n.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
+                    }).OrderByDescending(n => n.ID).ToPagedList(page, SystemParam.COUNT_LIST_WEB);
                 return data;
             }
             catch
@@ -160,7 +161,7 @@ namespace Data.Business
             }
         }
         // danh sách màn home
-        public List<ListNewsOutputModel> ListNewsWeb(int limit = 3)
+        public List<ListNewsOutputModel> ListNewsWeb(int limit = 4)
         {
             try
             {
@@ -181,6 +182,25 @@ namespace Data.Business
             catch
             {
                 return new List<ListNewsOutputModel>();
+            }
+        }
+
+        // 
+        public List<CategoryNewsOutputModel> GetListNewCategory()
+        {
+            try
+            {
+                var data = cnn.CategoryNews.Where(c => c.IsActive.Equals(SystemParam.ACTIVE))
+                    .Select(c => new CategoryNewsOutputModel
+                    {
+                        ID = c.ID,
+                        Name = c.Name
+                    }).ToList();
+                return data;
+            }
+            catch
+            {
+                return new List<CategoryNewsOutputModel>();
             }
         }
 

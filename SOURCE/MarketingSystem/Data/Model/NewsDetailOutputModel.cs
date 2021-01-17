@@ -15,4 +15,10 @@ namespace Data.Model
         public string Content { get; set; }
         public string ImgUrl { get; set; }
     }
+
+    public class CategoryNewsOutputModel
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+    }
 }

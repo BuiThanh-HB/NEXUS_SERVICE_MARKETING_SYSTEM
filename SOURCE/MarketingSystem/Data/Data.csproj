@@ -157,6 +157,7 @@
     <Compile Include="Business\OrderBusiness.cs" />
     <Compile Include="Business\ResponseBusiness.cs" />
     <Compile Include="Business\ServicePlanBusiness.cs" />
+    <Compile Include="Business\ServicePlanOfCusBusiness.cs" />
     <Compile Include="Business\UserBusiness.cs" />
     <Compile Include="DB\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -221,6 +222,7 @@
     <Compile Include="Model\ListCustomerOutputModel.cs" />
     <Compile Include="Model\ListNewsOutputModel.cs" />
     <Compile Include="Model\ListOrderOutputModel.cs" />
+    <Compile Include="Model\ListServicePlanOfCus.cs" />
     <Compile Include="Model\ListServicePlanOutputModel.cs" />
     <Compile Include="Model\LoginOutputModel.cs" />
     <Compile Include="Model\NewsDetailOutputModel.cs" />
