@@ -15,7 +15,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/ServicePlanFE
         public ActionResult Index()
         {
-            if(client != null)
+            if (client != null)
             {
                 ViewBag.cusID = client.Id;
             }
@@ -23,35 +23,31 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             {
                 ViewBag.cusID = 0;
             }
-           
+
             ViewBag.ListCategory = servicePlanBusiness.GetListCategory();
             return View();
         }
-        
-        public PartialViewResult SearchService(int Page = 1, string Name = "" , int CateID = 0)
+
+        public PartialViewResult SearchService(int Page = 1, string Name = "", int CateID = 0)
         {
             try
             {
                 var data = servicePlanBusiness.SearchFontEnd(Page, Name, 1, CateID);
-                return PartialView("_Service",data);
+                return PartialView("_Service", data);
             }
             catch
             {
                 return PartialView("_Service", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
             }
         }
+
+        [HttpGet]
         public PartialViewResult ServiceDetail(int ID)
         {
-            try
-            {
-                ViewBag.LisProvince = customerBusiness.GetListProvince();
-                var data = servicePlanBusiness.ServiceDetail(ID);
-                return PartialView("_ServiceDetail", data);
-            }
-            catch
-            {
-                return PartialView("_ServiceDetail", new ListServicePlanOutputModel());
-            }
+
+            //ViewBag.LisProvince = customerBusiness.GetListProvince();
+            //var data = servicePlanBusiness.ServiceDetail(ID);
+            return PartialView("_ServiceDetail", null);
         }
         //public JsonResult ServiceDetail(int ID)
         //{
@@ -68,7 +64,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         //}
         //Đăng ký dịch vụ
         [HttpPost]
-        public JsonResult CreateOrder(int ServiceID,string Note,int ProvinceID , int DistrictID , int VillageID , string Address)
+        public JsonResult CreateOrder(int ServiceID, string Note, int ProvinceID, int DistrictID, int VillageID, string Address)
         {
             OrderInputModel input = new OrderInputModel();
             input.ServiceID = ServiceID;
