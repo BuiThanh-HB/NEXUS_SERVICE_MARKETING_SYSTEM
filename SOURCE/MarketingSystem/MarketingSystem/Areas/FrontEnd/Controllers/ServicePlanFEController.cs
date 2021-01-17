@@ -45,23 +45,11 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         public PartialViewResult ServiceDetail(int ID)
         {
 
-            //ViewBag.LisProvince = customerBusiness.GetListProvince();
-            //var data = servicePlanBusiness.ServiceDetail(ID);
-            return PartialView("_ServiceDetail", null);
+            ViewBag.LisProvince = customerBusiness.GetListProvince();
+            var data = servicePlanBusiness.ServiceDetail(ID);
+            return PartialView("_ServiceDetail", data);
         }
-        //public JsonResult ServiceDetail(int ID)
-        //{
-        //    try
-        //    {
-        //        ViewBag.LisProvince = customerBusiness.GetListProvince();
-        //        var data = servicePlanBusiness.ServiceDetail(ID);
-        //        return Json(data, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch
-        //    {
-        //        return Json(null, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+
         //Đăng ký dịch vụ
         [HttpPost]
         public JsonResult CreateOrder(int ServiceID, string Note, int ProvinceID, int DistrictID, int VillageID, string Address)
