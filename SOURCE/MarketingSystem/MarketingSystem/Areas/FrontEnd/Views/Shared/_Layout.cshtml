@@ -41,23 +41,23 @@
                             @{ var ss = (@Data.Model.APIWeb.LoginOutputModel)HttpContext.Current.Session["Client"];
                                 if (ss == null)
                                 {
-                    <nav class="member-navigation pull-right">
-                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
-                        <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
-                    </nav> }
-                else
-                {
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @(ss.Name)
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
-                            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
-                            <a class="dropdown-item" href="" onclick="showchangePass()">Đổi mật khẩu</a>
-                            <a class="dropdown-item" href="" onclick="logoutweb();">@*<i class="fa fa-sign-out" style="padding-right:10px"></i>*@Đăng xuất</a>
-                        </div>
-                    </div> } }
+                                    <nav class="member-navigation pull-right">
+                                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
+                                        <a href="@Url.Action("Login","/HomeFrontEnd")"><i class="fa fa-lock"></i> Login</a>
+                                    </nav> }
+                                else
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @(ss.Name)
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
+                                            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
+                                            <a class="dropdown-item" href="javascript:void(0)" onclick="showchangePass()">Đổi mật khẩu</a>
+                                            <a class="dropdown-item" href="javascript:void(0)" onclick="logoutweb();">@*<i class="fa fa-sign-out" style="padding-right:10px"></i>*@Đăng xuất</a>
+                                        </div>
+                                    </div> } }
 
                         </div>
                     </div>
@@ -92,17 +92,8 @@
             @RenderBody()
         </main> <!-- .content -->
 
-    </div> <!-- #site-content -->
-    @*<script src="js/jquery-1.11.1.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/app.js"></script>*@
-
-
-</body>
-
-
-<footer class="site-footer wow fadeInUp">
-    <div class="container">
+        <footer class="site-footer wow fadeInUp">
+            <div class="container">
 
         <div class="row">
             <div class="col-md-6">
@@ -138,46 +129,55 @@
     </div>
 </footer> <!-- .site-footer -->
 
-</html>
+    </div> <!-- #site-content -->
+    @*<script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/app.js"></script>*@
 
-@*// modal đổi mật khẩu*@
-<div id="changePassword" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-12">
-                        <label>Mật khẩu hiện tại</label>
-                        <input class="form-control" type="password" id="txtCurrentPassword" />
+    @*// modal đổi mật khẩu*@
+    <div id="changePassword" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-lock" aria-hidden="false"></i> Thay đổi mật khẩu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Mật khẩu hiện tại</label>
+                            <input class="form-control" type="password" id="txtCurrentPassword" />
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Mật khẩu mới</label>
+                            <input class="form-control" type="password" id="txtNewPassword" />
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <label>Xác nhận mật khẩu mới</label>
+                            <input class="form-control" type="password" id="txtConfirmPassword" />
+                            <i class="iconChangePassword text-success fa fa-check"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-12 col-sm-12 col-12">
-                        <label>Mật khẩu mới</label>
-                        <input class="form-control" type="password" id="txtNewPassword" />
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-md-12 col-sm-12 col-12">
-                        <label>Xác nhận mật khẩu mới</label>
-                        <input class="form-control" type="password" id="txtConfirmPassword" />
-                        <i class="iconChangePassword text-success fa fa-check"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" onclick="changePassword()">Thay đổi</button>
             </div>
         </div>
     </div>
-</div>
+
+</body>
+
+</html>
+
+
 
 @* model load *@
 <!--<div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -262,7 +262,7 @@
             },
             type: 'POST',
             success: function (response) {
-                if (response == SUCCESS) {
+                if (response == 1) {
                     $("#changePassword").modal("hide");
                     swal({
                         title: "Đổi mật khẩu thành công",
@@ -270,7 +270,7 @@
                         icon: "success"
                     })
                 } else
-                    if (response == WRONG_PASSWORD) {
+                    if (response == 2) {
                         $("#txtCurrentPassword").val("");
                         swal({
                             title: "Mật khẩu cũ không đúng",
@@ -296,7 +296,4 @@
         });
     }
 
-    function loginchangefooter() {
-        if()
-    }
 </script>
