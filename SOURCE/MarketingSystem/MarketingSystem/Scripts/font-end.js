@@ -131,10 +131,10 @@ function Login() {
             }
             else {
                 swal({
-                    title: "Tài khoản hoặc mật khẩu không chính xác!",
+                    title: res.Message,
                     text: "",
                     icon: "error"
-                })
+                });
             }
         }
     })

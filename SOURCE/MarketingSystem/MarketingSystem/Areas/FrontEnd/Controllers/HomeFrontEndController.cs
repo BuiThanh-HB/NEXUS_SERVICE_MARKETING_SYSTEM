@@ -15,8 +15,10 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/HomeFrontEnd
         public ActionResult Index()
         {
-            LoginOutputModel cus = client;
-            return View();
+            HomeFrontEndOutputModel data = new HomeFrontEndOutputModel();
+            data.ListNews = newsBusiness.ListNewsWeb();
+            data.ListService = servicePlanBusiness.ListServiceHome();
+            return View(data);
         }
         public ActionResult Register()
         {

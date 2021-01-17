@@ -81,6 +81,7 @@ namespace APIProject
 
             // font end 
             bundles.Add(new StyleBundle("~/fontend/css").Include(
+                "~/Content/bootstrap.min.css",
                       "~/Content/font_end/css/style.css",
                       "~/Content/font_end/css/animate.css"
                       ));

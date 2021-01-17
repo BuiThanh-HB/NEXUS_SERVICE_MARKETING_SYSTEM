@@ -1,18 +1,31 @@
-﻿@using APIProject.Models;
-@using Data.Model;
-@using Data.Model.APIWeb;
+﻿@using Data.Model
 @using Data.Utils
-@using PagedList.Mvc
-@using System.Web
-@model  ListServicePlanOutputModel
-@{
-    int cusid = ViewBag.cusID;
-}
+@model Data.Model.ListServicePlanOutputModel
 
-<h1>Đây là chi tiết đơn hàng</h1>
+<h1>Đây là chi tiết dịch vụ</h1>
 <h1>@Model.Name</h1>
 
-
+<div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@Model.ID)">
+    <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
+        <div class="pricing-title">
+            <h2 class="pricing-type"> @Model.Name</h2>
+            <small>For small bussiness</small>
+        </div>
+        <div class="price-tag">
+            <strong>$@Model.Price</strong>
+            <small>/Per month</small>
+        </div>
+        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+        <ul class="list-fa">
+            <li><i class="fa fa-check"></i> @Model.Name</li>
+            <li><i class="fa fa-check"></i> @Model.CateName</li>
+            <li><i class="fa fa-check"></i> 50 GB disc space</li>
+            <li><i class="fa fa-check"></i> 10 email accounts</li>
+            <li><i class="fa fa-check"></i> Support 24/h</li>
+            <li><i class="fa fa-check"></i> Admin panel</li>
+        </ul>
+    </div> <!-- .pricing-table -->
+</div>
 @*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
 
 <!-- Button trigger modal -->
@@ -21,64 +34,64 @@
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Tạo đơn hàng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Tỉnh| Thành phố </label>
-                    <select class="form-control" id="province-register" onchange="ChangProvince($(this))">
-                        @{
-                            foreach (var item in (List<SelectOptionModel>)ViewBag.LisProvince)
-                            {
-                                <option value="@item.id">@item.value</option>
+@*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Tạo đơn hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tỉnh| Thành phố </label>
+                        <select class="form-control" id="province-register" onchange="ChangProvince($(this))">
+                            @{
+                                foreach (var item in (List<SelectOptionModel>)ViewBag.LisProvince)
+                                {
+                                    <option value="@Model.id">@Model.value</option>
+                                }
                             }
-                        }
 
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Quận|Huyện|Thị Xã </label>
-                    <select class="form-control" id="district-register" onchange="ChangeDistrict($(this))">
-                        @{
-                            foreach (var item in (List<SelectOptionModel>)ViewBag.ListDistrict)
-                            {
-                                <option value="@item.id">@item.value</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Quận|Huyện|Thị Xã </label>
+                        <select class="form-control" id="district-register" onchange="ChangeDistrict($(this))">
+                            @{
+                                foreach (var item in (List<SelectOptionModel>)ViewBag.ListDistrict)
+                                {
+                                    <option value="@Model.id">@Model.value</option>
+                                }
                             }
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Phường|Xã|Thị Trấn </label>
-                    <select class="form-control" id="village-register">
-                        @{
-                            foreach (var item in (List<SelectOptionModel>)ViewBag.ListVillage)
-                            {
-                                <option value="@item.id">@item.value</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Phường|Xã|Thị Trấn </label>
+                        <select class="form-control" id="village-register">
+                            @{
+                                foreach (var item in (List<SelectOptionModel>)ViewBag.ListVillage)
+                                {
+                                    <option value="@Model.id">@Model.value</option>
+                                }
                             }
-                        }
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Địa chỉ</label>
-                    <input type="text" class="form-control" id="txtAddress" placeholder="Nhập địa chỉ" autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Ghi chú</label>
-                    <input type="text" class="form-control" id="txtNote" placeholder="Ghi chú" autocomplete="off">
-                </div>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Địa chỉ</label>
+                        <input type="text" class="form-control" id="txtAddress" placeholder="Nhập địa chỉ" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Ghi chú</label>
+                        <input type="text" class="form-control" id="txtNote" placeholder="Ghi chú" autocomplete="off">
+                    </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div>*@
