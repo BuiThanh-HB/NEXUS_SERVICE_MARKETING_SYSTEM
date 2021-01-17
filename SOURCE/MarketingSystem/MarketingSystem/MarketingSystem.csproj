@@ -297,7 +297,7 @@
     <Compile Include="Areas\FrontEnd\Controllers\AboutUsController.cs" />
     <Compile Include="Areas\FrontEnd\Controllers\ContactController.cs" />
     <Compile Include="Areas\FrontEnd\Controllers\HomeFrontEndController.cs" />
-    <Compile Include="Areas\FrontEnd\Controllers\NewsController.cs" />
+    <Compile Include="Areas\FrontEnd\Controllers\NewsFrontEndController.cs" />
     <Compile Include="Areas\FrontEnd\Controllers\ServicePlanFEController.cs" />
     <Compile Include="Areas\FrontEnd\FrontEndAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />

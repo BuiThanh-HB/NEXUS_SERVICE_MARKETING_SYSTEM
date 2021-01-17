@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace MarketingSystem.Areas.FrontEnd.Controllers
 {
-    public class NewsController : BaseController
+    public class NewsFrontEndController : BaseController
     {
         // GET: FrontEnd/News
         public ActionResult Index()
