@@ -953,3 +953,21 @@ function ChangeStatus(id) {
         }
     })
 }
+
+//Lấy chi tiết gói cước của khách hàng
+function GetCustomerServicePlanDetail(id) {
+    $.ajax({
+        url: "/ServicePlanManage/GetCustomerServicePlanDetail",
+        data: { id: id },
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#modal-customer-service-plan-detail').html(res);
+            $('#md-customer-service-plan-detail').modal('show');
+        }
+
+    })
+}

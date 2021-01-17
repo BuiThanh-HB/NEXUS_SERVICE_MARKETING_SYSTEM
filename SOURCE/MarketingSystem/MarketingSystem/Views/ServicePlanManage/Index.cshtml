@@ -41,7 +41,11 @@
         <button class="btn btn-outline-primary float-right" id="btn-search-service-plan" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
     </div>
 </div>
-<div class="row mt-1">
-
+<div class="row mt-5">
+    <div class="col-12" id="tbl-customer-service">
+        @{ Html.RenderAction("Search", "ServicePlanManage", new { page = 1 });}
+    </div>
 </div>
+
+<div id="modal-customer-service-plan-detail"></div>
 

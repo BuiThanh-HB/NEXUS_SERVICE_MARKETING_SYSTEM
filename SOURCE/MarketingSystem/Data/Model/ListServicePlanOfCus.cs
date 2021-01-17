@@ -13,7 +13,7 @@ namespace Data.Model
         public string CusName { get; set; }
         public int Status { get; set; }
         public DateTime ActiveDate { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string LocaRequest { get; set; }
     }
 }

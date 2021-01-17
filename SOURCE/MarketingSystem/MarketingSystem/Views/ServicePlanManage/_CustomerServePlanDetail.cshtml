@@ -1,0 +1,126 @@
+﻿using Data.Model
+@using Data.Model.APIWeb
+@using Data.Utils
+@model Data.Model.CustomerServicePlanDetailModel
+
+
+<div class="modal fade" id="md-customer-service-plan-detail" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg mw-100 w-50" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết đơn hàng</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="fm-order-detail">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <strong class="offset-md-1">Thông Tin Đơn Hàng</strong>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-user ml-5 mr-2"></i><span style="color:darkgrey">Mã dịch vụ</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtCusName">@Model.Code</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-phone ml-5 mr-2"></i><span style="color:darkgrey">Tên dịch vụ</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtPhone">@Model.ServiceName</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-map-marker ml-5 mr-2"></i><span style="color:darkgrey">Địa chỉ đăng ký</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b id="txtAddress">@Model.LocaRequest</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-clock-o ml-5 mr-2"></i><span style="color:darkgrey">Ngày kích hoạt</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px">
+                                    <b>@Model.CreatedDate.ToString("dd-MM-yyy hh:mm")</b>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-toggle-on ml-5 mr-2"></i><span style="color:darkgrey">Trạng Thái</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px;">
+                                    <select class="form-control" id="status-value-detail" name="Status">
+                                        <option selected disabled hidden>--Trạng thái--</option>
+                                        <option value="@SystemParam.NO_ACTIVE_STATUS" class="text-warning">Ngừng hoạt động</option>
+                                        <option value="@SystemParam.ACTIVE_STATUS" class="text-primary">Đang hoạt động</option>
+                                        <option value="@SystemParam.REQUEST_DEACTIVE" class="text-success">Yêu cầu hủy</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-12">
+                                    <table class="table table-light table-bordered table-hover table-responsive-sm table-responsive mb-0" style=" white-space: nowrap;">
+                                        <thead class="text-center text-white bg-thead">
+                                            <tr>
+                                                <th width="40%">Trạng thái</th>
+                                                <th width="50%">Note</th>
+                                                <th width="40%">Thời gian</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+
+                                                var user = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
+
+                                                foreach (var dt in Model.histories)
+                                                {
+                                                    <tr>
+                                                        @{
+                                                            switch (dt.Status)
+                                                            {
+                                                                case SystemParam.NO_ACTIVE_STATUS:
+                                                                    <td>Ngừng hoạt động</td>
+                                                                    break;
+                                                                case SystemParam.ACTIVE_STATUS:
+                                                                    <td>Hoạt động</td>
+                                                                    break;
+                                                                case SystemParam.REQUEST_DEACTIVE:
+                                                                    <td>Yêu cầu hủy</td>
+                                                                    break;
+
+                                                            }
+                                                        }
+                                                        <td>@dt.Note</td>
+                                                        <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME_HAVE_HOUR)</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnExportBill" onclick="" @(user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF) ? Html.Raw("disabled") : Html.Raw("")) class="btn btn-success"><i class="fa fa-save mr-1"></i>Cập nhật</button>
+                        <button type="submit" id="btnSave" class="btn btn-primary" onclick="ExtendService()">Gia hạn thêm</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

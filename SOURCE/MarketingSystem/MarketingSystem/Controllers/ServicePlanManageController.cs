@@ -16,5 +16,23 @@ namespace MarketingSystem.Controllers
         {
             return View();
         }
+
+        //Tìm kiếm thông tin gói cước của khách hàng
+        public PartialViewResult Search(int page, string searchKey, string code, int? status, int? cateID, string fromDate, string toDate)
+        {
+            ViewBag.searchKey = searchKey;
+            ViewBag.status = status;
+            ViewBag.cateID = cateID;
+            ViewBag.fromDate = fromDate;
+            ViewBag.toDate = toDate;
+            return PartialView("_TableCustomerServicePlan", customerServicePlan.Search(page, searchKey, code, status, fromDate, toDate));
+        }
+
+        //Lấy chi tiết gói cước của khách hàng
+        [HttpGet]
+        public PartialViewResult GetCustomerServicePlanDetail(int id)
+        {
+            return PartialView("_CustomerServePlanDetail", customerServicePlan.GetCustomerServicePlanDetail(id));
+        }
     }
 }

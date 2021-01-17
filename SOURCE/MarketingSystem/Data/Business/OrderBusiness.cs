@@ -149,6 +149,7 @@ namespace Data.Business
                             c.Status = SystemParam.ACTIVE_STATUS;
                             c.IsActive = SystemParam.ACTIVE;
                             c.HistoryCustomerServicePlans = history;
+                            c.Address = !String.IsNullOrEmpty(o.Address) ? o.Customer.Village.Name + " " + o.Customer.District.Name + " " + o.Customer.Province.Name : o.Address;
                             cnn.CustomerServicePlans.Add(c);
 
 

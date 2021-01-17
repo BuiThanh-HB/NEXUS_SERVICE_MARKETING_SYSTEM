@@ -1,0 +1,86 @@
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@model  PagedList.IPagedList<ListServicePlanOfCus>
+
+
+<table class="table table-light table-bordered table-hover table-responsive-sm table-responsive mb-0" style=" white-space: nowrap;">
+    <thead class="text-center text-white bg-thead">
+        <tr>
+            <th width="5%">STT</th>
+            <th width="10%">Mã dịch vụ</th>
+            <th width="10%">Tên dịch vụ</th>
+            <th width="20%">Tên khách hàng</th>
+            <th width="5%">Trạng thái</th>
+            <th width="10%">Ngày kích hoạt</th>
+            <th width="10%">Ngày tạo</th>
+            <th width="30%">Địa chỉ đăng ký</th>
+            <th width="5%"></th>
+        </tr>
+    </thead>
+    <tbody class="text-center">
+        @{
+            if (Model.Count() <= 0)
+            {
+                <tr>
+                    <td colspan="9" class="text-center">Không có dữ liệu.</td>
+                </tr>
+            }
+            else
+            {
+
+
+                int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                foreach (var dt in Model)
+                {
+                    <tr>
+                        <td>@stt</td>
+                        <td>@dt.Code</td>
+                        <td>@dt.ServiceName</td>
+                        <td>@dt.CusName</td>
+                        @{
+                            switch (dt.Status)
+                            {
+                                case SystemParam.NO_ACTIVE_STATUS:
+                                    <td>Ngừng hoạt động</td>
+                                    break;
+                                case SystemParam.ACTIVE_STATUS:
+                                    <td>Hoạt động</td>
+                                    break;
+                                case SystemParam.REQUEST_DEACTIVE:
+                                    <td>Yêu cầu hủy</td>
+                                    break;
+
+                            }
+                        }
+
+                        <td>@dt.ActiveDate.ToString(SystemParam.CONVERT_DATETIME)</td>
+                        <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
+                        <td>@dt.LocaRequest</td>
+                        <td>
+                            <a onclick="GetCustomerServicePlanDetail(@dt.ID)" data-toggle="tooltip" data-placement="top" title="Xem chi tiết" class="cursor-pointer">
+                                <i class="btnEdit fa fa-fw fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    stt++;
+                }
+            }
+        }
+</table>
+<div class="col-md-12">
+    <div class="row float-right">
+        @*phân trang*@
+        @Html.PagedListPager(Model, Page => Url.Action("Search", new { Page, searchKey = ViewBag.searchKey, code = ViewBag.code, fromDate = ViewBag.fromDate, toDate = ViewBag.toDate, status = ViewBag.status }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions()
+     {
+         HttpMethod = "GET",
+         UpdateTargetId = "tbl-customer-service",
+        LoadingElementId = "modalLoad"
+     })
+     )
+    </div>
+</div>
