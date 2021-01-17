@@ -37,14 +37,14 @@
                             <a class=" dropdown-toggle" href="#" id="navbarDropdownMenuLink" style="color:black;font-size:15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @{
 
-                                    var ss = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
-                                    if (ss == null)
+                                    var user = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
+                                    if (user == null)
                                     {
                                         Response.Redirect("/Home/Login");
                                     }
 
                                 }
-                                @(ss.Name.Length > 10 ? ss.Name.Substring(0,10)+"...":ss.Name)
+                                @(user.Name.Length > 10 ? user.Name.Substring(0,10)+"...":user.Name)
 
                             </a>
 
@@ -78,6 +78,16 @@
                                 <li id="tabServicePlan">
                                     <a href="/ServicePlan/Index"><i class="fa fa-mobile-phone ic-menu"></i>Gói cước</a>
                                 </li>
+
+                                @{
+                                    if (user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF))
+                                    {
+                                        <li id="tabServicePlanManage">
+                                            <a href="/ServicePlanManage/Index"><i class="fa fa-mobile-phone ic-menu"></i>Quản lý gói cước</a>
+                                        </li>
+                                    }
+                                }
+
                                 <li id="tabOrder">
                                     <a href="/Order/Index"><i class="fa fa-shopping-basket ic-menu"></i>Quản lý đơn hàng</a>
                                 </li>
@@ -86,7 +96,6 @@
                                 </li>
                                 @{
 
-                                    var user = (LoginOutputModel)HttpContext.Current.Session[SystemParam.ADMIN];
                                     if (user.Role.Equals(SystemParam.ROLE_ADMIN))
                                     {
                                         <li id="tabUser" style="display: inline !important;" class="mb-5">
@@ -95,7 +104,6 @@
                                     }
 
                                 }
-
                             </ul>
                         </nav>
                     </div>

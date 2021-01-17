@@ -307,6 +307,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ServicePlanController.cs" />
+    <Compile Include="Controllers\ServicePlanManageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1402,6 +1403,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\FrontEnd\Data\" />
     <Folder Include="Areas\FrontEnd\Models\" />
+    <Folder Include="Views\ServicePlanManage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

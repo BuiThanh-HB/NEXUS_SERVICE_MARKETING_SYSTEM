@@ -130,12 +130,12 @@ namespace Data.Business
                             //Lưu lịch sử
                             List<HistoryCustomerServicePlan> history = new List<HistoryCustomerServicePlan>();
                             HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
-                            history.Add(h);
-                            history.Add(h);
+
                             h.Note = "Dịch vụ dược kích hoạt";
                             h.UserID = userID;
                             h.IsActive = SystemParam.ACTIVE;
                             h.CreatedDate = DateTime.Now;
+                            history.Add(h);
 
                             //Kích hoạt gói cước
                             CustomerServicePlan c = new CustomerServicePlan();
@@ -252,7 +252,7 @@ namespace Data.Business
 
                 return pack;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.ToString();
                 return null;

@@ -22,7 +22,7 @@ namespace MarketingSystem.Job
                 .WithIdentity("HelloJob ", "GreetingGroup")
 
                 //.WithSimpleSchedule(s => s.WithIntervalInHours(1).RepeatForever())
-                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(23, 41))
+                .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(8, 0))
                 .StartAt(DateTime.UtcNow)
 
                 .WithPriority(1)
