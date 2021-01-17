@@ -53,8 +53,8 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
                             <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
-                            <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                            <a onclick="logoutweb();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
+                            <a class="dropdown-item" href="" onclick="showchangePass()">Đổi mật khẩu</a>
+                            <a class="dropdown-item" href="" onclick="logoutweb();">@*<i class="fa fa-sign-out" style="padding-right:10px"></i>*@Đăng xuất</a>
                         </div>
                     </div> } }
 
@@ -139,7 +139,7 @@
 </html>
 
 @*// modal đổi mật khẩu*@
-<!--<div id="changePassword" class="modal fade" role="dialog">
+<div id="changePassword" class="modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -175,7 +175,7 @@
             </div>
         </div>
     </div>
-</div>-->
+</div>
 
 @* model load *@
 <!--<div class="modal" id="modalLoad" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -206,12 +206,90 @@
             data: {},
             type: 'POST',
             success: function (response) {
-                if (response == SUCCESS) {
+                if (response == 1) {
                     location.reload();
                 }
             },
             error: function (result) {
                 console.log(result.responseText);
+            }
+        });
+    }
+    function showchangePass() {
+        $('#changePassword').modal('show');
+    }
+
+    //đổi mật khẩu
+    function changePassword() {
+        if (!navigator.onLine) {
+            swal({
+                title: "Kiểm tra kết nối internet!",
+                text: "",
+                icon: "warning"
+            })
+            return;
+        }
+        var currentPassword = $.trim($("#txtCurrentPassword").val());
+        var newPassword = $.trim($("#txtNewPassword").val());
+        var confirmPassword = $.trim($("#txtConfirmPassword").val());
+
+        if (currentPassword == "" || newPassword == "" || confirmPassword == "") {
+            swal({
+                title: "Vui lòng nhập đầy đủ!",
+                text: "",
+                icon: "warning"
+            })
+            return;
+        }
+        if (newPassword != confirmPassword) {
+            $("#txtConfirmPassword").val("");
+            swal({
+                title: "Mật khẩu xác nhận không đúng",
+                text: "",
+                icon: "warning"
+            })
+            return;
+        }
+
+        $.ajax({
+            url: '/HomeFrontEnd/ChangePassword',
+            type: 'POST',
+            data: {
+                CurrentPassword: currentPassword,
+                NewPassword: newPassword
+            },
+            type: 'POST',
+            success: function (response) {
+                if (response == SUCCESS) {
+                    $("#changePassword").modal("hide");
+                    swal({
+                        title: "Đổi mật khẩu thành công",
+                        text: "",
+                        icon: "success"
+                    })
+                } else
+                    if (response == WRONG_PASSWORD) {
+                        $("#txtCurrentPassword").val("");
+                        swal({
+                            title: "Mật khẩu cũ không đúng",
+                            text: "",
+                            icon: "warning"
+                        })
+                    } else {
+                        swal({
+                            title: "Không thể đổi mật khẩu",
+                            text: "",
+                            icon: "warning"
+                        })
+                    }
+            },
+            error: function (result) {
+                console.log(result.responseText);
+                swal({
+                    title: "Có lỗi",
+                    text: "",
+                    icon: "warning"
+                })
             }
         });
     }

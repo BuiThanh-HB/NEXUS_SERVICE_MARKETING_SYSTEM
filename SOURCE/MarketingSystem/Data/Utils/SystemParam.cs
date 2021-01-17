@@ -84,6 +84,9 @@ namespace Data.Utils
         public const int PENDING = 1;//Trạng thái chờ xử lý
         public const int ACCEPT = 2;//Trạng thái được xác nhận
         public const int COMPLETE = 3;//Trạng thái hoàn thành
+
+
+        public const int WRONG_PASSWORD = 2;
         
     }
 }
