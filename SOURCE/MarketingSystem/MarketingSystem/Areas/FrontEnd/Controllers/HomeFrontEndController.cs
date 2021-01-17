@@ -80,5 +80,21 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
                 return SystemParam.ERROR;
             }
         }
+        public int ChangePassword(string CurrentPassword, string NewPassword)
+        {
+            try
+            {
+                LoginOutputModel cus = client;
+                if(cus != null)
+                {
+                    return customerBusiness.ChangePassword(cus.Id, CurrentPassword, NewPassword);
+                }
+                return SystemParam.ERROR;
+            }
+            catch
+            {
+                return SystemParam.ERROR;
+            }
+        }
     }
 }

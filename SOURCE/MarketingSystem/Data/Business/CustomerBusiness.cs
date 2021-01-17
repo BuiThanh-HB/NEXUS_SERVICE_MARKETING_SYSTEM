@@ -158,5 +158,27 @@ namespace Data.Business
                 return rp.serverError();
             }
         }
+        public int ChangePassword(int ID, string CurrentPassword, string NewPassword)
+        {
+            try
+            {
+                var passUser = cnn.Users.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
+
+                if (!Util.CheckPass(CurrentPassword, passUser.Password))
+                {
+                    return SystemParam.WRONG_PASSWORD;
+                }
+
+                User user = cnn.Users.Find(ID);
+                user.Password = Util.GenPass(NewPassword);
+                cnn.SaveChanges();
+                return SystemParam.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                return SystemParam.ERROR;
+            }
+        }
     }
 }
