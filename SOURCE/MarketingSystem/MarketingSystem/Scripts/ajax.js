@@ -150,6 +150,7 @@ function GetUserDetail(data) {
     var id = data.attr("data-id");
     var name = data.attr("data-name");
     var phone = data.attr("data-phone");
+    var role = data.attr("data-role");
 
 
     //Đặt các giá trị vào các thẻ input tương ứng
@@ -157,6 +158,7 @@ function GetUserDetail(data) {
     $('#txt-phone-edit').val(phone);
     $('#txt-phone-edit').attr('data-id', id);
     $('#user-detail').modal('show');
+    $('#val-role-edit').val(role);
 }
 
 
@@ -224,6 +226,7 @@ function updateUserInfo() {
     var name = $.trim($('#txt-name-edit').val())
     var phone = $.trim($('#txt-phone-edit').val());
     var password = $.trim($('#txt-password-edit').val());
+    var role = $('#val-role-edit').val();
 
     if (name.length == 0 || phone.length == 0) {
         swal({
@@ -251,7 +254,7 @@ function updateUserInfo() {
 
     $.ajax({
         url: "/User/UpdateUserInfo",
-        data: { id: id, userName: name, userPhone: phone, password: password },
+        data: { id: id, userName: name, userPhone: phone, password: password, role: role },
         type: 'POST',
         beforeSend: function () {
             $('#modalLoad').modal('show');
@@ -804,9 +807,13 @@ function SearchCus() {
     var searchKey = $.trim($('#txt-search-key').val());
     var fromDate = $('#txt-from-date').val();
     var toDate = $('#txt-to-date').val();
+    var status = $('#status-value-search').val();
+    var Status = status == 1 ? true : false;
+    if (status > 1 || status == null)
+        Status = null;
     $.ajax({
         url: "/Customer/Search",
-        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate },
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, status: Status },
         type: "GET",
         beforeSend: function () {
             $('#modalLoad').modal('show');
@@ -911,15 +918,17 @@ function ExportBill(id) {
 }
 
 //Khóa tài khoản khách hàng
-function BlockCus(id) {
+function ChangeStatus(id) {
 
     swal({
-        title: "Bạn có chắc chắn muốn khóa tài khoản này?",
-        icon: "warning"
+        title: "Bạn có chắc chắn muốn thay đổi trạng thái tài khoản này?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
     }).then((sure) => {
         if (sure) {
             $.ajax({
-                url: "/Customer/BlockAccount",
+                url: "/Customer/ChangeStatus",
                 type: "POST",
                 data: { id: id },
                 beforeSend: function (res) {
@@ -927,9 +936,9 @@ function BlockCus(id) {
                 },
                 success: function (res) {
                     if (res.Status == SUCCESS) {
-                        toastr.success("Khóa tài khoản thành công !");
+                        toastr.success("Cập nhật tài khoản thành công !");
                         $('#modalLoad').modal('hide');
-                        SearchOrder();
+                        SearchCus();
 
                     } else {
                         $('#modalLoad').modal('hide');

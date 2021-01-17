@@ -18,18 +18,19 @@ namespace MarketingSystem.Controllers
         }
 
         //Tìm kiếm thông tin khách hàng
-        public PartialViewResult Search(int page, string searchKey, string fromDate, string toDate)
+        public PartialViewResult Search(int page, string searchKey, string fromDate, string toDate,Boolean? status)
         {
             ViewBag.searchKey = searchKey;
             ViewBag.fromDate = fromDate;
             ViewBag.toDate = toDate;
-            return PartialView("_TableCustomer", customerBusiness.Search(page, searchKey, fromDate, toDate));
+            ViewBag.status = status;
+            return PartialView("_TableCustomer", customerBusiness.Search(page, searchKey, fromDate, toDate,status));
         }
 
         //Khóa tài khoản của khách hàng
-        public JsonResult BlockAccount(int id)
+        public JsonResult ChangeStatus(int id)
         {
-            return Json(customerBusiness.BlockAccount(id), JsonRequestBehavior.AllowGet);
+            return Json(customerBusiness.ChangeStatus(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

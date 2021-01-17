@@ -116,7 +116,7 @@ namespace Data.Business
         }
 
         //Tìm kiếm thông tin khách hàng
-        public IPagedList<ListCustomerOutputModel> Search(int page, string searchKey, string fromDate, string toDate)
+        public IPagedList<ListCustomerOutputModel> Search(int page, string searchKey, string fromDate, string toDate, Boolean? status)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace Data.Business
                 if (td.HasValue)
                     td = td.Value.AddDays(1);
                 var data = cnn.Customers.Where(c => c.IsActive.Equals(SystemParam.ACTIVE) && (!String.IsNullOrEmpty(searchKey) ? c.Name.Contains(searchKey) || c.Phone.Contains(searchKey) : true)
-                && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true))
+                && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true) && (status.HasValue ? c.Status == status : true))
                     .Select(c => new ListCustomerOutputModel
                     {
                         ID = c.ID,
@@ -144,13 +144,16 @@ namespace Data.Business
         }
 
         //Khóa tài khoản khách hàng
-        public JsonResultModel BlockAccount(int id)
+        public JsonResultModel ChangeStatus(int id)
         {
             try
             {
+                EmailBusiness email = new EmailBusiness();
                 Customer cus = cnn.Customers.Find(id);
-                cus.Status = SystemParam.NO_ACTIVE;
+                cus.Status = !cus.Status.Value;
                 cnn.SaveChanges();
+                if (cus.Status.Equals(SystemParam.NO_ACTIVE))
+                    email.configClient(cus.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Tài khoản của bạn tạm thời bị khóa");
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", null);
             }
             catch
