@@ -2381,10 +2381,9 @@ hr.spacer {
   background-color: #292c35;
   padding: 60px 0;
   color: #aaacb5;
-  position: fixed;
+  position: sticky;
   bottom: 0px;
   width: 100%;
-  height: 190px;
 }
 .site-footer .copy {
   font-size: 12px;
@@ -2564,4 +2563,51 @@ hr.spacer {
 .login-fontend {
     width:600px;
     margin: auto;
+}
+
+.service-detail-frontend {
+    width:600px;
+    margin: auto;
+}
+
+.site-footer-login {
+    background-color: #292c35;
+    padding: 60px 0;
+    color: #aaacb5;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+    .site-footer-login .copy {
+        font-size: 12px;
+        font-size: 0.75em;
+    }
+
+    .site-footer-login a {
+        color: #aaacb5;
+    }
+
+    .site-footer-login .branding .site-title a, .site-footer-login .branding .site-title span {
+        color: #aaacb5;
+    }
+
+    .site-footer-login .branding .site-title, .site-footer-login .branding .site-description {
+        line-height: normal;
+    }
+
+    .site-footer-login .branding .site-description {
+        color: #767982;
+    }
+
+@media screen and (max-width: 480px) {
+    .site-footer-login .branding {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .site-footer-login {
+        text-align: left;
+    }
 }

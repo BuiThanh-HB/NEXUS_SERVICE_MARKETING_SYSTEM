@@ -5,34 +5,106 @@
 <h1>Đây là chi tiết dịch vụ</h1>
 <h1>@Model.Name</h1>
 
-<div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@Model.ID)">
-    <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
-        <div class="pricing-title">
-            <h2 class="pricing-type"> @Model.Name</h2>
-            <small>For small bussiness</small>
-        </div>
-        <div class="price-tag">
-            <strong>$@Model.Price</strong>
-            <small>/Per month</small>
-        </div>
-        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-        <ul class="list-fa">
-            <li><i class="fa fa-check"></i> @Model.Name</li>
-            <li><i class="fa fa-check"></i> @Model.CateName</li>
-            <li><i class="fa fa-check"></i> 50 GB disc space</li>
-            <li><i class="fa fa-check"></i> 10 email accounts</li>
-            <li><i class="fa fa-check"></i> Support 24/h</li>
-            <li><i class="fa fa-check"></i> Admin panel</li>
-        </ul>
+<div class="service-detail-frontend">
+    <div>
+        <table>
+            <tr>
+                <th>Giá</th>
+                <td>
+                    <strong>$@Model.Price</strong>
+                    <small>/tháng</small>
+                </td>
+            </tr>
+            <tr>
+                <th>Mô tả</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Danh mục</th>
+                <td>
+                    @Model.CateName
+                </td>
+            </tr>
+            <tr>
+                <th>Dung lượng</th>
+                <td>
+                    <p class="pricing-desc">50 GB disc space</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+        </table>
+
+
     </div> <!-- .pricing-table -->
+    @*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Tạo đơn hàng
+    </button>
 </div>
-@*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Tạo đơn hàng
-</button>
+<footer class="site-footer-login wow fadeInUp" id="footer-login">
+    <div class="container">
 
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class=" branding">
+                    <img src="~/Content/font_end/images/logo-footer.png" alt="Site title" class="logo-icon">
+                    <h1 class="site-title"><a href="#">Nexus</a></h1>
+                    <h2 class="site-description">Quickly connecting the world.</h2>
+                </div> <!-- .branding -->
+
+                <p class="copy">Copyright 2014 NEXUS. designed by Themezy. All rights reserved</p>
+            </div>
+
+            <div class="col-md-6 align-right">
+
+                <nav class="footer-navigation">
+                    <a href="@Url.Action("Index","/News")">News</a>
+                    <a href="@Url.Action("Index","/AboutUs")">About us</a>
+                    <a href="@Url.Action("Index","/ServicePlanFE")">Services</a>
+                    <a href="@Url.Action("Index","/Contact")">Contact</a>
+                </nav> <!-- .footer-navigation -->
+
+                <div class="social-links">
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                    <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                </div> <!-- .social-links -->
+
+            </div>
+        </div>
+
+    </div>
+</footer> <!-- .site-footer -->
 <!-- Modal -->
 @*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
