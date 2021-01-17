@@ -45,6 +45,8 @@ function FocusTabMenu() {
             $('#tabNews').addClass('active');
         case "/News/UpdateNews":
             $('#tabNews').addClass('active');
+        case "/ServicePlanManage/Index":
+            $('#tabServicePlanManage').addClass('active');
         default:
             break;
     }

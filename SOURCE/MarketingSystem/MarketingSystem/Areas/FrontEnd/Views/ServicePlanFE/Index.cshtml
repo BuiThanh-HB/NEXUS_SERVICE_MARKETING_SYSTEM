@@ -115,11 +115,14 @@
         //$('#modalLoad').modal('show');
        
         $.ajax({
-            url: "/ServicePlanFE/ServiceDetail",
+            url: "/FrontEnd/ServicePlanFE/ServiceDetail",
             data: { ID: id },
+            type:"GET",
             success: function (rs) {
                 ////$('#modalLoad').modal('hide');
                 $('#listService').html(rs);
+            }, error: function (error) {
+                console.log(error);
             }
         });
     }
