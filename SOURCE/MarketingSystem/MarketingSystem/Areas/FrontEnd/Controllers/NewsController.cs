@@ -28,5 +28,13 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
                 return PartialView("_ListNewsWeb", new List<ListNewsOutputModel>().ToPagedList(1, 1));
             }
         }
+
+        [HttpGet]
+        public PartialViewResult NewsDetail(int ID)
+        {
+
+            var data = newsBusiness.GetNewsDetail(ID);
+            return PartialView("_NewsDetailWeb", data);
+        }
     }
 }
