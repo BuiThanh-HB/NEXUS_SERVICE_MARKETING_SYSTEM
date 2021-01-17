@@ -41,6 +41,7 @@ namespace Data.Business
                     cus.Name = input.name;
                     cus.Token = Util.CreateMD5(DateTime.Now.ToString());
                     cus.IsActive = true;
+                    cus.Status = SystemParam.ACTIVE;
                     cnn.Customers.Add(cus);
                     cnn.SaveChanges();
                     return rp.response(1, 1, "Thêm khách hàng thành công", null);
@@ -92,6 +93,8 @@ namespace Data.Business
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
                 if (!Util.CheckPass(password, user.Password))
                     return rp.response(0, 0, "Tài khoản hoặc mật khẩu không lợp lệ", null);
+                if (user.Status.Value.Equals(SystemParam.NO_ACTIVE))
+                    return rp.response(0, 0, "Tài khoản của bạn tạm thời bị khóa", null);
                 else
                 {
                     LoginOutputModel data = new LoginOutputModel();
@@ -101,7 +104,7 @@ namespace Data.Business
                     data.Name = user.Name;
                     user.Token = token;
                     cnn.SaveChanges();
-                    HttpContext.Current.Session["Client"] = data;/// chỗ này thích lưu cái gì thì tự lưu nhé
+                    HttpContext.Current.Session["Client"] = data;
                     return rp.response(1, 1, "Thành công", null);
 
                 }
@@ -129,6 +132,7 @@ namespace Data.Business
                         Name = c.Name,
                         Phone = c.Phone,
                         CreatedDate = c.CreatedDate,
+                        StatusStr = c.Status.Value.Equals(SystemParam.ACTIVE) ? "Hoạt động" : "Tạm khóa",
                         Address = String.IsNullOrEmpty(c.Address) ? c.Village.Name + "-" + c.District.Name + "-" + c.Province.Name : c.Address
                     }).OrderByDescending(c => c.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
                 return data;
@@ -136,6 +140,44 @@ namespace Data.Business
             catch
             {
                 return new List<ListCustomerOutputModel>().ToPagedList(1, 1);
+            }
+        }
+
+        //Khóa tài khoản khách hàng
+        public JsonResultModel BlockAccount(int id)
+        {
+            try
+            {
+                Customer cus = cnn.Customers.Find(id);
+                cus.Status = SystemParam.NO_ACTIVE;
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", null);
+            }
+            catch
+            {
+                return rp.serverError();
+            }
+        }
+        public int ChangePassword(int ID, string CurrentPassword, string NewPassword)
+        {
+            try
+            {
+                var passUser = cnn.Users.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
+
+                if (!Util.CheckPass(CurrentPassword, passUser.Password))
+                {
+                    return SystemParam.WRONG_PASSWORD;
+                }
+
+                User user = cnn.Users.Find(ID);
+                user.Password = Util.GenPass(NewPassword);
+                cnn.SaveChanges();
+                return SystemParam.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+                return SystemParam.ERROR;
             }
         }
     }

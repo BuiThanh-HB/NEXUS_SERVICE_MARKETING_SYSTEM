@@ -15,8 +15,10 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/HomeFrontEnd
         public ActionResult Index()
         {
-            LoginOutputModel cus = client;
-            return View();
+            HomeFrontEndOutputModel data = new HomeFrontEndOutputModel();
+            data.ListNews = newsBusiness.ListNewsWeb();
+            data.ListService = servicePlanBusiness.ListServiceHome();
+            return View(data);
         }
         public ActionResult Register()
         {
@@ -72,6 +74,22 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             {
                 Session[SystemParam.CLIENT] = null;
                 return SystemParam.SUCCESS;
+            }
+            catch
+            {
+                return SystemParam.ERROR;
+            }
+        }
+        public int ChangePassword(string CurrentPassword, string NewPassword)
+        {
+            try
+            {
+                LoginOutputModel cus = client;
+                if(cus != null)
+                {
+                    return customerBusiness.ChangePassword(cus.Id, CurrentPassword, NewPassword);
+                }
+                return SystemParam.ERROR;
             }
             catch
             {

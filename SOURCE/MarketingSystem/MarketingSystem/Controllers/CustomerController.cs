@@ -25,5 +25,11 @@ namespace MarketingSystem.Controllers
             ViewBag.toDate = toDate;
             return PartialView("_TableCustomer", customerBusiness.Search(page, searchKey, fromDate, toDate));
         }
+
+        //Khóa tài khoản của khách hàng
+        public JsonResult BlockAccount(int id)
+        {
+            return Json(customerBusiness.BlockAccount(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }

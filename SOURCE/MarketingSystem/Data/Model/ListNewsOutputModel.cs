@@ -11,6 +11,7 @@ namespace Data.Model
         public string Title { get; set; }
         public string ImgUrl { get; set; }
         public bool Status { get; set; }
+        public int Type { get; set; }
         public DateTime CreatedDate { get; set; }
         public string CateName { get; set; }
 

@@ -134,19 +134,20 @@ namespace Data.Business
 
 
         // web
-        public IPagedList<ListNewsOutputModel> SearchNewsWeb(int page, string searchKey)
+        public IPagedList<ListNewsOutputModel> SearchNewsWeb(int page, string searchKey ,int type = SystemParam.NEWS_TYPE)
         {
             try
             {
                 var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE) 
                     && (!String.IsNullOrEmpty(searchKey) ? n.Title.Contains(searchKey) : true)
                     &&  n.Status.Equals(SystemParam.ACTIVE)
-                    &&  n.Type.Equals(1))
+                   )
                     .Select(n => new ListNewsOutputModel()
                     {
                         ID = n.ID,
                         Title = n.Title,
                         Status = n.Status,
+                        Type = n.Type,
                         ImgUrl = n.ImageUrl,
                         CateName = n.CategoryNew.Name,
                         CreatedDate = n.CreatedDate
@@ -158,5 +159,30 @@ namespace Data.Business
                 return new List<ListNewsOutputModel>().ToPagedList(1, 1);
             }
         }
+        // danh sách màn home
+        public List<ListNewsOutputModel> ListNewsWeb(int limit = 3)
+        {
+            try
+            {
+                var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE)
+                    && n.Status.Equals(SystemParam.ACTIVE)
+                    && n.Type.Equals(SystemParam.PROMOTION_TYPE))
+                    .Select(n => new ListNewsOutputModel()
+                    {
+                        ID = n.ID,
+                        Title = n.Title,
+                        Status = n.Status,
+                        ImgUrl = n.ImageUrl,
+                        CateName = n.CategoryNew.Name,
+                        CreatedDate = n.CreatedDate
+                    }).OrderByDescending(n => n.ID).Take(limit).ToList();
+                return data;
+            }
+            catch
+            {
+                return new List<ListNewsOutputModel>();
+            }
+        }
+
     }
 }

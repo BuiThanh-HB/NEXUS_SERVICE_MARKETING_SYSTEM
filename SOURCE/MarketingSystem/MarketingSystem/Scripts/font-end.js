@@ -104,7 +104,7 @@ function ChangeDistrict($target) {
     })
 }
 
-function Login() {
+function LoginWeb() {
     let userName = $("#user-name").val().trim();
     let password = $("#password").val().trim();
     if (userName.length <= 0 || password.length <= 0) {
@@ -127,14 +127,14 @@ function Login() {
         }
         , success: function (res) {
             if (res.Code == 1) {
-                location.href = "Index";
+                location.href = "/FrontEnd/HomeFrontEnd/Index";
             }
             else {
                 swal({
-                    title: "Tài khoản hoặc mật khẩu không chính xác!",
+                    title: res.Message,
                     text: "",
                     icon: "error"
-                })
+                });
             }
         }
     })

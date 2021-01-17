@@ -39,6 +39,7 @@
           <Property Name="DistrictID" Type="int" Nullable="false" />
           <Property Name="VillageID" Type="int" Nullable="false" />
           <Property Name="Token" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="CustomerServicePlan">
           <Key>
@@ -548,6 +549,7 @@
           <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="Customer" ToRole="CustomerServicePlan" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1070,6 +1072,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="NEXUS_SystemModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
