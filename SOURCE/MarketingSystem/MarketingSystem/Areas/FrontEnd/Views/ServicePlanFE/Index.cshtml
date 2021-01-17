@@ -93,8 +93,6 @@
 </div>
 
 
-
-
 <script type="text/javascript">
     // tất cả js của dịch vụ viết ở đây
     // danh sách tìm kiếm
@@ -115,11 +113,11 @@
     // chi tiết dịch vụ
     function serviceDetail(id) {
         //$('#modalLoad').modal('show');
-       
+
         $.ajax({
             url: "/FrontEnd/ServicePlanFE/ServiceDetail",
             data: { ID: id },
-            type:"GET",
+            type: "GET",
             success: function (rs) {
                 ////$('#modalLoad').modal('hide');
                 $('#serviceweb').html(rs);

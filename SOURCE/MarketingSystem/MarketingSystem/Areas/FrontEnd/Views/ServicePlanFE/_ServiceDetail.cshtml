@@ -2,37 +2,72 @@
 @using Data.Utils
 @model Data.Model.ListServicePlanOutputModel
 
-<h1>Đây là chi tiết dịch vụ</h1>
-<h1>@Model.Name</h1>
+<div class="service-detail-frontend-title"> * Chi Tiết Gói Cước</div>
 
-<div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@Model.ID)">
-    <div class="pricing-table wow fadeInLeft" data-wow-delay=".3s">
-        <div class="pricing-title">
-            <h2 class="pricing-type"> @Model.Name</h2>
-            <small>For small bussiness</small>
-        </div>
-        <div class="price-tag">
-            <strong>$@Model.Price</strong>
-            <small>/Per month</small>
-        </div>
-        <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-        <ul class="list-fa">
-            <li><i class="fa fa-check"></i> @Model.Name</li>
-            <li><i class="fa fa-check"></i> @Model.CateName</li>
-            <li><i class="fa fa-check"></i> 50 GB disc space</li>
-            <li><i class="fa fa-check"></i> 10 email accounts</li>
-            <li><i class="fa fa-check"></i> Support 24/h</li>
-            <li><i class="fa fa-check"></i> Admin panel</li>
-        </ul>
+<div class="service-detail-frontend">
+    <div class="service-detail-frontend-name">@Model.Name</div>
+    <div>
+        <table class="service-detail-table">
+            <tr>
+                <th>Giá</th>
+                <td>
+                    <strong>$@Model.Price</strong>
+                    <small>/tháng</small>
+                </td>
+            </tr>
+            <tr>
+                <th>Mô tả</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Danh mục</th>
+                <td>
+                    @Model.CateName
+                </td>
+            </tr>
+            <tr>
+                <th>Dung lượng</th>
+                <td>
+                    <p class="pricing-desc">50 GB disc space</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>
+                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                </td>
+            </tr>
+        </table>
+
+
     </div> <!-- .pricing-table -->
+    @*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-add-service" data-toggle="modal" data-target="#exampleModalCenter">
+        Tạo đơn hàng
+    </button>
 </div>
-@*<button onclick="CreateOrder(@Model.ID,@cusid)">Tạo đơn hàng</button>*@
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Tạo đơn hàng
-</button>
-
 <!-- Modal -->
 @*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
