@@ -239,5 +239,33 @@ namespace Data.Business
                 return new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
             }
         }
+
+        // 
+        public List<ListServicePlanOutputModel> ListServiceHome(int limit = 3)
+        {
+            try
+            {
+                var data = cnn.ServicePlans.Where(s => s.IsActive.Equals(SystemParam.ACTIVE) && s.Status.Equals(SystemParam.ACTIVE))
+                    .Select(s => new ListServicePlanOutputModel
+                    {
+                        ID = s.ID,
+                        Name = s.Name,
+                        ImageUrl = s.ImageUrl,
+                        CateName = s.Category.Name,
+                        CreatedDate = s.CreatedDate,
+                        Status = s.Status,
+                        Value = s.Value,
+                        Price = s.Price,
+                        Descreiption = s.Description,
+                        CateID = s.CategoryID
+                    }).OrderByDescending(s => s.ID).Take(limit).ToList();
+                return data;
+            }
+            catch (Exception e)
+            {
+                e.ToString();
+                return new List<ListServicePlanOutputModel>();
+            }
+        }
     }
 }
