@@ -15,18 +15,26 @@
 </div>
 
 <div class="row">
-    <div class="col-md-4 col-12 ">
+    <div class="col-md-3 col-12 ">
         <input class="form-control" id="txt-search-key" placeholder="Nhập tên hoặc số điện thoại khách hàng" />
     </div>
-    <div class="col-md-4 col-12 mt-1">
+    <div class="col-md-3 col-12 mt-1">
         <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
         <i class="fa fa-calendar absolute-icon-calendar"></i>
     </div>
-    <div class="col-md-4 col-12 mt-1">
+    <div class="col-md-3 col-12 mt-1">
         <input type="text" class="form-control relative-icon-calendar date" id="txt-to-date" placeholder="Đến ngày" />
         <i class="fa fa-calendar absolute-icon-calendar"></i>
     </div>
-    <div class="col-md-4 col-12 mt-1 float-right offset-md-8">
+    <div class="col-md-3 col-12 mt-1">
+        <select class="form-control" id="status-value-search">
+            <option selected disabled hidden>--Trạng thái--</option>
+            <option value="2">Tất cả</option>
+            <option value="1">Hoạt động</option>
+            <option value="0">Ngừng hoạt động</option>
+        </select>
+    </div>
+    <div class="col-md-3 col-12 mt-1 float-right offset-md-8">
         <button class="btn btn-outline-primary float-right m-2" id="btn-search-cus" onclick="SearchCus()"><i class="fa fa-search"></i> Tìm kiếm</button>
     </div>
 </div>
@@ -38,6 +46,11 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#status-value-search').change(function () {
+            SearchCus();
+        })
+    })
     $(document).on("keyup", function (e) {
         if (e.keyCode == 13) {
             $("#btn-search-cus").click();
