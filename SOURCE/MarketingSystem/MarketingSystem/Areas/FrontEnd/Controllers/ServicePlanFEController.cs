@@ -15,15 +15,6 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/ServicePlanFE
         public ActionResult Index()
         {
-            if (client != null)
-            {
-                ViewBag.cusID = client.Id;
-            }
-            else
-            {
-                ViewBag.cusID = 0;
-            }
-
             ViewBag.ListCategory = servicePlanBusiness.GetListCategory();
             return View();
         }
@@ -32,6 +23,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
+                ViewBag.ListCategory = servicePlanBusiness.GetListCategory();
                 var data = servicePlanBusiness.SearchFontEnd(Page, Name, 1, CateID);
                 return PartialView("_Service", data);
             }
@@ -45,15 +37,24 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         public PartialViewResult ServiceDetail(int ID)
         {
 
-            ViewBag.LisProvince = customerBusiness.GetListProvince();
+            var listProvince = customerBusiness.GetListProvince();
+            var listDistrict = customerBusiness.GetListDistrict(listProvince.FirstOrDefault().id);
+            var listVillage = customerBusiness.GetListVillage(listDistrict.FirstOrDefault().id);
+            ViewBag.ListDistrict = listDistrict;
+            ViewBag.ListVillage = listVillage;
+            ViewBag.LisProvince = listProvince;
             var data = servicePlanBusiness.ServiceDetail(ID);
             return PartialView("_ServiceDetail", data);
         }
 
         //Đăng ký dịch vụ
         [HttpPost]
-        public JsonResult CreateOrder(int ServiceID, string Note, int ProvinceID, int DistrictID, int VillageID, string Address)
+        public int CreateOrder(int ServiceID, string Note, int ProvinceID, int DistrictID, int VillageID, string Address)
         {
+            if(client == null)
+            {
+                return -1;
+            }
             OrderInputModel input = new OrderInputModel();
             input.ServiceID = ServiceID;
             input.token = client.Token;
@@ -62,8 +63,9 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             input.DistrictID = DistrictID;
             input.VillageID = VillageID;
             input.Address = Address;
+            var data = orderBusiness.CreateOrder(input);
 
-            return Json(orderBusiness.CreateOrder(input), JsonRequestBehavior.AllowGet);
+            return data.Status;
         }
 
         public PartialViewResult CusService()
