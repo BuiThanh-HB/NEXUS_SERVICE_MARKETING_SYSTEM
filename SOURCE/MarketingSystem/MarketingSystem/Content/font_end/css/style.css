@@ -2724,13 +2724,14 @@ hr {
 
     .service-detail-frontend .service-detail-table {
         border: 1px solid black;
-        font-size: 14px;
+        font-size: 16px;
     }
 
         .service-detail-frontend .service-detail-table th {
             border: 1px solid black;
             text-align: center;
             padding: 10px;
+            min-width: 150px;
         }
 
         .service-detail-frontend .service-detail-table td {
@@ -2745,7 +2746,7 @@ hr {
     .service-detail-frontend .btn-add-service {
         margin-top: 10px;
         margin-bottom: 10px;
-        background-color: #007BFF;
+        background-color: #01A6D4;
         color: white;
     }
 

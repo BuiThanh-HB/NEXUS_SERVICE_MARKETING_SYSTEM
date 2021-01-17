@@ -9,16 +9,19 @@
     <div>
         <table class="service-detail-table">
             <tr>
-                <th>Giá</th>
+                <img src="@Model.ImageUrl" alt="" style="height:auto;width:250px; padding-bottom:30px;">
+           </tr>
+            <tr>
+                <th>Giá Thành</th>
                 <td>
                     <strong>$@Model.Price</strong>
-                    <small>/tháng</small>
+                    <small>/@Model.Value tháng</small>
                 </td>
             </tr>
             <tr>
                 <th>Mô tả</th>
                 <td>
-                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                    <p class="pricing-desc">@Model.Descreiption</p>
                 </td>
             </tr>
             <tr>
@@ -28,33 +31,9 @@
                 </td>
             </tr>
             <tr>
-                <th>Dung lượng</th>
+                <th>Loại gói cước</th>
                 <td>
-                    <p class="pricing-desc">50 GB disc space</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>
-                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>
-                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>
-                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
-                </td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>
-                    <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                    Internet
                 </td>
             </tr>
         </table>
@@ -65,7 +44,7 @@
 
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-add-service" data-toggle="modal" data-target="#exampleModalCenter">
-        Tạo đơn hàng
+        Đăng ký
     </button>
 </div>
 <!-- Modal -->
