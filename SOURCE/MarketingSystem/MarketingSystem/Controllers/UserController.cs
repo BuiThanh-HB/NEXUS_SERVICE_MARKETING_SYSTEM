@@ -37,15 +37,15 @@ namespace Base.Controllers
             return PartialView("_TableUser", userBusiness.Search(page, searchKey, fromDate, toDate));
         }
 
-        public JsonResult AddUser(string userName, string userPhone, string password)
+        public JsonResult AddUser(string userName, string userPhone, string password,int role)
         {
-            return Json(userBusiness.AddUser(userName, userPhone, password), JsonRequestBehavior.AllowGet);
+            return Json(userBusiness.AddUser(userName, userPhone, password,role), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult UpdateUserInfo(int id, string userName, string userPhone, string password)
+        public JsonResult UpdateUserInfo(int id, string userName, string userPhone, string password,int role)
         {
-            return Json(userBusiness.UpdateUserInfo(id, userName, userPhone, password), JsonRequestBehavior.AllowGet);
+            return Json(userBusiness.UpdateUserInfo(id, userName, userPhone, password,role), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

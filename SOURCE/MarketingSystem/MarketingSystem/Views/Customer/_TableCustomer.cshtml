@@ -39,8 +39,8 @@
                         <td>@dt.Address</td>
                         <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
                         <td>
-                            <a data-toggle="tooltip" data-placement="top" title="Khóa tài khoản này" class="cursor-pointer" onclick="BlockCus(@dt.ID)">
-                                <i class="btnDelete fa fa-fw fa-trash-o"></i>
+                            <a data-toggle="tooltip" data-placement="top" title="Đổi trạng thái của tài khoản" class="cursor-pointer" onclick="ChangeStatus(@dt.ID)">
+                                <i class="btnDelete fa fa-fw fa-refresh"></i>
                             </a>
                         </td>
                     </tr>

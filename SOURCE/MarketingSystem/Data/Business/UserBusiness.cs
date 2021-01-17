@@ -56,6 +56,7 @@ namespace Data.Business
                         UserName = u.Name,
                         Phone = u.Phone,
                         CreateDate = u.CreatedDate,
+                        role = u.Role
 
                     }).OrderByDescending(u => u.ID).ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
 
@@ -68,7 +69,7 @@ namespace Data.Business
 
         }
 
-        public JsonResultModel AddUser(string userName, string userPhone, string password)
+        public JsonResultModel AddUser(string userName, string userPhone, string password, int role)
         {
             try
             {
@@ -78,7 +79,7 @@ namespace Data.Business
                 User u = new User();
                 u.Name = userName;
                 u.Phone = userPhone;
-                u.Role = 1;
+                u.Role = role;
                 u.Token = "";
                 u.CreatedDate = DateTime.Now;
                 u.Password = Util.GenPass(password);
@@ -93,7 +94,7 @@ namespace Data.Business
             }
         }
 
-        public JsonResultModel UpdateUserInfo(int id, string userName, string userPhone, string password)
+        public JsonResultModel UpdateUserInfo(int id, string userName, string userPhone, string password, int role)
         {
             try
             {
@@ -103,6 +104,7 @@ namespace Data.Business
                 User u = cnn.Users.Find(id);
                 u.Name = userName;
                 u.Phone = userPhone;
+                u.Role = role;
                 u.Password = !String.IsNullOrEmpty(password) ? Util.GenPass(password) : u.Password;
                 cnn.SaveChanges();
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");

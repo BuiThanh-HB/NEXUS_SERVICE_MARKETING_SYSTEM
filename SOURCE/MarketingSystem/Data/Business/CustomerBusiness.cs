@@ -144,13 +144,16 @@ namespace Data.Business
         }
 
         //Khóa tài khoản khách hàng
-        public JsonResultModel BlockAccount(int id)
+        public JsonResultModel ChangeStatus(int id)
         {
             try
             {
+                EmailBusiness email = new EmailBusiness();
                 Customer cus = cnn.Customers.Find(id);
-                cus.Status = SystemParam.NO_ACTIVE;
+                cus.Status = !cus.Status.Value;
                 cnn.SaveChanges();
+                if (cus.Status.Equals(SystemParam.NO_ACTIVE))
+                    email.configClient(cus.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Tài khoản của bạn tạm thời bị khóa");
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", null);
             }
             catch
