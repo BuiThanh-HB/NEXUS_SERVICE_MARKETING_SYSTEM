@@ -50,7 +50,7 @@ namespace Data.Business
                 foreach(var dt in sv)
                 {
                     email.configClient(dt.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động và ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME));
-                    dt.Status = SystemParam.NO_ACTIVE;
+                    dt.Status = SystemParam.NO_ACTIVE_STATUS;
 
                     //Lưu lại lịch sử gói cước
                     HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();

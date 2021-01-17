@@ -18,7 +18,7 @@ namespace Data.Business
 
         EmailBusiness email = new EmailBusiness();
 
-        IPagedList<ListServicePlanOfCus> Search(int page, string searchKey, string code, Boolean? status, string fromDate, string toDate)
+        IPagedList<ListServicePlanOfCus> Search(int page, string searchKey, string code, int? status, string fromDate, string toDate)
         {
             try
             {

@@ -79,12 +79,16 @@ namespace Data.Utils
         public const int ROLE_CLERK = 2;//Nhân viên kế toán
         public const int ROLE_TECHNICAL_STAFF = 3;//Nhân viên kỹ thuật
 
-        //Status defined
+        //Status order
         public const int CANCEL = 0;//Trạng thái bị từ chối
         public const int PENDING = 1;//Trạng thái chờ xử lý
         public const int ACCEPT = 2;//Trạng thái được xác nhận
         public const int COMPLETE = 3;//Trạng thái hoàn thành
 
+        //Status service of customer
+        public const int NO_ACTIVE_STATUS = 0;//Trạng thái ngừng hoạt động
+        public const int ACTIVE_STATUS = 1;//Trạng thái hoạt động
+        public const int REQUEST_DEACTIVE = 2;
 
         public const int WRONG_PASSWORD = 2;
         public const int COUNT_LIST_WEB = 8;

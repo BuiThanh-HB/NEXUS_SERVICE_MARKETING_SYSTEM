@@ -53,7 +53,7 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="200" />
-          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
         </EntityType>
@@ -548,8 +548,8 @@
           <NavigationProperty Name="Village" Relationship="Self.FK_Customer_Village" FromRole="Customer" ToRole="Village" />
           <NavigationProperty Name="Feedbacks" Relationship="Self.FK_Feedback_Customer" FromRole="Customer" ToRole="Feedback" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
-          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="Customer" ToRole="CustomerServicePlan" />
           <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="Customer" ToRole="CustomerServicePlan" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -634,9 +634,9 @@
           <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="AdminNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="DiscountValue" Type="Int32" />
-          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Order" FromRole="Order" ToRole="CustomerServicePlan" />
           <Property Name="UserHandleID" Type="Int32" />
           <NavigationProperty Name="User" Relationship="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="CustomerServicePlans" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Order" FromRole="Order" ToRole="CustomerServicePlan" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -958,6 +958,10 @@
             <End Role="Village" EntitySet="Villages" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK__Order__UserHandl__3C69FB99" Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
           <EntitySet Name="CustomerServicePlans" EntityType="NEXUS_SystemModel.CustomerServicePlan" />
           <AssociationSet Name="FK_CustomerServicePlan_Customer" Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -971,11 +975,19 @@
             <End Role="CustomerServicePlan" EntitySet="CustomerServicePlans" />
             <End Role="HistoryCustomerServicePlan" EntitySet="HistoryCustomerServicePlans" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__UserHandl__3C69FB99" Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Order__UserHandl__3C69FB99">
+          <End Type="NEXUS_SystemModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="NEXUS_SystemModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserHandleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="CustomerServicePlan">
           <Key>
             <PropertyRef Name="ID" />
@@ -988,7 +1000,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="OrderID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" FromRole="CustomerServicePlan" ToRole="Customer" />
@@ -1028,18 +1040,6 @@
             </Principal>
             <Dependent Role="HistoryCustomerServicePlan">
               <PropertyRef Name="CustomerServicePlanID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Order__UserHandl__3C69FB99">
-          <End Type="NEXUS_SystemModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="NEXUS_SystemModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="UserHandleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

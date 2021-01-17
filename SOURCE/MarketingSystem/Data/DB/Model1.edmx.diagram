@@ -33,11 +33,11 @@
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_Province" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_ServicePlan" ManuallyRouted="false" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_Order_Village" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="NEXUS_SystemModel.CustomerServicePlan" Width="1.5" PointX="12" PointY="15.375" />
+        <AssociationConnector Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" />
+        <EntityTypeShape EntityType="NEXUS_SystemModel.CustomerServicePlan" Width="1.5" PointX="12" PointY="15.625" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Customer" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_CustomerServicePlan_Order" />
         <AssociationConnector Association="NEXUS_SystemModel.FK_HistoryCustomerServicePlan_CustomerServicePlan" />
-        <AssociationConnector Association="NEXUS_SystemModel.FK__Order__UserHandl__3C69FB99" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

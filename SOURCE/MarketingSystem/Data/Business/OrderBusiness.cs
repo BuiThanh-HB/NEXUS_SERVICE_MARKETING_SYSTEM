@@ -146,7 +146,7 @@ namespace Data.Business
                             c.CreatedDate = DateTime.Now;
                             c.code = o.Code;
                             c.OrderID = o.ID;
-                            c.Status = SystemParam.ACTIVE;
+                            c.Status = SystemParam.ACTIVE_STATUS;
                             c.IsActive = SystemParam.ACTIVE;
                             c.HistoryCustomerServicePlans = history;
                             cnn.CustomerServicePlans.Add(c);

@@ -28,7 +28,7 @@ namespace Data.DB
         public System.DateTime CreatedDate { get; set; }
         public string code { get; set; }
         public string Address { get; set; }
-        public bool Status { get; set; }
+        public Nullable<int> Status { get; set; }
         public bool IsActive { get; set; }
         public int OrderID { get; set; }
     

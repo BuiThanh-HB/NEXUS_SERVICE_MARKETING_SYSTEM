@@ -43,8 +43,8 @@ namespace Data.DB
         public virtual Province Province { get; set; }
         public virtual ServicePlan ServicePlan { get; set; }
         public virtual Village Village { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerServicePlan> CustomerServicePlans { get; set; }
-        public virtual User User { get; set; }
     }
 }
