@@ -11,7 +11,8 @@
         <tr>
             <th width="5%">STT</th>
             <th width="30%">Tên khách hàng</th>
-            <th width="30%">Số điện thoại</th>
+            <th width="20%">Số điện thoại</th>
+            <th width="10%">Trạng thái</th>
             <th width="30%">Địa chỉ</th>
             <th width="10%">Ngày tạo</th>
             <th width="5%"></th>
@@ -34,10 +35,11 @@
                         <td>@stt</td>
                         <td>@dt.Name</td>
                         <td>@dt.Phone</td>
+                        <td>@dt.StatusStr</td>
                         <td>@dt.Address</td>
                         <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
                         <td>
-                            <a data-toggle="tooltip" data-placement="top" title="Xóa bài viết này" class="cursor-pointer" onclick="DelCus(@dt.ID)">
+                            <a data-toggle="tooltip" data-placement="top" title="Khóa tài khoản này" class="cursor-pointer" onclick="BlockCus(@dt.ID)">
                                 <i class="btnDelete fa fa-fw fa-trash-o"></i>
                             </a>
                         </td>

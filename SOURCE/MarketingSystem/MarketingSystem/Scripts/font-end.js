@@ -134,7 +134,7 @@ function LoginWeb() {
                     title: res.Message,
                     text: "",
                     icon: "error"
-                })
+                });
             }
         }
     })

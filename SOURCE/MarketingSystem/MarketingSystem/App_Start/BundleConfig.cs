@@ -64,7 +64,8 @@ namespace APIProject
 
 
             bundles.Add(new ScriptBundle("~/bundle/js").Include(
-                    "~/Scripts/jquery-ui.js"
+                    "~/Scripts/jquery-ui.js",
+                     "~/Scripts/jquery.unobtrusive-ajax.min.js"
                     ));
             bundles.Add(new StyleBundle("~/main/css").Include(
                       "~/Content/bootstrap.min.css",
@@ -87,8 +88,8 @@ namespace APIProject
             bundles.Add(new StyleBundle("~/fontend/stylecss").Include(
                       "~/Content/font_end/style.css"
                       ));
-            bundles.Add(new ScriptBundle("~/fontend/js").Include(
-                "~/Scripts/jquery.min.js",
+            bundles.Add(new StyleBundle("~/fontend/js").Include(
+                      "~/Scripts/jquery.min.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/libscripts.bundle.js",
                       "~/Scripts/vendorscripts.bundle.js",
@@ -98,12 +99,19 @@ namespace APIProject
                       "~/Scripts/index.js",
                        "~/Scripts/toastr.min.js",
                        "~/Scripts/dropify.min.js",
-                      "~/Content/font_end/js/plugins.js",
-                      "~/Content/font_end/js/app.js",
+                      //    "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                      //"~/Scripts/angular.min.js",
+                      // "~/Content/font_end/js/app.js",
+                      // "~/Content/font_end/js/plugins.js",
                       "~/Scripts/font-end.js"
                       ));
             bundles.Add(new StyleBundle("~/fontend/fonts").Include(
-                      "~/Content/font_end/fonts/font-awesome.min.css"
+                      "~/Content/font_end/fonts/font-awesome.min.css",
+                       "~/Content/sweetalert.css",
+                      "~/Content/PagedList.css",
+                      "~/Content/font-awesome.min.css",
+                       "~/Content/PagedList.css",
+                      "~/Content/toastr.min.css", "~/Content/dropify.min.css"
                       ));
             BundleTable.EnableOptimizations = false;
         }

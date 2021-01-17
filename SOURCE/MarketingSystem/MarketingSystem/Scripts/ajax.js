@@ -909,3 +909,38 @@ function ExportBill(id) {
         }
     })
 }
+
+//Khóa tài khoản khách hàng
+function BlockCus(id) {
+
+    swal({
+        title: "Bạn có chắc chắn muốn khóa tài khoản này?",
+        icon: "warning"
+    }).then((sure) => {
+        if (sure) {
+            $.ajax({
+                url: "/Customer/BlockAccount",
+                type: "POST",
+                data: { id: id },
+                beforeSend: function (res) {
+                    $('#modalLoad').modal('show');
+                },
+                success: function (res) {
+                    if (res.Status == SUCCESS) {
+                        toastr.success("Khóa tài khoản thành công !");
+                        $('#modalLoad').modal('hide');
+                        SearchOrder();
+
+                    } else {
+                        $('#modalLoad').modal('hide');
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        });
+                    }
+                }
+            })
+        }
+    })
+}

@@ -3,7 +3,6 @@
     ViewBag.Title = "Login";
     Layout = "~/Areas/FrontEnd/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container">
     <div class="login-fontend">
         <div class="row align-center">
@@ -25,4 +24,12 @@
     </div>
 
 </div>
+
+<script>
+    $(document).on("keyup", function (e) {
+        if (e.keyCode == 13) {
+            $("#btn-login").click();
+        }
+    });
+</script>
 

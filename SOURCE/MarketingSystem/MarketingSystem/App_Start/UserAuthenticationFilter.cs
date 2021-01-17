@@ -19,14 +19,13 @@ namespace APIProject.App_Start
         {
             try
             {
+                var routeValues = new RouteValueDictionary();
                 LoginOutputModel session = (LoginOutputModel)filterContext.HttpContext.Session[SystemParam.ADMIN];
-                LoginOutputModel client = (LoginOutputModel)filterContext.HttpContext.Session[SystemParam.CLIENT];
-                if (session == null || session.Account == null || session.Role <= 0 || session.Account == "")
+                if (session == null || session.Id == 0)
                 {
                     //Chuyen ve trang dang nhap
-                    var routeValues = new RouteValueDictionary();
-                    routeValues["controller"] = "Home";
-                    routeValues["action"] = "Login";
+                    routeValues["controller"] = "FrontEnd/HomeFrontEnd";
+                    routeValues["action"] = "Index";
                     filterContext.Result = new RedirectToRouteResult(routeValues);
 
 
