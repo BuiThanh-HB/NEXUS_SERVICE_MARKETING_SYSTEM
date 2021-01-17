@@ -40,23 +40,23 @@
                             @{ var ss = (@Data.Model.APIWeb.LoginOutputModel)HttpContext.Current.Session["Client"];
                                 if (ss == null)
                                 {
-                    <nav class="member-navigation pull-right">
-                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
-                        <a href="@Url.Action("Login","/HomeFrontEnd")" onclick="loginchangefooter()"><i class="fa fa-lock"></i> Login</a>
-                    </nav> }
-                else
-                {
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @(ss.Name)
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
-                            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
-                            <a class="dropdown-item" href="#">Đổi mật khẩu</a>
-                            <a onclick="logoutweb();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
-                        </div>
-                    </div> } }
+                                    <nav class="member-navigation pull-right">
+                                        <a href="@Url.Action("Register","/HomeFrontEnd")"><i class="fa fa-user"></i> Register</a>
+                                        <a href="@Url.Action("Login","/HomeFrontEnd")" onclick="loginchangefooter()"><i class="fa fa-lock"></i> Login</a>
+                                    </nav> }
+                                else
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @(ss.Name)
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="@Url.Action("CusService","ServicePlanFE")">Dịch vụ sở hữu</a>
+                                            <a class="dropdown-item" href="@Url.Action("CusDetail","/HomeFrontEnd")">Tài khoản</a>
+                                            <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                                            <a onclick="logoutweb();"><i class="fa fa-sign-out" style="padding-right:10px"></i>Đăng xuất</a>
+                                        </div>
+                                    </div> } }
 
                         </div>
                     </div>
@@ -98,6 +98,44 @@
 
 
 </body>
+
+
+<footer class="site-footer wow fadeInUp">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class=" branding">
+                    <img src="~/Content/font_end/images/logo-footer.png" alt="Site title" class="logo-icon">
+                    <h1 class="site-title"><a href="#">Nexus</a></h1>
+                    <h2 class="site-description">Quickly connecting the world.</h2>
+                </div> <!-- .branding -->
+
+                <p class="copy">Copyright 2014 NEXUS. designed by Themezy. All rights reserved</p>
+            </div>
+
+            <div class="col-md-6 align-right">
+
+                <nav class="footer-navigation">
+                    <a href="@Url.Action("Index","/News")">News</a>
+                    <a href="@Url.Action("Index","/AboutUs")">About us</a>
+                    <a href="@Url.Action("Index","/ServicePlanFE")">Services</a>
+                    <a href="@Url.Action("Index","/Contact")">Contact</a>
+                </nav> <!-- .footer-navigation -->
+
+                <div class="social-links">
+                    <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                    <a href="#" class="pinterest"><i class="fa fa-pinterest"></i></a>
+                </div> <!-- .social-links -->
+
+            </div>
+        </div>
+
+    </div>
+</footer> <!-- .site-footer -->
 
 </html>
 
