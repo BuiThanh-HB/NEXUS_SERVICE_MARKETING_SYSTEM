@@ -116,7 +116,7 @@ namespace Data.Business
         }
 
         //Tìm kiếm thông tin khách hàng
-        public IPagedList<ListCustomerOutputModel> Search(int page, string searchKey, string fromDate, string toDate)
+        public IPagedList<ListCustomerOutputModel> Search(int page, string searchKey, string fromDate, string toDate, Boolean? status)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace Data.Business
                 if (td.HasValue)
                     td = td.Value.AddDays(1);
                 var data = cnn.Customers.Where(c => c.IsActive.Equals(SystemParam.ACTIVE) && (!String.IsNullOrEmpty(searchKey) ? c.Name.Contains(searchKey) || c.Phone.Contains(searchKey) : true)
-                && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true))
+                && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true) && (status.HasValue ? c.Status == status : true))
                     .Select(c => new ListCustomerOutputModel
                     {
                         ID = c.ID,

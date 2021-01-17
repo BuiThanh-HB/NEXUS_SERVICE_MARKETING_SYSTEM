@@ -804,9 +804,13 @@ function SearchCus() {
     var searchKey = $.trim($('#txt-search-key').val());
     var fromDate = $('#txt-from-date').val();
     var toDate = $('#txt-to-date').val();
+    var status = $('#status-value-search').val();
+    var Status = status == 1 ? true : false;
+    if (status > 1 || status == null)
+        Status = null;
     $.ajax({
         url: "/Customer/Search",
-        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate },
+        data: { page: 1, searchKey: searchKey, fromDate: fromDate, toDate: toDate, status: Status },
         type: "GET",
         beforeSend: function () {
             $('#modalLoad').modal('show');
