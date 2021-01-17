@@ -100,7 +100,7 @@ namespace Data.Business
                     LoginOutputModel data = new LoginOutputModel();
                     string token = Util.CreateMD5(DateTime.Now.ToString());
                     data.Id = user.ID;
-                    data.Token = user.Token;
+                    data.Token = token;
                     data.Name = user.Name;
                     user.Token = token;
                     cnn.SaveChanges();
@@ -162,15 +162,15 @@ namespace Data.Business
         {
             try
             {
-                var passUser = cnn.Users.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
+                var passUser = cnn.Customers.Where(u => u.IsActive == SystemParam.ACTIVE && u.ID.Equals(ID)).FirstOrDefault();
 
-                if (!Util.CheckPass(CurrentPassword, passUser.Password))
+                if (passUser != null && !Util.CheckPass(CurrentPassword, passUser.Password))
                 {
                     return SystemParam.WRONG_PASSWORD;
                 }
 
-                User user = cnn.Users.Find(ID);
-                user.Password = Util.GenPass(NewPassword);
+                Customer cus = cnn.Customers.Find(ID);
+                cus.Password = Util.GenPass(NewPassword);
                 cnn.SaveChanges();
                 return SystemParam.SUCCESS;
             }

@@ -14,13 +14,15 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/News
         public ActionResult Index()
         {
+            ViewBag.ListCategory = newsBusiness.GetListNewCategory();
             return View();
         }
-        public PartialViewResult SearchNewsWeb(int Page = 1, string Name = "")
+        public PartialViewResult SearchNewsWeb(int Page = 1, string Name = "" ,int CateNewsID = 0)
         {
             try
             {
-                var data = newsBusiness.SearchNewsWeb(Page, Name);
+                ViewBag.ListCategory = newsBusiness.GetListNewCategory();
+                var data = newsBusiness.SearchNewsWeb(Page, Name, CateNewsID);
                 return PartialView("_ListNewsWeb", data);
             }
             catch
