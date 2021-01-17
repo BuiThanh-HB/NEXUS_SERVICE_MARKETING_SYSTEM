@@ -1,0 +1,36 @@
+﻿@using Data.Model
+@using Data.Utils
+@model Data.Model.NewsDetailOutputModel
+
+@{
+    if (Model == null)
+    {
+        <h1>Bài viết không tồn tại</h1>
+    }
+    else
+    {
+        <div>
+            <div class="breadcrumbs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12">
+                            <a href="index.html">Home</a> &rarr;
+                            <a href="#">News</a>&rarr;
+                            <a href="#">NewsDetail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h1>Đây là  chi tiết tin tức</h1>
+                            <h1>@Model.ID</h1>
+                        </div>
+                    </div> <!-- .row -->
+                </div> <!-- .container -->
+            </div> <!-- .inner-content -->
+        </div>
+    }
+}
