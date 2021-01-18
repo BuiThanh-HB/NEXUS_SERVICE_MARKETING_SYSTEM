@@ -19,7 +19,7 @@
         <input id="txt-search-key" class="form-control" placeholder="Nhập tên hoặc số điện thoại của khách hàng" />
     </div>
     <div class="col-md-3 col-12 mt-1">
-        <input id="txt-search-key" class="form-control" placeholder="Nhập mã gói cước" />
+        <input id="txt-code" class="form-control" placeholder="Nhập mã gói cước" />
     </div>
     <div class="col-md-3 col-12 mt-1">
         <input type="text" class="form-control relative-icon-calendar date" id="txt-from-date" placeholder="Từ ngày" />
@@ -32,13 +32,14 @@
     <div class="col-md-3 col-12 mt-1">
         <select class="form-control" id="status-value-search">
             <option selected disabled hidden>--Trạng thái--</option>
-            <option value="2">Tất cả</option>
+            <option value="-1">Tất cả</option>
+            <option value="2">Yêu cầu hủy</option>
             <option value="1">Hoạt động</option>
             <option value="0">Ngừng hoạt động</option>
         </select>
     </div>
     <div class="col-md-3 offset-md-6 col-12 mt-1 text-right">
-        <button class="btn btn-outline-primary float-right" id="btn-search-service-plan" onclick="SearchServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
+        <button class="btn btn-outline-primary float-right" id="btn-search-service-plan" onclick="SearchCustomerServicePlan()"><i class="fa fa-search"></i> Tìm kiếm</button>
     </div>
 </div>
 <div class="row mt-5">

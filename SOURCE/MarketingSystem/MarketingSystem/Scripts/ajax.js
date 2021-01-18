@@ -971,3 +971,61 @@ function GetCustomerServicePlanDetail(id) {
 
     })
 }
+
+
+//Cập nhật thông tin gói cước của khách hàng
+function UpdateCustomerService(type) {
+    var id = $('#id-val').val();
+    swal({
+        title: "Bạn chắc chắn muốn thực hiện tác vụ này?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((sure) => {
+        $.ajax({
+            url: "/ServicePlanManage/UpdateCustomerServicePlan",
+            data: $('#fm-service-customer-service-plan-detail').serialize() + "&Type=" + type,
+            beforeSend: function () {
+                $('#modalLoad').modal('show');
+            },
+            type: "POST",
+            success: function (res) {
+                if (res.Status == SUCCESS) {
+                    toastr.success("Gói cước của khách hàng đã được cập nhật !");
+                    $('#modalLoad').modal('hide');
+                    $('#md-customer-service-plan-detail').modal('hide');
+                    SearchCustomerServicePlan();
+
+                } else {
+                    $('#modalLoad').modal('hide');
+                    swal({
+                        title: res.Message,
+                        text: "",
+                        icon: "error"
+                    });
+                }
+            }
+        })
+    })
+}
+
+function SearchCustomerServicePlan() {
+    var searchKey = $.trim($('#txt-search-key').val());
+    var fromDate = $('#txt-from-date').val();
+    var toDate = $('#txt-to-date').val();
+    var status = $('#status-value-search').val();
+    var code = $.trim($('#txt-code').val());
+
+    $.ajax({
+        url: "/ServicePlanManage/Search",
+        data: { page: 1, searchKey: searchKey, code: code, fromDate: fromDate, toDate: toDate, status: status },
+        type: "GET",
+        beforeSend: function () {
+            $('#modalLoad').modal('show');
+        },
+        success: function (res) {
+            $('#modalLoad').modal('hide');
+            $('#tbl-customer-service').html(res);
+        }
+    })
+}

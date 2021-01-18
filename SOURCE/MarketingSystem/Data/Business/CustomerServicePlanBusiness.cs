@@ -1,4 +1,5 @@
-﻿using Data.DB;
+﻿using APIProject.Models;
+using Data.DB;
 using Data.Model;
 using Data.Utils;
 using PagedList;
@@ -11,6 +12,8 @@ namespace Data.Business
 {
     public class CustomerServicePlanBusiness : GenericBusiness
     {
+        ResponseBusiness rp = new ResponseBusiness();
+        EmailBusiness email = new EmailBusiness();
         public CustomerServicePlanBusiness(NEXUS_SystemEntities context = null) : base()
         {
 
@@ -27,7 +30,7 @@ namespace Data.Business
                 if (td.HasValue)
                     td = td.Value.AddDays(1);
                 var data = cnn.CustomerServicePlans.Where(c => c.IsActive.Equals(SystemParam.ACTIVE) && (!String.IsNullOrEmpty(searchKey) ? c.Customer.Name.Contains(searchKey) || c.Customer.Phone.Contains(searchKey) : true)
-                && (!String.IsNullOrEmpty(code) ? c.code.Equals(code) : true) && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true) && (status.HasValue ? c.Status.Equals(status) : true))
+                && (!String.IsNullOrEmpty(code) ? c.code.Equals(code) : true) && (fd.HasValue ? c.CreatedDate >= fd.Value : true) && (td.HasValue ? c.CreatedDate <= td.Value : true) && (status.HasValue && status.Value >= 0 ? c.Status.Equals(status) : true))
                     .Select(c => new ListServicePlanOfCus
                     {
                         ID = c.ID,
@@ -57,11 +60,13 @@ namespace Data.Business
             {
                 CustomerServicePlanDetailModel data = new CustomerServicePlanDetailModel();
                 CustomerServicePlan c = cnn.CustomerServicePlans.Find(id);
+                data.ID = c.ID;
                 data.Code = c.code;
                 data.CusName = c.Customer.Name;
                 data.ServiceName = c.Order.ServicePlan.Name;
                 data.LocaRequest = !String.IsNullOrEmpty(c.Address) ? c.Customer.Village.Name + " " + c.Customer.District.Name + " " + c.Customer.Province.Name : c.Address;
                 data.ActiveDate = c.ActiveDate;
+                data.Status = c.Status.Value;
                 data.histories = c.HistoryCustomerServicePlans.Where(h => h.IsActive.Equals(SystemParam.ACTIVE)).Select(h => new HistoryCustomerServicePlan
                 {
                     Note = h.Note,
@@ -74,12 +79,12 @@ namespace Data.Business
             {
                 return new CustomerServicePlanDetailModel();
             }
-           
+
 
         }
 
 
-        EmailBusiness email = new EmailBusiness();
+
         //Tiến trình tự động gửi mail thông báo gói cước sắp hết hạn tới khách hàng
         public void ReportServiceStatusToCus()
         {
@@ -114,12 +119,12 @@ namespace Data.Business
             {
                 foreach (var dt in sv)
                 {
-                    email.configClient(dt.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động và ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME));
+                    email.configClient(dt.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động vào ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME));
                     dt.Status = SystemParam.NO_ACTIVE_STATUS;
 
                     //Lưu lại lịch sử gói cước
                     HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
-                    h.Note = "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động và ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME);
+                    h.Note = "Gói cước " + dt.Order.ServicePlan.Name + " của bạn đã không được gia hạn và đã bị dừng hoạt động vào ngày " + dt.ExpiryDate.Value.ToString(SystemParam.CONVERT_DATETIME);
                     h.UserID = 1;
                     h.IsActive = SystemParam.ACTIVE;
                     h.CreatedDate = DateTime.Now;
@@ -128,6 +133,78 @@ namespace Data.Business
 
                 cnn.HistoryCustomerServicePlans.AddRange(histories);
                 cnn.SaveChanges();
+            }
+        }
+
+        //Cập nhật thông tin gói cước của khách hàng
+        public JsonResultModel UpdateCustomerServicePlan(CustomerServicePlanDetailModel input)
+        {
+            try
+            {
+                CustomerServicePlan c = cnn.CustomerServicePlans.Find(input.ID);
+                HistoryCustomerServicePlan h = new HistoryCustomerServicePlan();
+                string content = "";
+
+                switch (input.Type)
+                {
+                    //Cập nhật trạng thái của gói cước
+                    case 1:
+                        if (!input.Status.Equals(c.Status.Value))
+                        {
+                            switch (input.Status)
+                            {
+                                case SystemParam.NO_ACTIVE_STATUS:
+
+                                    //Lưu lại lịch sử gói cước
+                                    h.UserID = input.UserID;
+                                    h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                                    h.IsActive = SystemParam.ACTIVE;
+                                    h.CreatedDate = DateTime.Now;
+                                    cnn.HistoryCustomerServicePlans.Add(h);
+                                    content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã bị ngừng hoạt động";
+                                    break;
+
+                                case SystemParam.ACTIVE_STATUS:
+
+                                    h.UserID = input.UserID;
+                                    h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                                    h.IsActive = SystemParam.ACTIVE;
+                                    h.CreatedDate = DateTime.Now;
+                                    cnn.HistoryCustomerServicePlans.Add(h);
+                                    content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã được hoạt động trở lại";
+                                    break;
+                                default: break;
+                            }
+                            c.Status = input.Status;
+                        }
+                        break;
+
+                    //Gia gạn thêm cho gói cước
+                    case 2:
+                        c.Status = SystemParam.ACTIVE_STATUS;
+
+                        h.UserID = input.UserID;
+                        h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                        h.IsActive = SystemParam.ACTIVE;
+                        h.CreatedDate = DateTime.Now;
+                        cnn.HistoryCustomerServicePlans.Add(h);
+                        c.ExtendDate = DateTime.Now;
+                        c.ExpiryDate = DateTime.Now.AddMonths(c.Order.ServicePlan.Value);
+                        content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã được gia hạn thêm";
+
+                        break;
+                    default:
+                        break;
+                }
+                cnn.SaveChanges();
+                if (String.IsNullOrEmpty(content))
+                    email.configClient(c.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", content);
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", "");
+
+            }
+            catch
+            {
+                return rp.serverError();
             }
         }
     }

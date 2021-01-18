@@ -8,6 +8,9 @@ namespace Data.Model
 {
     public class CustomerServicePlanDetailModel : ListServicePlanOfCus
     {
+        public string Note { get; set; }
+        public int Type { get; set; }
+        public int UserID { get; set; }
         public List<HistoryCustomerServicePlan> histories { get; set; }
     }
 }

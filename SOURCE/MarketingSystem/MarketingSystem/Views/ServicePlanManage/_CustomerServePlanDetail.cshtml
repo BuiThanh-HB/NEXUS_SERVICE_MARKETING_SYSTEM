@@ -14,7 +14,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="fm-order-detail">
+                <form id="fm-service-customer-service-plan-detail">
                     <div class="row">
                         <div class="col-md-12 ">
                             <strong class="offset-md-1">Thông Tin Đơn Hàng</strong>
@@ -24,6 +24,7 @@
                                 </div>
                                 <div class="col-md-7" style="font-size:14px">
                                     <b id="txtCusName">@Model.Code</b>
+                                    <input type="hidden" id="id-val" name="ID" value="@Model.ID" />
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -47,7 +48,7 @@
                                     <i class="fa fa-clock-o ml-5 mr-2"></i><span style="color:darkgrey">Ngày kích hoạt</span>
                                 </div>
                                 <div class="col-md-7" style="font-size:14px">
-                                    <b>@Model.CreatedDate.ToString("dd-MM-yyy hh:mm")</b>
+                                    <b>@Model.CreatedDate.ToString("dd-MM-yyyy hh:mm")</b>
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -56,11 +57,19 @@
                                 </div>
                                 <div class="col-md-7" style="font-size:14px;">
                                     <select class="form-control" id="status-value-detail" name="Status">
-                                        <option selected disabled hidden>--Trạng thái--</option>
                                         <option value="@SystemParam.NO_ACTIVE_STATUS" class="text-warning">Ngừng hoạt động</option>
                                         <option value="@SystemParam.ACTIVE_STATUS" class="text-primary">Đang hoạt động</option>
-                                        <option value="@SystemParam.REQUEST_DEACTIVE" class="text-success">Yêu cầu hủy</option>
                                     </select>
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-4 offset-md-1">
+                                    <i class="fa fa-edit ml-5 mr-2"></i><span style="color:darkgrey">Ghi chú</span>
+                                </div>
+                                <div class="col-md-7" style="font-size:14px;">
+                                    <textarea class="form-control" name="Note" style="height:75px !important;" placeholder="Nhập ghi chú"></textarea>
 
                                 </div>
                             </div>
@@ -113,8 +122,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="btnExportBill" onclick="" @(user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF) ? Html.Raw("disabled") : Html.Raw("")) class="btn btn-success"><i class="fa fa-save mr-1"></i>Cập nhật</button>
-                        <button type="submit" id="btnSave" class="btn btn-primary" onclick="ExtendService()">Gia hạn thêm</button>
+                        <button type="button" onclick="UpdateCustomerService(1)" @(user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF) ? Html.Raw("disabled") : Html.Raw("")) class="btn btn-success"><i class="fa fa-save mr-1"></i>Cập nhật</button>
+                        <button type="submit" class="btn btn-primary" onclick="UpdateCustomerService(2)">Gia hạn thêm</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     </div>
                 </form>
@@ -124,3 +133,8 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $('#status-value-detail').val(@Model.Status);
+    })
+</script>

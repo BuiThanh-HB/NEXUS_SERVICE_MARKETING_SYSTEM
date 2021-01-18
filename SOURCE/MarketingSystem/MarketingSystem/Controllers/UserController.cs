@@ -16,7 +16,7 @@ namespace Base.Controllers
         public ActionResult Index()
         {
             if (!admin.Role.Equals(SystemParam.ROLE_ADMIN))
-{
+            {
                 HttpResponseBase response = Response;
                 response.Redirect("/Home/Index");
             }
@@ -37,15 +37,15 @@ namespace Base.Controllers
             return PartialView("_TableUser", userBusiness.Search(page, searchKey, fromDate, toDate));
         }
 
-        public JsonResult AddUser(string userName, string userPhone, string password,int role)
+        public JsonResult AddUser(string userName, string userPhone, string password, int role)
         {
-            return Json(userBusiness.AddUser(userName, userPhone, password,role), JsonRequestBehavior.AllowGet);
+            return Json(userBusiness.AddUser(userName, userPhone, password, role), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult UpdateUserInfo(int id, string userName, string userPhone, string password,int role)
+        public JsonResult UpdateUserInfo(int id, string userName, string userPhone, string password, int role)
         {
-            return Json(userBusiness.UpdateUserInfo(id, userName, userPhone, password,role), JsonRequestBehavior.AllowGet);
+            return Json(userBusiness.UpdateUserInfo(id, userName, userPhone, password, role), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
