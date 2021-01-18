@@ -215,6 +215,7 @@
     <Compile Include="DB\Village.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\CustomerOutPutMode.cs" />
     <Compile Include="Model\CustomerServicePlanDetailModel.cs" />
     <Compile Include="Model\HomeFrontEndOutputModel.cs" />
     <Compile Include="Model\JsonResultModel.cs" />

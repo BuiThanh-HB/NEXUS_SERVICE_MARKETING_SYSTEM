@@ -183,5 +183,48 @@ namespace Data.Business
                 return SystemParam.ERROR;
             }
         }
+
+        // 
+        public CustomerOutPutMode CusDetail(string token)
+        {
+            try
+            {
+                var data = cnn.Customers.Where(c => c.Token.Equals(token) && c.IsActive.Equals(SystemParam.ACTIVE))
+                    .Select(cus => new CustomerOutPutMode
+                    {
+                        ID = cus.ID,
+                        Name = cus.Name,
+                        Address = cus.Address,
+                        ProvinceID = cus.ProvinceID,
+                        Province = cus.Province.Name,
+                        DistrictID = cus.DistrictID,
+                        District = cus.District.Name,
+                        VillageID = cus.VillageID,
+                        Village = cus.Village.Name,
+                        Email = cus.Email
+                    }).FirstOrDefault();
+                if(data!= null)
+                {
+                    return data;
+                }
+                return new CustomerOutPutMode();
+            }
+            catch
+            {
+                return new CustomerOutPutMode();
+            }
+        }
+        // cập nhâp thông tin
+        public int UpdateCusInfor (CustomerOutPutMode input)
+        {
+            try
+            {
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
     }
 }

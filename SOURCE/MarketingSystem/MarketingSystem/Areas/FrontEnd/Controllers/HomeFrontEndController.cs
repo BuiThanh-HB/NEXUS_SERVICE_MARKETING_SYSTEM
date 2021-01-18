@@ -58,12 +58,34 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
-                //var data = servicePlanBusiness.ServiceDetail(ID);
-                return PartialView("CusDetail");
+                var data = customerBusiness.CusDetail(client.Token);
+                return PartialView("CusDetail",data);
             }
             catch
             {
                 return PartialView("CusDetail");
+            }
+        }
+        // cập nhập thông tin
+        public int UpdateCusInfor(int ID, string Name , string Address , string Email , int ProvinceID , int DistrictID , int VillageID)
+        {
+            try
+            {
+                CustomerOutPutMode input = new CustomerOutPutMode();
+                input.ID = ID;
+                input.Name = Name;
+                input.Address = Address;
+                input.Email = Email;
+                input.ProvinceID = ProvinceID;
+                input.DistrictID = DistrictID;
+                input.VillageID = VillageID;
+
+                var data = customerBusiness.UpdateCusInfor(input);
+                return data;
+            }
+            catch
+            {
+                return 0;
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using APIProject.Controllers;
+using Data.Business;
 using Data.Model;
 using Data.Model.APIWeb;
 using PagedList;
@@ -72,6 +73,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
+                //var a = 
                 var data = new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
                 return PartialView("CusService", data);
             }
