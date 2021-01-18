@@ -1,6 +1,102 @@
-﻿
+﻿@using Data.Model
+@model  CustomerOutPutMode
 @{
-    ViewBag.Title = "Index";
+    //ViewBag.Title = "Index";
     Layout = "~/Areas/FrontEnd/Views/Shared/_Layout.cshtml";
 }
-<h1> đây là chi tiết người dùng</h1>
+<div class="container">
+    <div class="row col-12 justify-content-center mt-5">
+        <div>
+            <h2 style="font-weight:bold;">Thông tin cá nhân</h2>
+        </div>
+    </div>
+    @{
+        if (Model != null)
+        {
+            <div class="row col-12 justify-content-center">
+                <div class="register-frontend">
+                    <form id="form-register">
+                        <div>
+                            <label for="exampleInputEmail1">Họ tên</label>
+                            <input type="text" class="form-control" id="cusname" placeholder="Họ tên" value="@Model.Name" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="exampleInputEmail1">Email </label>
+                            <input type="text" class="form-control" id="cusemail" placeholder="Email" value="@Model.Email" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="exampleInputEmail1">Địa chỉ </label>
+                            <input type="text" class="form-control" id="cusaddress" placeholder="Địa chỉ" value="@Model.Address" autocomplete="off">
+                        </div>
+                        <div>
+                            <label for="exampleInputEmail1">Tỉnh / Thành phố </label>
+                            <select class="form-control" id="cusprovince" onchange="ChangProvincecus($(this))">
+                                <option value="@Model.ProvinceID"> @Model.Province</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="exampleInputEmail1">Quận / Huyện / Thị Xã </label>
+                            <select class="form-control" id="cusdistrict" onchange="ChangeDistrictcus($(this))">
+
+                                <option value="@Model.DistrictID"> @Model.District</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="exampleInputEmail1">Phường / Xã / Thị Trấn </label>
+                            <select class="form-control" id="cusvillage">
+                                <option value="@Model.VillageID">@Model.Village</option>
+                            </select>
+                        </div>
+
+                        <button type="button" style="background-color: #01A6D4;" onclick="updatecusInfo()" class="btn btn-primary offset-md-5 offset-sm-3 mt-5">Lưu thay đổi</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+
+</div>
+<script type="text/javascript">
+    function updatecusInfo() {
+        var name = $('#cusname').val();
+        var email = $('#cusemail').val();
+        var address = $('#cusaddress').val();
+        var proviceid = $('#cusprovince').val();
+        var districtid = $('#cusdistrict').val();
+        var villageid = $('#cusvillage').val();
+
+        alert(villageid);
+    }
+    function ChangProvincecus($target) {
+        let province_id = $target.val();
+        $.ajax({
+            url: "GetListDistrict",
+            type: "GET",
+            data: {
+                province_id: province_id
+            }, success: function (res) {
+                $("#cusdistrict").empty();
+                $.each(res, function () {
+                    $("#cusdistrict").append('<option value="' + this.id + '">' + this.value + '</option>')
+                })
+                ChangeDistrictcus($("#cusdistrict"))
+            }
+        })
+    }
+
+    function ChangeDistrictcus($target) {
+        let district_id = $target.val();
+        $.ajax({
+            url: "GetListVillage",
+            type: "GET",
+            data: {
+                district_id: district_id
+            }, success: function (res) {
+                $("#cusvillage").empty();
+                $.each(res, function () {
+                    $("#cusvillage").append('<option value="' + this.id + '">' + this.value + '</option>')
+                })
+            }
+        })
+    }
+</script>
