@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,5 +18,26 @@ namespace Data.Model
         public bool Status { get; set; }
         public string Descreiption { get; set; }
         public int CateID { get; set; }
+        public string CateType { get; set; }
+        public string CateTypeStr {
+            set { }
+            get
+            {
+                string output = "";
+                switch (CateType)
+                {
+                    case SystemParam.FOR_DIAL:
+                        output = "Để quay số";
+                        break;
+                    case SystemParam.CONNECT_PHONE_ONLY:
+                        output = "Chỉ kết nối điện thoại";
+                        break;
+                    case SystemParam.BROADBAND:
+                        output = "Cho băng thông rộng";
+                        break;
+                }
+                return output;
+            }
+        }
     }
 }

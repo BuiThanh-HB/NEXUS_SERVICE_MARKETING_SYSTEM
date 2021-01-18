@@ -103,11 +103,9 @@
         var search = $("#txtSearchService").val();
         var cateid = $("#cateServiceID").val();
         $.ajax({
-            url: "/ServicePlanFE/SearchService",
+            url: "/FrontEnd/ServicePlanFE/SearchService",
             data: { Page: 1, Name: search, CateID: cateid },
             success: function (rs) {
-                alert(1);
-                //$('#modalLoad').modal('hide');
                 $("#listService").html(rs);
             }
         });

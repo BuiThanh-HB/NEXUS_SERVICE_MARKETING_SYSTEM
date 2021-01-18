@@ -151,10 +151,7 @@ namespace Data.Business
         {
             try
             {
-                var data = cnn.ServicePlans.Where(s => s.IsActive.Equals(SystemParam.ACTIVE) 
-                    && (!String.IsNullOrEmpty(searchKey) ? s.Name.Contains(searchKey) : true)
-                    && s.Status.Equals(SystemParam.ACTIVE) 
-                    && (cateID > 0 ? s.CategoryID.Equals(cateID) : true))
+                var data = cnn.ServicePlans.Where(s => s.IsActive.Equals(SystemParam.ACTIVE))
                     .Select(s => new ListServicePlanOutputModel
                     {
                         ID = s.ID,
@@ -166,11 +163,21 @@ namespace Data.Business
                         Value = s.Value,
                         Price = s.Price,
                         Descreiption = s.Description,
-                        CateID = s.CategoryID
-                    })
-                    .OrderByDescending(s => s.ID).ToList()
-                    .ToPagedList(page, SystemParam.MAX_ROW_IN_LIST);
-                return data;
+                        CateID = s.CategoryID,
+                        CateType = s.Category.Type
+                    }).ToList();
+
+                if(cateID > 0)
+                {
+                    data = data.Where(si => si.CateID.Equals(cateID)).ToList();
+                }
+
+                if (!String.IsNullOrEmpty(searchKey))
+                {
+                    data = data.Where(se => se.Name.Contains(searchKey)).ToList();
+                }
+
+                return data.OrderByDescending(sr => sr.ID).ToPagedList(page, SystemParam.COUNT_LIST_WEB);
             }
             catch (Exception e)
             {
@@ -195,7 +202,8 @@ namespace Data.Business
                         Value = s.Value,
                         Price = s.Price,
                         Descreiption = s.Description,
-                        CateID = s.CategoryID
+                        CateID = s.CategoryID,
+                        CateType = s.Category.Type
                     }).FirstOrDefault();
                 return data;
             }

@@ -20,9 +20,8 @@
                                 <div class="col-md-8">
                                     <div class="slide-caption">
                                         <h2 class="slide-title">@newsitem.Title</h2>
-                                        <small class="slide-subtitle">Nemo enom ipsam voluptatem voluptas</small>
                                         <div class="slide-summary">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, illum laborum odit est quibusdam, molestias quaerat qui, eveniet voluptate debitis, earum dolorem. Fuga maxime fugit excepturi, saepe fugiat quisquam quia!</p>
+                                            <p>@newsitem.Summary</p>
                                         </div>
                                         @*<button class="btn" onclick="newDetailWeb(@newsitem.ID)"> Read more</button>*@
                                     </div>
@@ -93,6 +92,10 @@
 </div> <!-- .feature-section -->
 
 <div class="fullwidth-block pricing-section">
+    <div>
+        <button class="btn btn-danger"><a href="@Url.Action("Index","/ServicePlanFE")">xem thêm</a></button>
+    
+    </div>
     <div class="container">
         <div class="row">
             @{
@@ -103,14 +106,14 @@
                         <div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@serviceitem.ID)">
                             <div class="pricing-table wow fadeInLeft" data-wow-delay=".2s">
                                 <div class="pricing-title">
-                                    <h2 class="pricing-type">@serviceitem.Name</h2>
+                                    <h2 class="pricing-type">@serviceitem.CateName</h2>
                                     <small>For small bussiness</small>
                                 </div>
                                 <div class="price-tag">
                                     <strong>$@serviceitem.Price</strong>
-                                    <small>/Per month</small>
+                                    <small>/@serviceitem.Value Per month</small>
                                 </div>
-                                <p class="pricing-desc">Curabitur facilisis consectetur leo in venenatis mauris nisl</p>
+                                <p class="pricing-desc">@serviceitem.Name</p>
                                 <ul class="list-fa">
                                     <li><i class="fa fa-check"></i> Quad core</li>
                                     <li><i class="fa fa-check"></i> 50 GB ram</li>
