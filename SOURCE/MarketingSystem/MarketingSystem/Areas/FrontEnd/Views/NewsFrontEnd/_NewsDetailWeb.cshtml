@@ -25,8 +25,9 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8">
-                            <h1>Đây là  chi tiết tin tức</h1>
-                            <h1>@Model.ID</h1>
+                            <h1>@Model.Title</h1>
+                            <img src="@Model.ImgUrl" />
+                            <p> @Html.Raw(Model.Content)</p>
                         </div>
                     </div> <!-- .row -->
                 </div> <!-- .container -->

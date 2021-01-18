@@ -23,10 +23,10 @@
                     </select>
                 </div>
                 <div class="col-md-4 col-sm-12">
-                    <input type="text" class="form-control" id="txtSearchService" placeholder="Nội dung tìm kiếm" />
+                    <input type="text" class="form-control" id="txtSearchNews" placeholder="Nội dung tìm kiếm" />
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <button class="btn btn-block btn-primary" id="btnSearchNews"><i class="fa fa-search"></i>Tìm kiếm</button>
+                    <button class="btn btn-block btn-primary" onclick="SearchNewsFontEnd()"><i class="fa fa-search"></i>Tìm kiếm</button>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                 <div class="col-md-8">
                     <div id="listNewsWeb">
                         @{
-                            Html.RenderAction("SearchNewsWeb", "News", new { Page = 1, Name = "" });
+                            Html.RenderAction("SearchNewsWeb", "NewsFrontEnd", new { Page = 1, Name = "" });
                         }
                     </div>
                 </div>
@@ -60,14 +60,19 @@
                         <div class="widget wow fadeInRight">
                             <h3 class="widget-title">Top rated posts</h3>
                             <ul class="posts">
-                                <li>
-                                    <h4 class="entry-title"><a href="#">Captain America and the rest of Earths Mightiest Heroes</a></h4>
-                                    <time class="date">03/09/2014</time>
-                                </li>
-                                <li>
-                                    <h4 class="entry-title"><a href="#">Ultron, Kang, the Masters of Evil</a></h4>
-                                    <time class="date">02/09/2014</time>
-                                </li>
+                                @{
+                                    if (ViewBag.ListNews != null)
+                                    {
+                                        foreach (var news in ViewBag.ListNews)
+                                        {
+                                            <li>
+                                                <h4 class="entry-title">
+                                                <a href="javascripst:void(0)" onclick="newDetailWeb(@news.ID)" >@news.Title</a></h4>
+                                                <time class="date">@news.CreatedDateStr</time>
+                                            </li>
+                                        }
+                                    }
+                                }
                             </ul>
                         </div> <!-- .widget -->
 
@@ -90,12 +95,29 @@
     // chi tiết tin tức
     function newDetailWeb(id) {
         $.ajax({
-            url: "/FrontEnd/News/NewsDetail",
+            url: "/FrontEnd/NewsFrontEnd/NewsDetail",
             data: { ID: id },
             type: "GET",
             success: function (rs) {
                 ////$('#modalLoad').modal('hide');
                 $('#newsweb').html(rs);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function SearchNewsFontEnd() {
+        var cateid = $('#cateNewsID').val();
+        var name = $('#txtSearchNews').val();
+        $.ajax({
+            url: "/FrontEnd/NewsFrontEnd/SearchNewsWeb",
+            data: { Page: 1, Name: name, CateNewsID: cateid },
+            type: "GET",
+            success: function (rs) {
+                ////$('#modalLoad').modal('hide');
+                $('#listNewsWeb').html(rs);
             },
             error: function (error) {
                 console.log(error);

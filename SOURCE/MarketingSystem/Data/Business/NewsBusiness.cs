@@ -138,22 +138,28 @@ namespace Data.Business
         {
             try
             {
-                var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE) 
-                    && CateNewsID > 0 ? n.CategoryNewID.Equals(CateNewsID) : true
-                    && (!String.IsNullOrEmpty(searchKey) ? n.Title.Contains(searchKey) : true)
-                    &&  n.Status.Equals(SystemParam.ACTIVE)
-                   )
+                var data = cnn.News.Where(n => n.IsActive.Equals(SystemParam.ACTIVE) && n.Status.Equals(SystemParam.ACTIVE))
                     .Select(n => new ListNewsOutputModel()
                     {
                         ID = n.ID,
                         Title = n.Title,
                         Status = n.Status,
+                        Content = n.Content,
                         Type = n.Type,
                         ImgUrl = n.ImageUrl,
+                        CateID = n.CategoryNewID,
                         CateName = n.CategoryNew.Name,
                         CreatedDate = n.CreatedDate
-                    }).OrderByDescending(n => n.ID).ToPagedList(page, SystemParam.COUNT_LIST_WEB);
-                return data;
+                    }).ToList();
+                if (!String.IsNullOrEmpty(searchKey))
+                {
+                    data = data.Where(ne => ne.Title.Contains(searchKey)).ToList();
+                }
+                if(CateNewsID > 0)
+                {
+                    data = data.Where(nw => nw.CateID.Equals(CateNewsID)).ToList();
+                }
+                return data.OrderByDescending(n => n.ID).ToPagedList(page, 4);
             }
             catch
             {
@@ -172,6 +178,7 @@ namespace Data.Business
                     {
                         ID = n.ID,
                         Title = n.Title,
+                        Content = n.Content,
                         Status = n.Status,
                         ImgUrl = n.ImageUrl,
                         CateName = n.CategoryNew.Name,

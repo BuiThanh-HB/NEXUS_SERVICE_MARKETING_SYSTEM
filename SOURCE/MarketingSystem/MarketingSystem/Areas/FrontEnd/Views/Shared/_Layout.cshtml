@@ -78,7 +78,7 @@
                         <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
                         <ul class="menu">
                             @*<li class="menu-item"><a href="news.html">News</a></li>*@
-                            <li class="menu-item">@Html.ActionLink("News", "Index", "News")</li>
+                            <li class="menu-item">@Html.ActionLink("News", "Index", "NewsFrontEnd")</li>
                             <li class="menu-item">@Html.ActionLink("About Us", "Index", "AboutUs")</li>
                             <li class="menu-item">@Html.ActionLink("Services", "Index", "ServicePlanFE")</li>
                             <li class="menu-item">@Html.ActionLink("Contact", "Index", "Contact")</li>
@@ -110,7 +110,7 @@
             <div class="col-md-6 align-right">
 
                 <nav class="footer-navigation">
-                    <a href="@Url.Action("Index","/News")">News</a>
+                    <a href="@Url.Action("Index","/NewsFrontEnd")">News</a>
                     <a href="@Url.Action("Index","/AboutUs")">About us</a>
                     <a href="@Url.Action("Index","/ServicePlanFE")">Services</a>
                     <a href="@Url.Action("Index","/Contact")">Contact</a>

@@ -16,13 +16,11 @@
     {
         foreach (var item in Model)
         {
-            <h1>@item.ID</h1>
-
             <article class="post hentry wow fadeInUp" >
-                <h2 class="entry-title"><a href="#">Marvels mighty mutants go worldwide and beyond</a></h2>
-                <figure class="featured-image"><img src="dummy/featured-image-1.jpg" alt=""></figure>
+                <h2 class="entry-title" >@item.CateName</h2>
+                <figure class="featured-image"><img style="height:150px ; width:auto"  src="@item.ImgUrl" alt=""></figure>
                 <div class="entry-summary">
-                    <p>Iron Man, Thor, Captain America and the rest of Earths Mightiest Heroes unite to stand against the threats none can face alone. See the Avengers go up against Ultron, Kang, the Masters of Evil and more over three decades of epic action. </p>
+                    <p>@item.Title </p>
                 </div>
                 <button class="btn" onclick="newDetailWeb(@item.ID)"> Read more</button>
             </article>

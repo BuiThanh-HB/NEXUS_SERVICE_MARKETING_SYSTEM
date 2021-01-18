@@ -1332,7 +1332,7 @@
     <Content Include="Content\font_end\sass\pages\_news.scss" />
     <Content Include="Content\font_end\sass\pages\_page.scss" />
     <Content Include="Content\font_end\sass\style.scss" />
-    <Content Include="Areas\FrontEnd\Views\News\Index.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\NewsFrontEnd\Index.cshtml" />
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\Index.cshtml" />
     <Content Include="Areas\FrontEnd\Views\Contact\Index.cshtml" />
     <Content Include="Areas\FrontEnd\Views\AboutUs\Index.cshtml" />
@@ -1342,8 +1342,8 @@
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\_ServiceDetail.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\CusDetail.cshtml" />
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\CusService.cshtml" />
-    <Content Include="Areas\FrontEnd\Views\News\_ListNewsWeb.cshtml" />
-    <Content Include="Areas\FrontEnd\Views\News\_NewsDetailWeb.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\NewsFrontEnd\_ListNewsWeb.cshtml" />
+    <Content Include="Areas\FrontEnd\Views\NewsFrontEnd\_NewsDetailWeb.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\font-end.js" />

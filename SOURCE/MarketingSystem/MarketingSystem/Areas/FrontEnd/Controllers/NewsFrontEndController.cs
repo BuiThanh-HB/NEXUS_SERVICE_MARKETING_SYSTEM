@@ -14,6 +14,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         // GET: FrontEnd/News
         public ActionResult Index()
         {
+            ViewBag.ListNews = newsBusiness.ListNewsWeb(3);
             ViewBag.ListCategory = newsBusiness.GetListNewCategory();
             return View();
         }
@@ -21,6 +22,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
+                ViewBag.ListNews = newsBusiness.ListNewsWeb(3);
                 ViewBag.ListCategory = newsBusiness.GetListNewCategory();
                 var data = newsBusiness.SearchNewsWeb(Page, Name, CateNewsID);
                 return PartialView("_ListNewsWeb", data);
