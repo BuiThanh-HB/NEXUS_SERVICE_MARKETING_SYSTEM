@@ -244,5 +244,10 @@ namespace Data.Business
                 return 0;
             }
         }
+
+        public int CountCus()
+        {
+            return cnn.Customers.Where(c => c.IsActive.Equals(SystemParam.ACTIVE)).Count();
+        }
     }
 }

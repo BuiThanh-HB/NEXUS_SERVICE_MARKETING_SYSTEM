@@ -275,5 +275,10 @@ namespace Data.Business
                 return new List<ListServicePlanOutputModel>();
             }
         }
+
+        public int CountServicePlan()
+        {
+            return cnn.ServicePlans.Where(c => c.IsActive.Equals(SystemParam.ACTIVE)).Count();
+        }
     }
 }

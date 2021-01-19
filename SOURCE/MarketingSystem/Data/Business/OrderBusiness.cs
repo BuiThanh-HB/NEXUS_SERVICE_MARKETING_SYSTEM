@@ -259,5 +259,13 @@ namespace Data.Business
                 return null;
             }
         }
+
+        //Đếm yêu cầu đăng ký
+        public string GetCountOrder()
+        {
+            var all = cnn.Orders.Where(o => o.IsActive.Equals(SystemParam.ACTIVE));
+            string result = "" + all.Where(o => o.Status.Equals(SystemParam.PENDING)).Count() + "/" + all.Count();
+            return result;
+        }
     }
 }

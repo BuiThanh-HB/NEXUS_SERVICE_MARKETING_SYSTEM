@@ -18,6 +18,9 @@ namespace APIProject.Controllers
         [UserAuthenticationFilter]
         public ActionResult Index()
         {
+            ViewBag.countOrder = orderBusiness.GetCountOrder();
+            ViewBag.countCus = customerBusiness.CountCus();
+            ViewBag.countService = servicePlanBusiness.CountServicePlan();
             ViewBag.Title = "Trang chủ";
             return View();
         }
