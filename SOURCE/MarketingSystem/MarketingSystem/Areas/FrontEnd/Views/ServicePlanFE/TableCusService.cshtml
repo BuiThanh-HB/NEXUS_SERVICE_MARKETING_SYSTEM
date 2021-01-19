@@ -4,7 +4,8 @@
 @using Data.Utils
 @using PagedList.Mvc
 @using System.Web
-@model  PagedList.IPagedList<ListServicePlanOutputModel>
+
+@model  PagedList.IPagedList<CustomerService>
 
 <table class="table table-light table-bordered table-hover table-responsive-sm table-responsive mb-0" style=" white-space: nowrap;">
     <thead class="text-center text-white bg-thead">
@@ -37,8 +38,8 @@
                 {
                     <tr>
                         <td>@stt</td>
-                        <td>@dt.Name</td>
-                        <td>@dt.CateName</td>
+                        <td>@dt.ServiceName</td>
+                        <td>@dt.ServiceName</td>
                         <td>
                             <div style="width:100%; height:100%;">
                                 <img class="w-100 h-100" src="@dt.ImageUrl" />
@@ -57,11 +58,11 @@
                         }
                         <td>@String.Format("{0:n0}", dt.Price)</td>
                         <td>@dt.Value</td>
-                        <td>@dt.CreatedDate.ToString(SystemParam.CONVERT_DATETIME)</td>
+                        <td>@dt.ActiveDateStr</td>
                         <td>
-                            <a data-id="@dt.ID" data-name="@dt.Name" data-value="@dt.Value" data-image="@dt.ImageUrl" data-status="@dt.Status" data-price="@dt.Price" data-descreiption="@dt.Descreiption" data-cateID="@dt.CateID" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin gói cước" class="cursor-pointer">
+                            @*<a data-id="@dt.ID" data-name="@dt.Name" data-value="@dt.Value" data-image="@dt.ImageUrl" data-status="@dt.Status" data-price="@dt.Price" data-descreiption="@dt.Descreiption" data-cateID="@dt.CateID" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin gói cước" class="cursor-pointer">
                                 <i class="btnEdit fa fa-fw fa-edit"></i>
-                            </a>
+                            </a>*@
                             <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="DelServicePlan(@dt.ID)">
                                 <i class="btnDelete fa fa-fw fa-trash-o"></i>
                             </a>

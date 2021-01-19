@@ -209,38 +209,46 @@ namespace Data.Business
         }
 
 
-        public IPagedList<ListServicePlanOfCus> Myservice(int cusID, int page = 1, string searchKey ="", string code = "", int? status = 0, string fromDate ="", string toDate = "")
+        public IPagedList<CustomerService> Myservice(int cusID, int page , string searchKey , string code, int? status, string fromDate, string toDate )
         {
             try
             {
+                //cnn.ServicePlans
                 DateTime? fd = Util.ConvertDate(fromDate);
                 DateTime? td = Util.ConvertDate(toDate);
                 if (td.HasValue)
                     td = td.Value.AddDays(1);
-                var data = cnn.CustomerServicePlans.Where(c => c.IsActive.Equals(SystemParam.ACTIVE) 
+                var data = cnn.CustomerServicePlans.Where(c => c.IsActive.Equals(SystemParam.ACTIVE)
                         && c.CustomerID.Equals(cusID)
-                        && (!String.IsNullOrEmpty(searchKey) ? c.Customer.Name.Contains(searchKey) || c.Customer.Phone.Contains(searchKey) : true)
-                        && (!String.IsNullOrEmpty(code) ? c.code.Equals(code) : true) 
-                        && (fd.HasValue ? c.CreatedDate >= fd.Value : true) 
-                        && (td.HasValue ? c.CreatedDate <= td.Value : true) 
-                        && (status.HasValue && status.Value >= 0 ? c.Status.Equals(status) : true))
-                    .Select(c => new ListServicePlanOfCus
+                        && (!String.IsNullOrEmpty(searchKey) ? c.Order.ServicePlan.Name.Contains(searchKey) : true)
+                        && (!String.IsNullOrEmpty(code) ? c.code.Equals(code) : true)
+                        && (fd.HasValue ? c.CreatedDate >= fd.Value : true)
+                        && (td.HasValue ? c.CreatedDate <= td.Value : true)
+                        && (status.HasValue && status.Value >= 0 ? c.Status == status : true)
+                        )
+                    .Select(c => new CustomerService
                     {
                         ID = c.ID,
                         Code = c.code,
                         ServiceName = c.Order.ServicePlan.Name,
-                        CusName = c.Customer.Name,
-                        CreatedDate = c.CreatedDate,
                         ActiveDate = c.ActiveDate,
+                        ExpiryDate = c.ExpiryDate,
+                        ExtendDate = c.ExtendDate,
+                        ImageUrl = c.Order.ServicePlan.ImageUrl,
+                        OrderID = c.OrderID,
+                        ServiceID = c.Order.ServicePlanID,
+                        Value = c.Order.ServicePlan.Value,
+                        Price = c.Order.TotalPrice,
                         Status = c.Status.HasValue ? c.Status.Value : 0,
-                        LocaRequest = !String.IsNullOrEmpty(c.Address) ? c.Customer.Village.Name + " " + c.Customer.District.Name + " " + c.Customer.Province.Name : c.Address,
+                    }).OrderByDescending(cd => cd.ID).ToPagedList(page, SystemParam.COUNT_LIST_WEB);
 
-                    }).OrderByDescending(c => c.ID).ToPagedList(page, SystemParam.COUNT_LIST_WEB);
+
                 return data;
             }
-            catch
+            catch(Exception e)
             {
-                return new List<ListServicePlanOfCus>().ToPagedList(1, 1);
+                e.ToString();
+                return new List<CustomerService>().ToPagedList(1, 1);
             }
 
         }

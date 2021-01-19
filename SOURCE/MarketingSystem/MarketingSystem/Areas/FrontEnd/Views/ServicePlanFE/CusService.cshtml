@@ -15,26 +15,41 @@
     <div class="breadcrumbs">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-12">
-                    <a href="index.html">Home</a> &rarr;
-                    <a href="#">News</a>
-                </div>
-                <div class="col-md-3 offset-md-0 col-sm-6 mt-1">
-                    <select id="cateNewsID" class="form-control">
-                        <optgroup label="Tiêu đề">
-                            <option value="0">Tất cả </option>
-                            @*@foreach (var tp in ViewBag.ListCategory)
-                                {
-                                    <option value="@tp.ID">@tp.Name</option>
-                                }*@
-                        </optgroup>
-                    </select>
-                </div>
-                <div class="col-md-4 col-sm-12">
-                    <input type="text" class="form-control" id="txtSearchNews" placeholder="Nội dung tìm kiếm" />
-                </div>
                 <div class="col-md-2 col-sm-12">
-                    <button class="btn btn-block btn-primary" onclick="SearchNewsFontEnd()"><i class="fa fa-search"></i>Tìm kiếm</button>
+                    <div class="col-md-12 col-12 ">
+                        <a href="index.html">Home</a> &rarr;
+                        <a href="#">My Service</a>
+                    </div>
+                </div>
+                <div class="col-md-10 offset-md-0 col-sm-6 mt-1">
+                    <div class="col-md-2 col-12 mt-1">
+                        <input class="form-control" id="txtCusServiceName" placeholder="Tên dịch vụ" />
+                    </div>
+                    <div class="col-md-2 col-12 mt-1">
+                        <input class="form-control" id="txtCodeOrderService" placeholder="Mã đơn hàng" />
+                    </div>
+                    <div class="col-md-2 col-12 mt-1">
+                        <input type="text" class="form-control relative-icon-calendar date" id="CusServiceFromDate" placeholder="Từ ngày" />
+                        <i class="fa fa-calendar absolute-icon-calendar"></i>
+                    </div>
+                    <div class="col-md-2 col-12 mt-1">
+                        <input type="text" class="form-control relative-icon-calendar date" id="CusServiceToDate" placeholder="Đến ngày" />
+                        <i class="fa fa-calendar absolute-icon-calendar"></i>
+                    </div>
+                    <div class="col-md-2 col-12 mt-1">
+                        <select class="form-control" id="statusCusService">
+                            <option selected disabled hidden>Trạng thái</option>
+                            <option value="-1">Tất cả</option>
+                            <option value="@SystemParam.PENDING" class="text-warning">Chờ xác nhận</option>
+                            <option value="@SystemParam.ACCEPT" class="text-primary">Đã xác nhận</option>
+                            <option value="@SystemParam.COMPLETE" class="text-success">Hoàn thành</option>
+                            <option value="@SystemParam.CANCEL" class="text-danger">Hủy</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2  col-12 mt-1 ">
+                        <button class="btn btn-primary " id="btn-search-order" onclick="searchMyservice()"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    </div>
+
                 </div>
             </div>
 
@@ -47,7 +62,7 @@
                 <div class="col-md-8">
                     <div id="tabCusService">
                         @{
-                            Html.RenderAction("CusService2", "ServicePlanFE", new { Page = 1, Name = "" });
+                            Html.RenderAction("SearchCusService", "ServicePlanFE", new { Page = 1 });
                         }
                     </div>
                 </div>
@@ -56,3 +71,24 @@
     </div> <!-- .inner-content -->
 </div>
 
+<script type="text/javascript">
+    function searchMyservice() {
+        var searchkey = $('#txtCusServiceName').val()P;
+        var code = $('#txtCodeOrderService').val();
+        var fromdate = $('#CusServiceFromDate').val();
+        var todate = $('#CusServiceToDate').val();
+        var status = $('#statusCusService').val();
+
+        $.ajax({
+            url: "/FrontEnd/ServicePlanFE/SearchCusService",
+            data: { Page: 1, SearchKey: searchkey, Code: code, Status: status, Fromdate: fromdate, Todate: todate },
+            type: "GET",
+            success: function (rs) {
+                $('#tabCusService').html(rs);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
