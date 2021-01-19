@@ -219,7 +219,25 @@ namespace Data.Business
         {
             try
             {
-                return 1;
+                var check = cnn.Customers.Where(c => c.Email.Equals(input.Email)&& c.IsActive.Equals(SystemParam.ACTIVE)).FirstOrDefault();
+                if (check == null || (check != null && check.ID.Equals(input.ID)))
+                {
+                    var cus = cnn.Customers.Find(input.ID);
+                    cus.Email = input.Email;
+                    cus.Name = input.Name;
+                    cus.Address = input.Address;
+                    cus.ProvinceID = input.ProvinceID;
+                    cus.DistrictID = input.DistrictID;
+                    cus.VillageID = input.VillageID;
+                    cnn.SaveChanges();
+                    return 1;
+                }
+                else if(check != null && !check.ID.Equals(input.ID))
+                {
+                    return -1;
+                }
+
+                return 0;
             }
             catch
             {

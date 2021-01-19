@@ -61,11 +61,58 @@
         var name = $('#cusname').val();
         var email = $('#cusemail').val();
         var address = $('#cusaddress').val();
-        var proviceid = $('#cusprovince').val();
+        var provinceid = $('#cusprovince').val();
         var districtid = $('#cusdistrict').val();
         var villageid = $('#cusvillage').val();
 
-        alert(villageid);
+        $.ajax({
+            url: '/HomeFrontEnd/UpdateCusInfor',
+            type: 'POST',
+            data: {
+                Name: name,
+                Address: address,
+                Email: email,
+                ProvinceID: provinceid,
+                DistrictID: districtid,
+                VillageID: villageid
+            },
+            type: 'POST',
+            success: function (response) {
+                if (response == 1) {
+                    swal({
+                        title: "Cập nhập thông tin thành công",
+                        text: "",
+                        icon: "success"
+                    })
+                } else {
+                    if (response == -1) {
+                        swal({
+                            title: "Email đã tồn tại trong hệ thống , vui lòng kiểm tra lại !",
+                            text: "",
+                            icon: "warning"
+                        })
+                    } else if (response == -2) {
+                        location.reload();
+                    } else {
+                        swal({
+                            title: "Cập nhập thất bại !",
+                            text: "",
+                            icon: "warning"
+                        })
+                    }
+                }
+
+            },
+            error: function (result) {
+                console.log(result.responseText);
+                swal({
+                    title: "Có lỗi",
+                    text: "",
+                    icon: "warning"
+                })
+            }
+        });
+
     }
     function ChangProvincecus($target) {
         let province_id = $target.val();

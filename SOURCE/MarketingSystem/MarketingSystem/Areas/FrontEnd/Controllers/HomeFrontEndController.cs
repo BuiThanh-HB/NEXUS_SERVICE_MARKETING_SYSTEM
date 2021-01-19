@@ -58,8 +58,12 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
-                var data = customerBusiness.CusDetail(client.Token);
-                return PartialView("CusDetail",data);
+                if(client != null)
+                {
+                    var data = customerBusiness.CusDetail(client.Token);
+                    return PartialView("CusDetail", data);
+                }
+                return PartialView("CusDetail");
             }
             catch
             {
@@ -67,12 +71,18 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             }
         }
         // cập nhập thông tin
-        public int UpdateCusInfor(int ID, string Name , string Address , string Email , int ProvinceID , int DistrictID , int VillageID)
+        [HttpPost]
+        public int UpdateCusInfor( string Name , string Address , string Email , int ProvinceID , int DistrictID , int VillageID)
         {
             try
             {
+                if(client == null)
+                {
+                    return -2;
+                }
+
                 CustomerOutPutMode input = new CustomerOutPutMode();
-                input.ID = ID;
+                input.ID = client.Id;
                 input.Name = Name;
                 input.Address = Address;
                 input.Email = Email;
