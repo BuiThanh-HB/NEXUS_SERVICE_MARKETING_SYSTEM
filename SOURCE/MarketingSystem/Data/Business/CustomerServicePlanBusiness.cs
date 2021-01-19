@@ -160,6 +160,7 @@ namespace Data.Business
                                     h.Note = !String.IsNullOrEmpty(input.Note) ? input.Note : "";
                                     h.IsActive = SystemParam.ACTIVE;
                                     h.CustomerServicePlanID = c.ID;
+                                    h.Status = input.Status;
                                     h.CreatedDate = DateTime.Now;
                                     cnn.HistoryCustomerServicePlans.Add(h);
                                     content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã bị ngừng hoạt động";
@@ -171,6 +172,7 @@ namespace Data.Business
                                     h.Note = !String.IsNullOrEmpty(input.Note) ? input.Note : "";
                                     h.CustomerServicePlanID = c.ID;
                                     h.IsActive = SystemParam.ACTIVE;
+                                    h.Status = input.Status;
                                     h.CreatedDate = DateTime.Now;
                                     cnn.HistoryCustomerServicePlans.Add(h);
                                     content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã được hoạt động trở lại";
@@ -186,12 +188,15 @@ namespace Data.Business
                         c.Status = SystemParam.ACTIVE_STATUS;
 
                         h.UserID = input.UserID;
-                        h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                        h.Note = !String.IsNullOrEmpty(input.Note) ? input.Note : "";
                         h.IsActive = SystemParam.ACTIVE;
                         h.CreatedDate = DateTime.Now;
                         cnn.HistoryCustomerServicePlans.Add(h);
                         c.ExtendDate = DateTime.Now;
+                        h.CustomerServicePlanID = c.ID;
+                        h.Status = SystemParam.ACTIVE_STATUS;
                         c.ExpiryDate = DateTime.Now.AddMonths(c.Order.ServicePlan.Value);
+                        h.Status = SystemParam.ACTIVE_STATUS;
                         content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã được gia hạn thêm";
 
                         break;

@@ -975,37 +975,37 @@ function GetCustomerServicePlanDetail(id) {
 
 //Cập nhật thông tin gói cước của khách hàng
 function UpdateCustomerService(type) {
-    var id = $('#id-val').val();
     swal({
         title: "Bạn chắc chắn muốn thực hiện tác vụ này?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
     }).then((sure) => {
-        $.ajax({
-            url: "/ServicePlanManage/UpdateCustomerServicePlan",
-            data: $('#fm-service-customer-service-plan-detail').serialize() + "&Type=" + type,
-            beforeSend: function () {
-                $('#modalLoad').modal('show');
-            },
-            type: "POST",
-            success: function (res) {
-                if (res.Status == SUCCESS) {
-                    toastr.success("Gói cước của khách hàng đã được cập nhật !");
-                    $('#modalLoad').modal('hide');
-                    $('#md-customer-service-plan-detail').modal('hide');
-                    SearchCustomerServicePlan();
+        if (sure)
+            $.ajax({
+                url: "/ServicePlanManage/UpdateCustomerServicePlan",
+                data: $('#fm-service-customer-service-plan-detail').serialize() + "&Type=" + type,
+                beforeSend: function () {
+                    $('#modalLoad').modal('show');
+                },
+                type: "POST",
+                success: function (res) {
+                    if (res.Status == SUCCESS) {
+                        toastr.success("Gói cước của khách hàng đã được cập nhật !");
+                        $('#modalLoad').modal('hide');
+                        $('#md-customer-service-plan-detail').modal('hide');
+                        SearchCustomerServicePlan();
 
-                } else {
-                    $('#modalLoad').modal('hide');
-                    swal({
-                        title: res.Message,
-                        text: "",
-                        icon: "error"
-                    });
+                    } else {
+                        $('#modalLoad').modal('hide');
+                        swal({
+                            title: res.Message,
+                            text: "",
+                            icon: "error"
+                        });
+                    }
                 }
-            }
-        })
+            })
     })
 }
 
