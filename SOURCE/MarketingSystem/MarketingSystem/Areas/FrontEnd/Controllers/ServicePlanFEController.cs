@@ -53,7 +53,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         [HttpPost]
         public int CreateOrder(int ServiceID, string Note, int ProvinceID, int DistrictID, int VillageID, string Address)
         {
-            if(client == null)
+            if (client == null)
             {
                 return -1;
             }
@@ -75,21 +75,22 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             return View("CusService");
         }
 
-        public PartialViewResult CusService2(int Page = 1 , string Name = "")
+        public PartialViewResult SearchCusService(int Page, string SearchKey, string Code, int? Status, string Fromdate, string Todate)
         {
             try
             {
-                var data = new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
 
-                //if (client != null)
-                //{
-                //    data = customerServicePlan.Myservice(client.Id);
-                //}
-                return PartialView("TableCusService", data);
+                if (client != null)
+                {
+                    var data = customerServicePlan.Myservice(client.Id, Page, SearchKey, Code, Status, Fromdate, Todate);
+                    return PartialView("TableCusService", data);
+                }
+                return PartialView("TableCusService", new List<CustomerService>().ToPagedList(1, 1));
+
             }
             catch
             {
-                return PartialView("TableCusService", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
+                return PartialView("TableCusService", new List<CustomerService>().ToPagedList(1, 1));
             }
         }
     }

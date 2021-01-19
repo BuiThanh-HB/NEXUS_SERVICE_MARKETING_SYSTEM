@@ -84,6 +84,7 @@ namespace APIProject
                 "~/Content/bootstrap.min.css",
                       "~/Content/font_end/css/style.css",
                       "~/Content/font_end/css/animate.css"
+                       //"~/Content/jquery-ui.css"
                       ));
             bundles.Add(new StyleBundle("~/fontend/stylecss").Include(
                       "~/Content/font_end/style.css"
@@ -99,6 +100,7 @@ namespace APIProject
                       "~/Scripts/index.js",
                        "~/Scripts/toastr.min.js",
                        "~/Scripts/dropify.min.js",
+                        //"~/Scripts/jquery-ui.js",
                       //    "~/Scripts/jquery.unobtrusive-ajax.min.js",
                       //"~/Scripts/angular.min.js",
                       // "~/Content/font_end/js/app.js",
