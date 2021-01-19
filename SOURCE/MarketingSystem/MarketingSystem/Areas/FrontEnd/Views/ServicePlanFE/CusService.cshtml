@@ -1,5 +1,58 @@
-﻿@{
+﻿@using APIProject.Models;
+@using Data.Model;
+@using Data.Model.APIWeb;
+@using Data.Utils
+@using PagedList.Mvc
+@using System.Web
+@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/FrontEnd/Views/Shared/_Layout.cshtml";
 }
-<h1> đây là danh sách dịch vụ của người dùng</h1>
+
+@model  PagedList.IPagedList<ListOrderOutputModel>
+
+<div id="myservice">
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <a href="index.html">Home</a> &rarr;
+                    <a href="#">News</a>
+                </div>
+                <div class="col-md-3 offset-md-0 col-sm-6 mt-1">
+                    <select id="cateNewsID" class="form-control">
+                        <optgroup label="Tiêu đề">
+                            <option value="0">Tất cả </option>
+                            @*@foreach (var tp in ViewBag.ListCategory)
+                                {
+                                    <option value="@tp.ID">@tp.Name</option>
+                                }*@
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <input type="text" class="form-control" id="txtSearchNews" placeholder="Nội dung tìm kiếm" />
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <button class="btn btn-block btn-primary" onclick="SearchNewsFontEnd()"><i class="fa fa-search"></i>Tìm kiếm</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="inner-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="tabCusService">
+                        @{
+                            Html.RenderAction("CusService2", "ServicePlanFE", new { Page = 1, Name = "" });
+                        }
+                    </div>
+                </div>
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </div> <!-- .inner-content -->
+</div>
+

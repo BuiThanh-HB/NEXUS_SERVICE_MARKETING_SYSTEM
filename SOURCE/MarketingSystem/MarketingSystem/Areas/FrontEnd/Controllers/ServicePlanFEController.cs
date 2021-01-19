@@ -1,5 +1,6 @@
 ﻿using APIProject.Controllers;
 using Data.Business;
+using Data.DB;
 using Data.Model;
 using Data.Model.APIWeb;
 using PagedList;
@@ -69,17 +70,26 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             return data.Status;
         }
 
-        public PartialViewResult CusService()
+        public ActionResult CusService()
+        {
+            return View("CusService");
+        }
+
+        public PartialViewResult CusService2(int Page = 1 , string Name = "")
         {
             try
             {
-                //var a = 
                 var data = new List<ListServicePlanOutputModel>().ToPagedList(1, 1);
-                return PartialView("CusService", data);
+
+                //if (client != null)
+                //{
+                //    data = customerServicePlan.Myservice(client.Id);
+                //}
+                return PartialView("TableCusService", data);
             }
             catch
             {
-                return PartialView("CusService", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
+                return PartialView("TableCusService", new List<ListServicePlanOutputModel>().ToPagedList(1, 1));
             }
         }
     }
