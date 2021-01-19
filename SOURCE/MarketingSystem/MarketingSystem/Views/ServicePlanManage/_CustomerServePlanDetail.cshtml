@@ -48,7 +48,7 @@
                                     <i class="fa fa-clock-o ml-5 mr-2"></i><span style="color:darkgrey">Ngày kích hoạt</span>
                                 </div>
                                 <div class="col-md-7" style="font-size:14px">
-                                    <b>@Model.CreatedDate.ToString("dd-MM-yyyy hh:mm")</b>
+                                    <b>@Model.ActiveDate.ToString(SystemParam.CONVERT_DATETIME_HAVE_HOUR)</b>
                                 </div>
                             </div>
                             <div class="row mt-4">
@@ -122,8 +122,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="UpdateCustomerService(1)" @(user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF) ? Html.Raw("disabled") : Html.Raw("")) class="btn btn-success"><i class="fa fa-save mr-1"></i>Cập nhật</button>
-                        <button type="submit" class="btn btn-primary" onclick="UpdateCustomerService(2)">Gia hạn thêm</button>
+                        <button type="button"  onclick="UpdateCustomerService(1)" @(user.Role.Equals(SystemParam.ROLE_TECHNICAL_STAFF) ? Html.Raw("disabled") : Html.Raw("")) class="btn btn-success"><i class="fa fa-save mr-1"></i>Cập nhật</button>
+                        <button type="button"  class="btn btn-primary" onclick="UpdateCustomerService(2)">Gia hạn thêm</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
                     </div>
                 </form>
