@@ -157,8 +157,9 @@ namespace Data.Business
 
                                     //Lưu lại lịch sử gói cước
                                     h.UserID = input.UserID;
-                                    h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                                    h.Note = !String.IsNullOrEmpty(input.Note) ? input.Note : "";
                                     h.IsActive = SystemParam.ACTIVE;
+                                    h.CustomerServicePlanID = c.ID;
                                     h.CreatedDate = DateTime.Now;
                                     cnn.HistoryCustomerServicePlans.Add(h);
                                     content = "Gói cước " + c.Order.ServicePlan.Name + " của bạn đã bị ngừng hoạt động";
@@ -167,7 +168,8 @@ namespace Data.Business
                                 case SystemParam.ACTIVE_STATUS:
 
                                     h.UserID = input.UserID;
-                                    h.Note = !String.IsNullOrEmpty(input.Note) ? "" : input.Note;
+                                    h.Note = !String.IsNullOrEmpty(input.Note) ? input.Note : "";
+                                    h.CustomerServicePlanID = c.ID;
                                     h.IsActive = SystemParam.ACTIVE;
                                     h.CreatedDate = DateTime.Now;
                                     cnn.HistoryCustomerServicePlans.Add(h);
@@ -175,8 +177,8 @@ namespace Data.Business
                                     break;
                                 default: break;
                             }
-                            c.Status = input.Status;
                         }
+                        c.Status = input.Status;
                         break;
 
                     //Gia gạn thêm cho gói cước
@@ -197,13 +199,14 @@ namespace Data.Business
                         break;
                 }
                 cnn.SaveChanges();
-                if (String.IsNullOrEmpty(content))
+                if (!String.IsNullOrEmpty(content))
                     email.configClient(c.Customer.Email, "[NEXUS SYSTEM THÔNG BÁO]", content);
                 return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, "Thành công", "");
 
             }
-            catch
+            catch(Exception e)
             {
+                e.ToString();
                 return rp.serverError();
             }
         }
