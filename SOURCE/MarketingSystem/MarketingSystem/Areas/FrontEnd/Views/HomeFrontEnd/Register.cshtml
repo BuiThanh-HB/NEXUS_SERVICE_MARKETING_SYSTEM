@@ -78,7 +78,77 @@
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
+    $("#btn-register").click(function () {
+    let phone = $("#phone").val().trim();
+    let email = $("#email").val().trim();
+    let name = $("#name").val().trim();
+    let password = $("#password").val().trim();
+    let confirm_password = $("#confirm_password").val().trim();
+    let address = $("#address").val().trim();
+    let province_id = $("#province-register").val();
+    let district_id = $("#district-register").val();
+    let village_id = $("#village-register").val();
+    if (phone.length <= 0 || email.length <= 0 || password.length <= 0 || confirm_password.length <= 0 || address.length <= 0 || name.length<=0) {
+        swal({
+            title: "Mời điền đầy đủ thông tin!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    if (!/(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(phone)) {
+        swal({
+            title: "Số điện thoại không hợp lệ!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    @*if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+        swal({
+            title: "Email không hợp lệ!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }*@
+    if (password != confirm_password) {
+        swal({
+            title: "Mật khẩu không trùng khớp!",
+            text: "",
+            icon: "warning"
+        })
+        return;
+    }
+    let data = {
+        name,
+        phone,
+        email,
+        password,
+        address,
+        province_id,
+        district_id,
+        village_id
+    }
+    $.ajax({
+        url: "/FrontEnd/HomeFrontEnd/Register",
+        type: "POST",
+        data: {
+            input: data
+        }, success: function (res) {
+            if (res.Code == 1) {
+                swal({
+                    title: "Đăng ký thành công!",
+                    text: "",
+                    icon: "success"
+                }).then(() => {
+                    location.href = "Index";
 
+                })
+            }
+        }
+    })
+})
 
 </script>

@@ -44,7 +44,15 @@ namespace Data.Business
                     cus.Status = SystemParam.ACTIVE;
                     cnn.Customers.Add(cus);
                     cnn.SaveChanges();
-                    return rp.response(1, 1, "Thêm khách hàng thành công", null);
+
+                    LoginOutputModel data = new LoginOutputModel();
+                    data.Id = cus.ID;
+                    data.Name = cus.Name;
+                    data.Token = cus.Token;
+
+                    HttpContext.Current.Session["Client"] = data;
+
+                    return rp.response(1, 1, "Đăng ký thành công", data);
 
                 }
             }

@@ -22,9 +22,9 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         }
         public ActionResult Register()
         {
-            var listProvince = customerBusiness.GetListProvince(); 
-            var listDistrict= customerBusiness.GetListDistrict(listProvince.FirstOrDefault().id);
-            var listVillage= customerBusiness.GetListVillage(listDistrict.FirstOrDefault().id);
+            var listProvince = customerBusiness.GetListProvince();
+            var listDistrict = customerBusiness.GetListDistrict(listProvince.FirstOrDefault().id);
+            var listVillage = customerBusiness.GetListVillage(listDistrict.FirstOrDefault().id);
             ViewBag.ListDistrict = listDistrict;
             ViewBag.ListVillage = listVillage;
             return View(listProvince);
@@ -36,12 +36,13 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         [HttpPost]
         public JsonResult Login(string userName, string password)
         {
-            return Json(customerBusiness.Login(userName,password),JsonRequestBehavior.AllowGet);
+            return Json(customerBusiness.Login(userName, password), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public JsonResult Register(RegisterCustomerInputModel input)
         {
-            return Json(customerBusiness.Register(input), JsonRequestBehavior.AllowGet);
+            var data = customerBusiness.Register(input);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetListDistrict(int province_id)
         {
@@ -58,7 +59,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         {
             try
             {
-                if(client != null)
+                if (client != null)
                 {
                     var data = customerBusiness.CusDetail(client.Token);
                     return PartialView("CusDetail", data);
@@ -72,11 +73,11 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
         }
         // cập nhập thông tin
         [HttpPost]
-        public int UpdateCusInfor( string Name , string Address , string Email , int ProvinceID , int DistrictID , int VillageID)
+        public int UpdateCusInfor(string Name, string Address, string Email, int ProvinceID, int DistrictID, int VillageID)
         {
             try
             {
-                if(client == null)
+                if (client == null)
                 {
                     return -2;
                 }
@@ -117,7 +118,7 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
             try
             {
                 LoginOutputModel cus = client;
-                if(cus != null)
+                if (cus != null)
                 {
                     return customerBusiness.ChangePassword(cus.Id, CurrentPassword, NewPassword);
                 }
