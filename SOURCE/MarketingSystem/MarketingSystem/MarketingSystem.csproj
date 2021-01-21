@@ -1346,6 +1346,9 @@
     <Content Include="Areas\FrontEnd\Views\NewsFrontEnd\_NewsDetailWeb.cshtml" />
     <Content Include="Areas\FrontEnd\Views\HomeFrontEnd\CusOrder.cshtml" />
     <Content Include="Areas\FrontEnd\Views\ServicePlanFE\TableCusService.cshtml" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\dropify.min.js" />
     <Content Include="Scripts\font-end.js" />

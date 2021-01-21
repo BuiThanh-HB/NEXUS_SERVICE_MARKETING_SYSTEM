@@ -249,7 +249,7 @@ namespace Data.Business
         }
 
         // 
-        public List<ListServicePlanOutputModel> ListServiceHome(int limit = 3)
+        public List<ListServicePlanOutputModel> ListServiceHome(int limit = 4)
         {
             try
             {

@@ -89,7 +89,7 @@ namespace APIProject
             bundles.Add(new StyleBundle("~/fontend/stylecss").Include(
                       "~/Content/font_end/style.css"
                       ));
-            bundles.Add(new StyleBundle("~/fontend/js").Include(
+            bundles.Add(new ScriptBundle("~/fontend/js").Include(
                       "~/Scripts/jquery.min.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/libscripts.bundle.js",
@@ -97,14 +97,10 @@ namespace APIProject
                       "~/Scripts/sweetalert.min.js",
                       "~/Scripts/mainscripts.bundle.js",
                       "~/Scripts/bootstrap-413.js",
+                      "~/Scripts/bootstrap.min.js",
                       "~/Scripts/index.js",
                        "~/Scripts/toastr.min.js",
                        "~/Scripts/dropify.min.js",
-                        //"~/Scripts/jquery-ui.js",
-                      //    "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                      //"~/Scripts/angular.min.js",
-                      // "~/Content/font_end/js/app.js",
-                      // "~/Content/font_end/js/plugins.js",
                       "~/Scripts/font-end.js"
                       ));
             bundles.Add(new StyleBundle("~/fontend/fonts").Include(

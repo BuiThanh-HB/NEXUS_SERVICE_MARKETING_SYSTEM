@@ -6,44 +6,56 @@
     Layout = "~/Areas/FrontEnd/Views/Shared/_Layout.cshtml";
 }
 
+@{
+    if (Model.ListNews != null)
+    {
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="margin-top:50px ; margin-bottom:20px">
+            <div class="carousel-inner">
 
-<div class="slider">
-    <ul class="slides">
-        @{
-            if (Model.ListNews != null)
-            {
-                foreach (var newsitem in Model.ListNews)
-                {
-                    <li>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="slide-caption">
-                                        <h2 class="slide-title">@newsitem.Title</h2>
-                                        <div class="slide-summary">
-                                            <p>@newsitem.Summary</p>
-                                        </div>
-                                        @*<button class="btn" onclick="newDetailWeb(@newsitem.ID)"> Read more</button>*@
+                <div class="container">
+                    <div class="row">
+                        @{
+                            var i = 0;
+
+                            foreach (var item in Model.ListNews)
+                            {
+                                if (i == 0)
+                                {
+                                    <div class="carousel-item active ">
+                                        <a href="@Url.Action("Index","/NewsFrontEnd")">
+                                            <img class="d-block w-100" style=" height:320px" src="@item.ImgUrl" alt="First slide">
+                                        </a>
+
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="@newsitem.ImgUrl" alt="" style="height:auto;width:250px">
-                                </div>
-                            </div>
 
+                                }
+                                else
+                                {
+                                    <div class="carousel-item ">
+                                        <a href="@Url.Action("Index","/NewsFrontEnd")">
+                                            <img class="d-block w-100" style=" height:320px" src="@item.ImgUrl" alt="First slide">
+                                        </a>
+                                    </div>
+                                }
+                                i++;
+                            }
+                        }
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-                        </div>
-                    </li>
-                }
-            }
-            else
-            {
-                <h1>Không có khuyến mãi</h1>
-            }
-        }
+        </div>
+    }
+}
 
-    </ul> <!-- .slides -->
-</div> <!-- .slider -->
 
 <div class="fullwidth-block feature-section">
     <div class="container">
@@ -58,7 +70,6 @@
                     <div class="feature-summary">
                         <p>Tư vấn, thiết kế và triển khai các dự án viễn thông được nhà nước chấp thuận.</p>
                     </div>
-                    <a href="#" class="button">Xem thêm</a>
                 </div> <!-- .feature -->
             </div> <!-- .col-md-4 -->
             <div class="col-md-4">
@@ -71,7 +82,6 @@
                     <div class="feature-summary">
                         <p>Sản xuất, lắp ráp, cung ứng các thiết bị viễn thông, thiết bị bảng điều khiển.</p>
                     </div>
-                    <a href="#" class="button">Xem thêm</a>
                 </div> <!-- .feature -->
             </div> <!-- .col-md-4 -->
             <div class="col-md-4">
@@ -84,7 +94,6 @@
                     <div class="feature-summary">
                         <p>Khai thác, vận hành và quản lý dịch vụ viễn thông cũng như dịch vụ Internet.</p>
                     </div>
-                    <a href="#" class="button">More info</a>
                 </div> <!-- .feature -->
             </div> <!-- .col-md-4 -->
         </div> <!-- .row -->
@@ -92,10 +101,7 @@
 </div> <!-- .feature-section -->
 
 <div class="fullwidth-block pricing-section">
-    <div>
-        <button class="btn btn-danger"><a href="@Url.Action("Index","/ServicePlanFE")">xem thêm</a></button>
     
-    </div>
     <div class="container">
         <div class="row">
             @{
@@ -106,21 +112,17 @@
                         <div class="col-md-3 col-xs-6 col-us" onclick="serviceDetail(@serviceitem.ID)">
                             <div class="pricing-table wow fadeInLeft" data-wow-delay=".2s">
                                 <div class="pricing-title">
-                                    <h2 class="pricing-type">@serviceitem.CateName</h2>
-                                    <small>Cho doanh nghiệp nhỏ</small>
+                                    <h2 class="pricing-type">@serviceitem.Name</h2>
                                 </div>
-                                <div class="price-tag">
-                                    <strong>$@serviceitem.Price</strong>
+                                <div class="price-tag" style="background-image:url(@serviceitem.ImageUrl)" > 
+                                    <strong>$ @serviceitem.Price</strong>
                                     <small>/@serviceitem.Value tháng</small>
                                 </div>
-                                <p class="pricing-desc">@serviceitem.Name</p>
                                 <ul class="list-fa">
                                     <li><i class="fa fa-check"></i> Bốn nhân</li>
                                     <li><i class="fa fa-check"></i> 50 GB RAM</li>
-                                    <li><i class="fa fa-check"></i> 50 GB không gian đĩa</li>
                                     <li><i class="fa fa-check"></i> 10 tài khoản</li>
                                     <li><i class="fa fa-check"></i> Hỗ trợ 24h</li>
-                                    <li><i class="fa fa-check"></i> Bảng quản trị</li>
                                 </ul>
                             </div> <!-- .pricing-table -->
                         </div>
@@ -132,8 +134,14 @@
                     <h1>Không tồn tại dữ liệu</h1>
                 }
             }
-
+            
         </div> <!-- .row -->
+        <div class="row">
+            <div  style="margin-left:90%">
+               <a href="@Url.Action("Index","/ServicePlanFE")">xem thêm</a>
+
+            </div>
+        </div>
     </div> <!-- .container -->
 </div> <!-- .pricing-section -->
 
@@ -148,7 +156,7 @@
                 <p class="leading">Các thiết bị lưu trữ dữ liệu và bộ nhớ là những thiết bị dùng để đáp ứng nhu cầu giải quyết công việc. </p>
                 <p>Thiết bị lưu trữ là một phần không thể thiếu cho một chiếc máy tính, chúng lưu trữ hầu hết tất cả các dữ liệu và các ứng dụng trên một máy tính. Thiết bị lưu trữ được sử dụng để lưu trữ, chuyển và giải nén các tập tin dữ liệu của các đối tượng, nó vừa giữ lưu thông tin tạm thời vừa vĩnh viễn. Nó có thể giữ và lưu trữ thông tin tạm thời và vĩnh viễn, và có thể là nội bộ hay bên ngoài vào máy tính, máy chủ hoặc bất kỳ thiết bị điện toán tương tự.</p>
                 <p>Thiết bị lưu trữ thứ cấp là thiết bị lưu trữ dữ liệu lâu dài, dữ liệu không bị mất đi sau khi tắt máy gồm có: Ổ cứng trong, ổ cứng di động hay bộ nhớ thể rắn và đĩa quang.</p>
-                
+
 
             </div>
 

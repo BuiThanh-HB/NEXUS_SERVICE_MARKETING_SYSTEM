@@ -221,7 +221,6 @@ namespace Data.Business
         {
             try
             {
-                //cnn.ServicePlans
                 DateTime? fd = Util.ConvertDate(fromDate);
                 DateTime? td = Util.ConvertDate(toDate);
                 if (td.HasValue)
