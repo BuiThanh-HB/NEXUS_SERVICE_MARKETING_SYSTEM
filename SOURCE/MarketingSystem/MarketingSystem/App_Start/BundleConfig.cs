@@ -101,7 +101,8 @@ namespace APIProject
                       "~/Scripts/index.js",
                        "~/Scripts/toastr.min.js",
                        "~/Scripts/dropify.min.js",
-                      "~/Scripts/font-end.js"
+                      "~/Scripts/font-end.js",
+                       "~/Scripts/jquery.unobtrusive-ajax.min.js"
                       ));
             bundles.Add(new StyleBundle("~/fontend/fonts").Include(
                       "~/Content/font_end/fonts/font-awesome.min.css",
