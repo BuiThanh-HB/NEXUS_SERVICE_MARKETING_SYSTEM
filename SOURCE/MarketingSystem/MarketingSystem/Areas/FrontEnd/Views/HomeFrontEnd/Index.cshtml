@@ -41,11 +41,11 @@
                             }
                         }
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color:deepskyblue !important"></span>
                             <span class="sr-only">Previous</span>
                         </a>
                         <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: deepskyblue !important"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
@@ -101,7 +101,7 @@
 </div> <!-- .feature-section -->
 
 <div class="fullwidth-block pricing-section">
-    
+
     <div class="container">
         <div class="row">
             @{
@@ -114,7 +114,7 @@
                                 <div class="pricing-title">
                                     <h2 class="pricing-type">@serviceitem.Name</h2>
                                 </div>
-                                <div class="price-tag" style="background-image:url(@serviceitem.ImageUrl)" > 
+                                <div class="price-tag" style="background-image:url(@serviceitem.ImageUrl)">
                                     <strong>$ @serviceitem.Price</strong>
                                     <small>/@serviceitem.Value tháng</small>
                                 </div>
@@ -134,11 +134,11 @@
                     <h1>Không tồn tại dữ liệu</h1>
                 }
             }
-            
+
         </div> <!-- .row -->
         <div class="row">
-            <div  style="margin-left:90%">
-               <a href="@Url.Action("Index","/ServicePlanFE")">xem thêm</a>
+            <div style="margin-left:90%">
+                <a href="@Url.Action("Index","/ServicePlanFE")">xem thêm</a>
 
             </div>
         </div>

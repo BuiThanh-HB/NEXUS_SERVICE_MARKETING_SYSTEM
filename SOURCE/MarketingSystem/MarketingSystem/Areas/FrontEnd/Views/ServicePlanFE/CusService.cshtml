@@ -17,42 +17,31 @@
             <div class="row">
                 <div class="col-md-2 col-sm-12">
                     <div class="col-md-12 col-12 ">
-                        <a href="index.html">Home</a> &rarr;
+                        <a href="@Url.Action("Index","/HomeFrontEnd")">Home</a> &rarr;
                         <a href="#">My Service</a>
                     </div>
                 </div>
                 <div class="col-md-10 offset-md-0 col-sm-6 mt-1">
-                    <div class="col-md-2 col-12 mt-1">
+                    <div class="col-md-3 col-12 mt-1">
                         <input class="form-control" id="txtCusServiceName" placeholder="Tên dịch vụ" />
                     </div>
-                    <div class="col-md-2 col-12 mt-1">
+                    <div class="col-md-3 col-12 mt-1">
                         <input class="form-control" id="txtCodeOrderService" placeholder="Mã đơn hàng" />
                     </div>
-                    <div class="col-md-2 col-12 mt-1">
-                        <input type="text" class="form-control relative-icon-calendar date" id="CusServiceFromDate" placeholder="Từ ngày" />
-                        <i class="fa fa-calendar absolute-icon-calendar"></i>
-                    </div>
-                    <div class="col-md-2 col-12 mt-1">
-                        <input type="text" class="form-control relative-icon-calendar date" id="CusServiceToDate" placeholder="Đến ngày" />
-                        <i class="fa fa-calendar absolute-icon-calendar"></i>
-                    </div>
-                    <div class="col-md-2 col-12 mt-1">
+                    <div class="col-md-3 col-12 mt-1">
                         <select class="form-control" id="statusCusService">
                             <option selected disabled hidden>Trạng thái</option>
                             <option value="-1">Tất cả</option>
-                            <option value="@SystemParam.PENDING" class="text-warning">Chờ xác nhận</option>
-                            <option value="@SystemParam.ACCEPT" class="text-primary">Đã xác nhận</option>
-                            <option value="@SystemParam.COMPLETE" class="text-success">Hoàn thành</option>
-                            <option value="@SystemParam.CANCEL" class="text-danger">Hủy</option>
+                            <option value="@SystemParam.ACTIVE_STATUS" class="text-primary">Đang hoạt động</option>
+                            <option value="@SystemParam.NO_ACTIVE_STATUS" class="text-warning">Ngừng hoạt động</option>
+
                         </select>
                     </div>
-                    <div class="col-md-2  col-12 mt-1 ">
+                    <div class="col-md-3  col-12 mt-1 ">
                         <button class="btn btn-primary " id="btn-search-order" onclick="searchMyservice()"><i class="fa fa-search"></i> Tìm kiếm</button>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -73,10 +62,10 @@
 
 <script type="text/javascript">
     function searchMyservice() {
-        var searchkey = $('#txtCusServiceName').val()P;
+        var searchkey = $('#txtCusServiceName').val();
         var code = $('#txtCodeOrderService').val();
-        var fromdate = $('#CusServiceFromDate').val();
-        var todate = $('#CusServiceToDate').val();
+        var fromdate = "";
+        var todate = "";
         var status = $('#statusCusService').val();
 
         $.ajax({
@@ -90,5 +79,52 @@
                 console.log(error);
             }
         });
+    }
+
+    function CusDelServicePlan(id) {
+        if (!navigator.onLine) {
+            swal({
+                title: "Kiểm tra kết nối internet!",
+                text: "",
+                icon: "warning"
+            })
+            return;
+        }
+        swal({
+            title: "Bạn chắc chắn xóa chứ?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    url: '/FrontEnd/ServicePlanFE/CusDelServicePlan',
+                    data: { id: id },
+                    type: "POST",
+                    beforeSend: function () {
+                        $('#modalLoad').modal('show');
+                    },
+                    success: function (response) {
+                        if (response.Status == 1) {
+                            $('#modalLoad').modal('hide');
+                            toastr.success("Xóa thành công !");
+                            searchMyservice();
+
+                        } else {
+                            $('#modalLoad').modal('hide');
+                            swal({
+                                title: res.Message,
+                                text: "",
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        console.log(result.responseText);
+                    }
+                });
+            }
+        })
     }
 </script>

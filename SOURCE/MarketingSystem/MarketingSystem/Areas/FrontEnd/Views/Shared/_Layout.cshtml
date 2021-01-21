@@ -47,7 +47,7 @@
                                     </nav> }
                                 else
                                 {
-                                    <div class="dropdown">
+                                    <div class="dropdown pull-right">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             @(ss.Name)
                                         </button>
@@ -78,9 +78,9 @@
                         <button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
                         <ul class="menu">
                             @*<li class="menu-item"><a href="news.html">News</a></li>*@
-                            <li class="menu-item">@Html.ActionLink("News", "Index", "NewsFrontEnd")</li>
-                            <li class="menu-item">@Html.ActionLink("About Us", "Index", "AboutUs")</li>
-                            <li class="menu-item">@Html.ActionLink("Services", "Index", "ServicePlanFE")</li>
+                            <li class="menu-item">@Html.ActionLink("Tin tức", "Index", "NewsFrontEnd")</li>
+                            <li class="menu-item">@Html.ActionLink("Về chúng tôi", "Index", "AboutUs")</li>
+                            <li class="menu-item">@Html.ActionLink("Dịch vụ", "Index", "ServicePlanFE")</li>
                             <li class="menu-item">@Html.ActionLink("Contact", "Index", "Contact")</li>
                         </ul>
                     </nav> <!-- .main-navigation -->
@@ -110,9 +110,9 @@
             <div class="col-md-6 align-right">
 
                 <nav class="footer-navigation">
-                    <a href="@Url.Action("Index","/NewsFrontEnd")">News</a>
-                    <a href="@Url.Action("Index","/AboutUs")">About us</a>
-                    <a href="@Url.Action("Index","/ServicePlanFE")">Services</a>
+                    <a href="@Url.Action("Index","/NewsFrontEnd")">Tin tức</a>
+                    <a href="@Url.Action("Index","/AboutUs")">Về chúng tôi</a>
+                    <a href="@Url.Action("Index","/ServicePlanFE")">Dịch vụ</a>
                     <a href="@Url.Action("Index","/Contact")">Contact</a>
                 </nav> <!-- .footer-navigation -->
 

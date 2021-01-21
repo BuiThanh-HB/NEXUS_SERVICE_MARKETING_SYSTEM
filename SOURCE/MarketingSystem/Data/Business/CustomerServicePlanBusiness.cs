@@ -259,5 +259,20 @@ namespace Data.Business
             }
 
         }
+
+        public JsonResultModel CusDelSercicePlan(int id)
+        {
+            try
+            {
+                CustomerServicePlan s = cnn.CustomerServicePlans.Find(id);
+                s.Status = SystemParam.NO_ACTIVE_STATUS;
+                cnn.SaveChanges();
+                return rp.response(SystemParam.SUCCESS, SystemParam.SUCCESS_CODE, SystemParam.SUCCESS_MESSAGE, "");
+            }
+            catch
+            {
+                return rp.serverError();
+            }
+        }
     }
 }

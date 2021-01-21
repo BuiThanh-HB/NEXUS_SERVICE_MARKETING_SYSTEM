@@ -13,10 +13,10 @@
             <div class="breadcrumbs">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <a href="index.html">Home</a> &rarr;
-                            <a href="#">News</a>&rarr;
-                            <a href="#">NewsDetail</a>
+                            <a href="@Url.Action("Index","/NewsFrontEnd")">News</a>&rarr;
+                            <a>NewsDetail</a>
                         </div>
                     </div>
                 </div>
@@ -25,6 +25,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8">
+                            <!--<h2 class="entry-title">-->@*@Model*@<!--</h2>-->
                             <h1>@Model.Title</h1>
                             <h4>@Html.Raw(Model.Summary)</h4>
                             <p> @Html.Raw(Model.Content)</p>

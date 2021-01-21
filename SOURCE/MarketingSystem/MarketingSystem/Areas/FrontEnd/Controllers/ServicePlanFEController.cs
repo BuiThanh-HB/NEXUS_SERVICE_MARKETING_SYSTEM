@@ -93,5 +93,11 @@ namespace MarketingSystem.Areas.FrontEnd.Controllers
                 return PartialView("TableCusService", new List<CustomerService>().ToPagedList(1, 1));
             }
         }
+
+        [HttpPost]
+        public JsonResult CusDelServicePlan(int id)
+        {
+            return Json(customerServicePlan.CusDelSercicePlan(id), JsonRequestBehavior.AllowGet);
+        }
     }
 }

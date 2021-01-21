@@ -7,70 +7,65 @@
 
 @model  PagedList.IPagedList<CustomerService>
 
-<table class="table table-light table-bordered table-hover table-responsive-sm table-responsive mb-0" style=" white-space: nowrap;">
-    <thead class="text-center text-white bg-thead">
-        <tr>
-            <th width="5%">STT</th>
-            <th width="30%">Tên gói cước</th>
-            <th width="30%">Danh mục</th>
-            <th width="20%">Ảnh</th>
-            <th width="10%">Trạng thái</th>
-            <th width="10%">Giá cước</th>
-            <th width="5%">Thời hạn(Tháng)</th>
-            <th width="20%">Ngày tạo</th>
-            <th width="10%" style=" white-space: nowrap !important;"></th>
-        </tr>
-    </thead>
-    <tbody class="text-center">
-        @{
-            if (Model.Count() <= 0)
-            {
-                <tr>
-                    <td colspan="9" class="text-center">Không có dữ liệu.</td>
+<div class="container">
+    <div class="row">
+        <table class="table table-light table-bordered table-hover table-responsive-sm table-responsive " style=" white-space: nowrap;">
+            <thead class="text-center text-black bg-thead">
+                <tr style="width:100%">
+                    <th width="5%">STT</th>
+                    <th width="20%">Tên gói cước</th>
+                    <th width="20%">Trạng thái</th>
+                    <th width="10%">Giá cước</th>
+                    <th width="15%">Ngày tạo</th>
+                    <th width="15%">Ngày kết thúc</th>
+                    <th width="15%">Action</th>
                 </tr>
-            }
-            else
-            {
+            </thead>
+            <tbody class="text-center">
+                @{
+                    if (Model.Count() <= 0)
+                    {
+                        <tr>
+                            <td colspan="9" class="text-center">Không có dữ liệu.</td>
+                        </tr>
+                    }
+                    else
+                    {
 
 
-                int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
-                foreach (var dt in Model)
-                {
-                    <tr>
-                        <td>@stt</td>
-                        <td>@dt.ServiceName</td>
-                        <td>@dt.ServiceName</td>
-                        <td>
-                            <div style="width:100%; height:100%;">
-                                <img class="w-100 h-100" src="@dt.ImageUrl" />
-                            </div>
-                        </td>
-                        @{
-                            if (dt.Status.Equals(SystemParam.ACTIVE))
-                            {
-                                <td>Hoạt động</td>
+                        int stt = ((Model.PageNumber - 1) * Model.PageSize) + 1;
+                        foreach (var dt in Model)
+                        {
+                            <tr>
+                                <td>@stt</td>
+                                <td>@dt.ServiceName</td>                         
+                                @{
+                                    if (dt.Status.Equals(SystemParam.ACTIVE_STATUS))
+                                    {
+                                        <td>Hoạt động</td>
 
-                            }
-                            else
-                            {
-                                <td>Ngừng hoạt động</td>
-                            }
+                                    }
+                                    else
+                                    {
+                                        <td>Ngừng hoạt động</td>
+                                    }
+                                }
+                                <td>$ @String.Format("{0:n0}", dt.Price)/@dt.Value tháng</td>
+                                <td>@dt.ActiveDateStr</td>
+                                <td>@dt.ExpiryDateStr</td>
+                                <td>
+                                    <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="CusDelServicePlan(@dt.ID)">
+                                        <i class="btnDelete fa fa-fw fa-trash-o"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            stt++;
                         }
-                        <td>@String.Format("{0:n0}", dt.Price)</td>
-                        <td>@dt.Value</td>
-                        <td>@dt.ActiveDateStr</td>
-                        <td>
-                            @*<a data-id="@dt.ID" data-name="@dt.Name" data-value="@dt.Value" data-image="@dt.ImageUrl" data-status="@dt.Status" data-price="@dt.Price" data-descreiption="@dt.Descreiption" data-cateID="@dt.CateID" onclick="GetServicePlanDetail($(this))" data-toggle="tooltip" data-placement="top" title="Cập nhật thông tin gói cước" class="cursor-pointer">
-                                <i class="btnEdit fa fa-fw fa-edit"></i>
-                            </a>*@
-                            <a data-toggle="tooltip" data-placement="top" title="Xóa gói cước này" class="cursor-pointer" onclick="DelServicePlan(@dt.ID)">
-                                <i class="btnDelete fa fa-fw fa-trash-o"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    stt++;
+                    }
                 }
-            }
-        }
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

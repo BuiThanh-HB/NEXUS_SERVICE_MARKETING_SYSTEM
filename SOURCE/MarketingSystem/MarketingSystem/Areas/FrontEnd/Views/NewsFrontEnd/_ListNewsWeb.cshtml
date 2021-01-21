@@ -17,7 +17,6 @@
         foreach (var item in Model)
         {
             <article class="post hentry wow fadeInUp" >
-                <h2 class="entry-title" >@item.CateName</h2>
                 <figure class="featured-image"><img style="height:150px ; width:auto"  src="@item.ImgUrl" alt=""></figure>
                 <div class="entry-summary">
                     <h2>@item.Title </h2>
@@ -55,7 +54,7 @@
     <div class="row float-right">
         @Html.PagedListPager(
            Model,
-           page => Url.Action("SearchNewsWeb", "News", new { Page = page }),
+           page => Url.Action("SearchNewsWeb", "NewsFrontEnd", new { Page = page }),
            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listNewsWeb" })
          )
     </div>
