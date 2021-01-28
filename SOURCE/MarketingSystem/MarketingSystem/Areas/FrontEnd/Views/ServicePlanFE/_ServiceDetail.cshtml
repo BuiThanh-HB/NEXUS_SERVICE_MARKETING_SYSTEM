@@ -2,7 +2,7 @@
 @using Data.Utils
 @model Data.Model.ListServicePlanOutputModel
 
-<div class="service-detail-frontend-title"> * Chi Tiết Gói Cước</div>
+@*<div class="service-detail-frontend-title"> * Chi Tiết Gói Cước</div>*@
 
 <div class="service-detail-frontend">
     <div class="service-detail-frontend-name">@Model.Name</div>
@@ -106,8 +106,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="createOrder(@Model.ID)">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" onclick="createOrder(@Model.ID)">Tạo đơn hàng</button>
             </div>
         </div>
     </div>
