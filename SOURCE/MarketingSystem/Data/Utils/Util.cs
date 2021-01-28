@@ -67,7 +67,7 @@ namespace Data.Utils
 
         public static Nullable<DateTime> ConvertDate(string date)
         {
-            if (date != "" && date != null)
+            if (!String.IsNullOrEmpty(date))
             {
                 try
                 {
